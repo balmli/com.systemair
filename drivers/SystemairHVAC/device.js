@@ -6,6 +6,12 @@ const ZwaveDevice = require('homey-meshdriver').ZwaveDevice;
 
 class SystemairHVAC extends ZwaveDevice {
 
+  async onInit() {
+    super.onInit();
+    this.registerFlowCards();
+    this.log(`device initialized: ${this.getData().id}`);
+  }
+
   async onMeshInit() {
 
     // enable debugging
@@ -17,24 +23,40 @@ class SystemairHVAC extends ZwaveDevice {
     this.registerCapability('target_temperature', 'THERMOSTAT_SETPOINT', {
       getOpts: {
         getOnStart: true,
+      },
+      reportParserV3: report => {
+        this.log('THERMOSTAT_SETPOINT reportParserV3', report);
+        return null;
       }
     });
 
     this.registerCapability('systemair_boost', 'SWITCH_BINARY', {
       getOpts: {
         getOnStart: true,
+      },
+      reportParserV3: report => {
+        this.log('SWITCH_BINARY reportParserV3', report);
+        return null;
       }
     });
 
     this.registerCapability('systemair_mode', 'THERMOSTAT_MODE', {
       getOpts: {
         getOnStart: true,
+      },
+      reportParserV3: report => {
+        this.log('THERMOSTAT_MODE reportParserV3', report);
+        return null;
       }
     });
 
     this.registerCapability('systemair_fan_mode', 'THERMOSTAT_FAN_MODE', {
       getOpts: {
         getOnStart: true,
+      },
+      reportParserV3: report => {
+        this.log('THERMOSTAT_FAN_MODE reportParserV3', report);
+        return null;
       }
     });
 
@@ -49,6 +71,17 @@ class SystemairHVAC extends ZwaveDevice {
       }
     });
 
+  }
+
+  async onAdded() {
+    this.log(`device added: ${this.getData().id}`);
+  }
+
+  onDeleted() {
+    this.log(`device deleted: ${this.getData().id}`);
+  }
+
+  async registerFlowCards() {
   }
 
 }
