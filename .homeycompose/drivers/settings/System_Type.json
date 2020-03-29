@@ -1,0 +1,113 @@
+{
+  "id": "System_Type",
+  "zwave": {
+    "index": 1,
+    "size": 2
+  },
+  "type": "dropdown",
+  "value": "0",
+  "label": {
+    "en": "Ventilation System Type"
+  },
+  "hint": {
+    "en": "Ventilation System Type (read-only)"
+  },
+  "values": [
+    {
+      "id": "0",
+      "label": {
+        "en": "VR400"
+      }
+    },
+    {
+      "id": "1",
+      "label": {
+        "en": "VR700"
+      }
+    },
+    {
+      "id": "2",
+      "label": {
+        "en": "VR700DK"
+      }
+    },
+    {
+      "id": "3",
+      "label": {
+        "en": "VR400DE"
+      }
+    },
+    {
+      "id": "4",
+      "label": {
+        "en": "VTC300"
+      }
+    },
+    {
+      "id": "5",
+      "label": {
+        "en": "VTC700"
+      }
+    },
+    {
+      "id": "12",
+      "label": {
+        "en": "VTR250"
+      }
+    },
+    {
+      "id": "13",
+      "label": {
+        "en": "VTR200B"
+      }
+    },
+    {
+      "id": "14",
+      "label": {
+        "en": "VSR300"
+      }
+    },
+    {
+      "id": "15",
+      "label": {
+        "en": "VSR500"
+      }
+    },
+    {
+      "id": "16",
+      "label": {
+        "en": "VSR150"
+      }
+    },
+    {
+      "id": "17",
+      "label": {
+        "en": "VTR300"
+      }
+    },
+    {
+      "id": "18",
+      "label": {
+        "en": "VTR500"
+      }
+    },
+    {
+      "id": "19",
+      "label": {
+        "en": "VSR300DE"
+      }
+    },
+    {
+      "id": "20",
+      "label": {
+        "en": "VTC200"
+      }
+    },
+    {
+      "id": "21",
+      "label": {
+        "en": "VSC100"
+      }
+    }
+  ]
+}

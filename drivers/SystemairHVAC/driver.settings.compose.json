@@ -1,0 +1,22 @@
+[
+  {
+    "$extends": "System_Type",
+    "id": "System_Type"
+  },
+  {
+    "$extends": "Filter_Period",
+    "id": "Filter_Period"
+  },
+  {
+    "$extends": "Filter_Days",
+    "id": "Filter_Days"
+  },
+  {
+    "$extends": "Boost_Remaining_Time",
+    "id": "Boost_Remaining_Time"
+  },
+  {
+    "$extends": "Temperature_Setpoint_Step",
+    "id": "Temperature_Setpoint_Step"
+  }
+]

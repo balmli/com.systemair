@@ -1,0 +1,1 @@
+Systemair HVAC Adapter

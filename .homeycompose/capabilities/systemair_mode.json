@@ -1,0 +1,98 @@
+{
+  "type": "enum",
+  "uiComponent": "picker",
+  "title": {
+    "en": "Thermostat mode"
+  },
+  "desc": {
+    "en": "Mode of the thermostat"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Heat"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Cool"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Auto"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "Aux Heat"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Resume"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Fan Only"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "Furnace"
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "en": "Dry Air"
+      }
+    },
+    {
+      "id": "9",
+      "title": {
+        "en": "Moist Air"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "en": "Auto Changeover"
+      }
+    },
+    {
+      "id": "11",
+      "title": {
+        "en": "Heat Economy"
+      }
+    },
+    {
+      "id": "12",
+      "title": {
+        "en": "Cool Economy"
+      }
+    },
+    {
+      "id": "13",
+      "title": {
+        "en": "Away"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

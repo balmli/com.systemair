@@ -1,0 +1,462 @@
+{
+  "id": "com.systemair",
+  "version": "0.0.1",
+  "compatibility": ">=2.0.0",
+  "sdk": 2,
+  "brandColor": "#004B88",
+  "name": {
+    "en": "Systemair"
+  },
+  "description": {
+    "en": "Systemair"
+  },
+  "category": [
+    "climate"
+  ],
+  "tags": {
+    "en": [
+      "systemair",
+      "temperature control",
+      "heating",
+      "hvac"
+    ]
+  },
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "permissions": [],
+  "author": {
+    "name": "Bjørnar Almli",
+    "email": "bjornar.almli@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Bjørnar Almli",
+        "email": "bjornar.almli@gmail.com"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "bjornaralmli"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/balmli/com.systemair/issues"
+  },
+  "source": "https://github.com/balmli/com.systemair",
+  "drivers": [
+    {
+      "id": "SystemairHVAC",
+      "name": {
+        "en": "Systemair HVAC adapter"
+      },
+      "icon": "/drivers/SystemairHVAC/assets/icon.svg",
+      "images": {
+        "large": "/drivers/SystemairHVAC/assets/images/large.png",
+        "small": "/drivers/SystemairHVAC/assets/images/small.png"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "target_temperature",
+        "systemair_boost",
+        "systemair_mode",
+        "systemair_fan_mode"
+      ],
+      "capabilitiesOptions": {
+        "target_temperature": {
+          "min": 5,
+          "max": 40,
+          "step": 0.5
+        }
+      },
+      "zwave": {
+        "manufacturerId": 630,
+        "productTypeId": 313,
+        "productId": 1,
+        "includeSecure": false,
+        "productDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=MarketCertificationFiles/1768/Z-Wave_to_Systemair_HVAC_Adapter_User_Manual.pdf",
+        "pid": 1768,
+        "imageRemotePath": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_pictures/ZC10-16065101.jpg",
+        "learnmode": {
+          "instruction": {
+            "en": "Press the button on your device three times"
+          }
+        },
+        "associationGroups": [
+          1
+        ],
+        "associationGroupsOptions": {
+          "1": {
+            "hint": {
+              "en": "“Lifeline” reports the device status and allows\r\nfor assigning single device only (main controller by default)."
+            }
+          }
+        }
+      },
+      "settings": [
+        {
+          "id": "System_Type",
+          "zwave": {
+            "index": 1,
+            "size": 2
+          },
+          "type": "dropdown",
+          "value": "0",
+          "label": {
+            "en": "Ventilation System Type"
+          },
+          "hint": {
+            "en": "Ventilation System Type (read-only)"
+          },
+          "values": [
+            {
+              "id": "0",
+              "label": {
+                "en": "VR400"
+              }
+            },
+            {
+              "id": "1",
+              "label": {
+                "en": "VR700"
+              }
+            },
+            {
+              "id": "2",
+              "label": {
+                "en": "VR700DK"
+              }
+            },
+            {
+              "id": "3",
+              "label": {
+                "en": "VR400DE"
+              }
+            },
+            {
+              "id": "4",
+              "label": {
+                "en": "VTC300"
+              }
+            },
+            {
+              "id": "5",
+              "label": {
+                "en": "VTC700"
+              }
+            },
+            {
+              "id": "12",
+              "label": {
+                "en": "VTR250"
+              }
+            },
+            {
+              "id": "13",
+              "label": {
+                "en": "VTR200B"
+              }
+            },
+            {
+              "id": "14",
+              "label": {
+                "en": "VSR300"
+              }
+            },
+            {
+              "id": "15",
+              "label": {
+                "en": "VSR500"
+              }
+            },
+            {
+              "id": "16",
+              "label": {
+                "en": "VSR150"
+              }
+            },
+            {
+              "id": "17",
+              "label": {
+                "en": "VTR300"
+              }
+            },
+            {
+              "id": "18",
+              "label": {
+                "en": "VTR500"
+              }
+            },
+            {
+              "id": "19",
+              "label": {
+                "en": "VSR300DE"
+              }
+            },
+            {
+              "id": "20",
+              "label": {
+                "en": "VTC200"
+              }
+            },
+            {
+              "id": "21",
+              "label": {
+                "en": "VSC100"
+              }
+            }
+          ]
+        },
+        {
+          "id": "Filter_Period",
+          "zwave": {
+            "index": 2,
+            "size": 2
+          },
+          "type": "number",
+          "attr": {
+            "min": 6,
+            "max": 15
+          },
+          "value": 12,
+          "label": {
+            "en": "Filter period"
+          },
+          "hint": {
+            "en": "Filter period in steps of 30 days.  6 = 160 days. (read-only)"
+          }
+        },
+        {
+          "id": "Filter_Days",
+          "zwave": {
+            "index": 3,
+            "size": 2
+          },
+          "type": "number",
+          "attr": {
+            "min": 0,
+            "max": 500
+          },
+          "value": 0,
+          "label": {
+            "en": "Filter days used"
+          },
+          "hint": {
+            "en": "Number of days since last filter change. (read-only)"
+          }
+        },
+        {
+          "id": "Boost_Remaining_Time",
+          "zwave": {
+            "index": 4,
+            "size": 2
+          },
+          "type": "number",
+          "attr": {
+            "min": 0,
+            "max": 240
+          },
+          "value": 0,
+          "label": {
+            "en": "Boost mode remaining time"
+          },
+          "hint": {
+            "en": "Counts down while Boost mode is active.  (read-only)"
+          }
+        },
+        {
+          "id": "Temperature_Setpoint_Step",
+          "zwave": {
+            "index": 5,
+            "size": 2
+          },
+          "type": "number",
+          "attr": {
+            "min": 0,
+            "max": 100
+          },
+          "value": 10,
+          "label": {
+            "en": "Temperature setpoint step"
+          },
+          "hint": {
+            "en": "The min change available in degree Celsius x 10; 25 = 2.5 C. (read-only)"
+          }
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "systemair_boost": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "noblink": false,
+      "greyout": true,
+      "label": {
+        "true": {
+          "en": "Boost"
+        },
+        "false": {
+          "en": "Normal"
+        }
+      },
+      "title": {
+        "en": "State"
+      },
+      "desc": {
+        "en": "State of the thermostat"
+      },
+      "icon": "/assets/systemair_onoff.svg",
+      "getable": true,
+      "setable": true,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Boost is on"
+      },
+      "insightsTitleFalse": {
+        "en": "Normal"
+      }
+    },
+    "systemair_fan_mode": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Thermostat fan mode"
+      },
+      "desc": {
+        "en": "Fan mode of the thermostat"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Normal"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "systemair_mode": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Thermostat mode"
+      },
+      "desc": {
+        "en": "Mode of the thermostat"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Heat"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Cool"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Aux Heat"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Resume"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Fan Only"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Furnace"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Dry Air"
+          }
+        },
+        {
+          "id": "9",
+          "title": {
+            "en": "Moist Air"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "Auto Changeover"
+          }
+        },
+        {
+          "id": "11",
+          "title": {
+            "en": "Heat Economy"
+          }
+        },
+        {
+          "id": "12",
+          "title": {
+            "en": "Cool Economy"
+          }
+        },
+        {
+          "id": "13",
+          "title": {
+            "en": "Away"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    }
+  }
+}

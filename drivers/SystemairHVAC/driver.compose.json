@@ -1,0 +1,49 @@
+{
+  "id": "SystemairHVAC",
+  "name": {
+    "en": "Systemair HVAC adapter"
+  },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "target_temperature",
+    "systemair_boost",
+    "systemair_mode",
+    "systemair_fan_mode"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 5,
+      "max": 40,
+      "step": 0.5
+    }
+  },
+  "zwave": {
+    "manufacturerId": 630,
+    "productTypeId": 313,
+    "productId": 1,
+    "includeSecure": false,
+    "productDocumentation": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=MarketCertificationFiles/1768/Z-Wave_to_Systemair_HVAC_Adapter_User_Manual.pdf",
+    "pid": 1768,
+    "imageRemotePath": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_pictures/ZC10-16065101.jpg",
+    "learnmode": {
+      "instruction": {
+        "en": "Press the button on your device three times"
+      }
+    },
+    "associationGroups": [
+      1
+    ],
+    "associationGroupsOptions": {
+      "1": {
+        "hint": {
+          "en": "“Lifeline” reports the device status and allows\r\nfor assigning single device only (main controller by default)."
+        }
+      }
+    }
+  }
+}

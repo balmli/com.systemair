@@ -1,0 +1,30 @@
+{
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "noblink": false,
+  "greyout": true,
+  "label": {
+    "true": {
+      "en": "Boost"
+    },
+    "false": {
+      "en": "Normal"
+    }
+  },
+  "title": {
+    "en": "State"
+  },
+  "desc": {
+    "en": "State of the thermostat"
+  },
+  "icon": "/assets/systemair_onoff.svg",
+  "getable": true,
+  "setable": true,
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Boost is on"
+  },
+  "insightsTitleFalse": {
+    "en": "Normal"
+  }
+}

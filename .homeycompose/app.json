@@ -1,0 +1,52 @@
+{
+  "id": "com.systemair",
+  "version": "0.0.1",
+  "compatibility": ">=2.0.0",
+  "sdk": 2,
+  "brandColor": "#004B88",
+  "name": {
+    "en": "Systemair"
+  },
+  "description": {
+    "en": "Systemair"
+  },
+  "category": [
+    "climate"
+  ],
+  "tags": {
+    "en": [
+      "systemair",
+      "temperature control",
+      "heating",
+      "hvac"
+    ]
+  },
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "permissions": [],
+  "author": {
+    "name": "Bjørnar Almli",
+    "email": "bjornar.almli@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Bjørnar Almli",
+        "email": "bjornar.almli@gmail.com"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "bjornaralmli"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/balmli/com.systemair/issues"
+  },
+  "source": "https://github.com/balmli/com.systemair"
+}
