@@ -463,31 +463,31 @@
       },
       "values": [
         {
-          "id": "0",
+          "id": "Auto",
           "title": {
             "en": "Auto"
           }
         },
         {
-          "id": "1",
+          "id": "Low",
           "title": {
             "en": "Low"
           }
         },
         {
-          "id": "5",
+          "id": "Medium",
           "title": {
             "en": "Medium"
           }
         },
         {
-          "id": "3",
+          "id": "High",
           "title": {
             "en": "High"
           }
         },
         {
-          "id": "128",
+          "id": "Off",
           "title": {
             "en": "Off"
           }

@@ -25,6 +25,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 0.0.3
+
+- Fixed fan mode
+
 #### 0.0.2 
 
 - Added triggers and actions
