@@ -116,18 +116,25 @@ class SystemairHVAC extends ZwaveDevice {
         getOnStart: true,
       },
       set: 'THERMOSTAT_FAN_MODE_SET',
-      setParser: value => {
-        this.log('THERMOSTAT_FAN_MODE setParser', value);
+      setParserV3: value => {
+        this.log('THERMOSTAT_FAN_MODE setParserV3', value);
         return {
-          Properties1: parseInt(value)
+          Properties1: {
+            'Fan Mode': value,
+            Off: value === 'Off',
+          }
         };
       },
       report: 'THERMOSTAT_FAN_MODE_REPORT',
-      reportParser: async report => {
-        if (report && report.hasOwnProperty('Properties1 (Raw)')) {
-          const value = report['Properties1 (Raw)'];
-          this.log('THERMOSTAT_FAN_MODE reportParser', report, value);
-          return value.toString();
+      reportParserV3: report => {
+        if (!report) return null;
+        if (report && report.hasOwnProperty('Properties1')
+          && report.Properties1.hasOwnProperty('Fan Mode')
+          && report.Properties1.hasOwnProperty('Off')) {
+          const value = report.Properties1['Fan Mode'];
+          const off = report.Properties1['Off'];
+          this.log('THERMOSTAT_FAN_MODE reportParserV3', report, value, off);
+          return off ? 'Off' : value;
         }
         return null;
       }
