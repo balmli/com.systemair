@@ -1,4 +1,8 @@
 {
+  "0.0.2": {
+    "en": "Added actions and triggers. Fixed README",
+    "no": "La inn actions and triggers. Rettet README"
+  },
   "0.0.1": {
     "en": "First version",
     "no": "Første versjon"
