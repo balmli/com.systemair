@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -8,7 +8,7 @@
     "en": "Systemair"
   },
   "description": {
-    "en": "Systemair"
+    "en": "Systemair HVAC Z-wave adapter support for Homey"
   },
   "category": [
     "climate"
@@ -49,6 +49,138 @@
     "url": "https://github.com/balmli/com.systemair/issues"
   },
   "source": "https://github.com/balmli/com.systemair",
+  "flow": {
+    "triggers": [
+      {
+        "id": "systemair_alarm",
+        "title": {
+          "en": "Alarm"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairHVAC"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "info",
+            "title": {
+              "en": "Info"
+            },
+            "example": {
+              "en": "Alarm"
+            }
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "systemair_boost_on",
+        "title": {
+          "en": "Initiate boost mode"
+        },
+        "hint": {
+          "en": "The boost mode overrides the selected fan speed to a predefined level for a predefined time period."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairHVAC"
+          }
+        ]
+      },
+      {
+        "id": "systemair_set_fan_mode",
+        "title": {
+          "en": "Set fan mode"
+        },
+        "hint": {
+          "en": "Change the fan mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairHVAC"
+          },
+          {
+            "name": "fanmode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "High"
+                }
+              },
+              {
+                "id": "128",
+                "label": {
+                  "en": "Off"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "systemair_set_mode",
+        "title": {
+          "en": "Set mode"
+        },
+        "hint": {
+          "en": "Change the mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairHVAC"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "255",
+                "label": {
+                  "en": "Comfort mode"
+                }
+              },
+              {
+                "id": "0",
+                "label": {
+                  "en": "Energy Saving Mode"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "id": "SystemairHVAC",
@@ -63,9 +195,11 @@
       "class": "thermostat",
       "capabilities": [
         "target_temperature",
-        "systemair_boost",
         "systemair_mode",
-        "systemair_fan_mode"
+        "systemair_fan_mode",
+        "systemair_boost",
+        "systemair_alarm",
+        "systemair_setpoint"
       ],
       "capabilitiesOptions": {
         "target_temperature": {
@@ -292,35 +426,31 @@
     }
   ],
   "capabilities": {
+    "systemair_alarm": {
+      "type": "string",
+      "title": {
+        "en": "Alarm"
+      },
+      "insights": false,
+      "desc": {
+        "en": "Alarm"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
     "systemair_boost": {
       "type": "boolean",
-      "uiComponent": "sensor",
-      "noblink": false,
-      "greyout": true,
-      "label": {
-        "true": {
-          "en": "Boost"
-        },
-        "false": {
-          "en": "Normal"
-        }
-      },
       "title": {
-        "en": "State"
+        "en": "Boost"
       },
+      "insights": false,
       "desc": {
-        "en": "State of the thermostat"
+        "en": "Boost"
       },
-      "icon": "/assets/systemair_onoff.svg",
       "getable": true,
       "setable": true,
-      "insights": true,
-      "insightsTitleTrue": {
-        "en": "Boost is on"
-      },
-      "insightsTitleFalse": {
-        "en": "Normal"
-      }
+      "uiComponent": null
     },
     "systemair_fan_mode": {
       "type": "enum",
@@ -345,15 +475,21 @@
           }
         },
         {
+          "id": "5",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
           "id": "3",
           "title": {
             "en": "High"
           }
         },
         {
-          "id": "5",
+          "id": "128",
           "title": {
-            "en": "Normal"
+            "en": "Off"
           }
         }
       ],
@@ -371,92 +507,33 @@
       },
       "values": [
         {
+          "id": "255",
+          "title": {
+            "en": "Comfort mode"
+          }
+        },
+        {
           "id": "0",
           "title": {
-            "en": "Off"
-          }
-        },
-        {
-          "id": "1",
-          "title": {
-            "en": "Heat"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "Cool"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "Auto"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "Aux Heat"
-          }
-        },
-        {
-          "id": "5",
-          "title": {
-            "en": "Resume"
-          }
-        },
-        {
-          "id": "6",
-          "title": {
-            "en": "Fan Only"
-          }
-        },
-        {
-          "id": "7",
-          "title": {
-            "en": "Furnace"
-          }
-        },
-        {
-          "id": "8",
-          "title": {
-            "en": "Dry Air"
-          }
-        },
-        {
-          "id": "9",
-          "title": {
-            "en": "Moist Air"
-          }
-        },
-        {
-          "id": "10",
-          "title": {
-            "en": "Auto Changeover"
-          }
-        },
-        {
-          "id": "11",
-          "title": {
-            "en": "Heat Economy"
-          }
-        },
-        {
-          "id": "12",
-          "title": {
-            "en": "Cool Economy"
-          }
-        },
-        {
-          "id": "13",
-          "title": {
-            "en": "Away"
+            "en": "Energy Saving Mode"
           }
         }
       ],
       "getable": true,
       "setable": true
+    },
+    "systemair_setpoint": {
+      "type": "string",
+      "title": {
+        "en": "Setpoint min/max"
+      },
+      "insights": false,
+      "desc": {
+        "en": "Setpoint min/max"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
     }
   }
 }

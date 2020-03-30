@@ -1,13 +1,13 @@
 {
-  "type": "boolean",
+  "type": "string",
   "title": {
-    "en": "Boost"
+    "en": "Alarm"
   },
   "insights": false,
   "desc": {
-    "en": "Boost"
+    "en": "Alarm"
   },
   "getable": true,
-  "setable": true,
+  "setable": false,
   "uiComponent": null
 }

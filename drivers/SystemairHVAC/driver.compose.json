@@ -11,9 +11,11 @@
   "class": "thermostat",
   "capabilities": [
     "target_temperature",
-    "systemair_boost",
     "systemair_mode",
-    "systemair_fan_mode"
+    "systemair_fan_mode",
+    "systemair_boost",
+    "systemair_alarm",
+    "systemair_setpoint"
   ],
   "capabilitiesOptions": {
     "target_temperature": {

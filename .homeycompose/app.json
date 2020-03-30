@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -8,7 +8,7 @@
     "en": "Systemair"
   },
   "description": {
-    "en": "Systemair"
+    "en": "Systemair HVAC Z-wave adapter support for Homey"
   },
   "category": [
     "climate"

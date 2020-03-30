@@ -21,15 +21,21 @@
       }
     },
     {
+      "id": "5",
+      "title": {
+        "en": "Medium"
+      }
+    },
+    {
       "id": "3",
       "title": {
         "en": "High"
       }
     },
     {
-      "id": "5",
+      "id": "128",
       "title": {
-        "en": "Normal"
+        "en": "Off"
       }
     }
   ],

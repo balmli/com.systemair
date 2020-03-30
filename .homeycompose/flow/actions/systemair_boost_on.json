@@ -1,0 +1,16 @@
+{
+  "id": "systemair_boost_on",
+  "title": {
+    "en": "Initiate boost mode"
+  },
+  "hint": {
+    "en": "The boost mode overrides the selected fan speed to a predefined level for a predefined time period."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairHVAC"
+    }
+  ]
+}

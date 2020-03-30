@@ -1,13 +1,13 @@
 {
-  "type": "boolean",
+  "type": "string",
   "title": {
-    "en": "Boost"
+    "en": "Setpoint min/max"
   },
   "insights": false,
   "desc": {
-    "en": "Boost"
+    "en": "Setpoint min/max"
   },
   "getable": true,
-  "setable": true,
+  "setable": false,
   "uiComponent": null
 }
