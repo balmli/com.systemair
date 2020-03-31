@@ -1,0 +1,363 @@
+2020-03-29 21:31:16 [log] [SystemairApp] SystemairApp is running...
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] device initialized: undefined
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] ZwaveDevice has been inited
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] Node: 56 | Manufacturer id: 630 | ProductType id: 313 | Product id: 1 | Firmware Version: 1.1 | Hardware Version: 2 | Firmware id: 14593 | Firmware Version Target 1: 10.16 | Secure: ⨯ | Battery: false
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] ------------------------------------------
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] Node: 56
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Manufacturer id: 630
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - ProductType id: 313
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Product id: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Firmware Version: 1.1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Hardware Version: 2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Firmware id: 14593
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Firmware Version Target 1: 10.16
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Secure: ⨯
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Battery: false
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - DeviceClassBasic: BASIC_TYPE_ROUTING_SLAVE
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - DeviceClassGeneric: GENERIC_TYPE_THERMOSTAT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - DeviceClassSpecific: SPECIFIC_TYPE_THERMOSTAT_GENERAL_V2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - Token: xxxxxx
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_ZWAVEPLUS_INFO
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ZWAVEPLUS_INFO_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ZWAVEPLUS_INFO_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_VERSION
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- VERSION_COMMAND_CLASS_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- VERSION_COMMAND_CLASS_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- VERSION_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- VERSION_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_MANUFACTURER_SPECIFIC
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- MANUFACTURER_SPECIFIC_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- MANUFACTURER_SPECIFIC_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- DEVICE_SPECIFIC_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- DEVICE_SPECIFIC_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_DEVICE_RESET_LOCALLY
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- DEVICE_RESET_LOCALLY_NOTIFICATION
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_THERMOSTAT_MODE
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_MODE_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_MODE_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_MODE_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_MODE_SUPPORTED_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_MODE_SUPPORTED_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_THERMOSTAT_SETPOINT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 3
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_SUPPORTED_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_SUPPORTED_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_CAPABILITIES_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_SETPOINT_CAPABILITIES_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_THERMOSTAT_FAN_MODE
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 3
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_FAN_MODE_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_FAN_MODE_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_FAN_MODE_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_FAN_MODE_SUPPORTED_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- THERMOSTAT_FAN_MODE_SUPPORTED_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_CONFIGURATION
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- CONFIGURATION_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- CONFIGURATION_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- CONFIGURATION_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_ASSOCIATION
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 2
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUPINGS_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUPINGS_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_REMOVE
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_SPECIFIC_GROUP_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_SPECIFIC_GROUP_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_SWITCH_BINARY
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- SWITCH_BINARY_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- SWITCH_BINARY_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- SWITCH_BINARY_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_NOTIFICATION
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 3
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- NOTIFICATION_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- NOTIFICATION_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- NOTIFICATION_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- NOTIFICATION_SUPPORTED_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- NOTIFICATION_SUPPORTED_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- EVENT_SUPPORTED_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- EVENT_SUPPORTED_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_POWERLEVEL
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- POWERLEVEL_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- POWERLEVEL_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- POWERLEVEL_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- POWERLEVEL_TEST_NODE_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- POWERLEVEL_TEST_NODE_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- POWERLEVEL_TEST_NODE_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_ASSOCIATION_GRP_INFO
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUP_NAME_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUP_NAME_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUP_INFO_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUP_INFO_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUP_COMMAND_LIST_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- ASSOCIATION_GROUP_COMMAND_LIST_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_APPLICATION_STATUS
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- APPLICATION_BUSY
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- APPLICATION_REJECTED_REQUEST
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_FIRMWARE_UPDATE_MD
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_MD_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_MD_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_UPDATE_MD_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_UPDATE_MD_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_UPDATE_MD_REQUEST_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_UPDATE_MD_REQUEST_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- FIRMWARE_UPDATE_MD_STATUS_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] - CommandClass: COMMAND_CLASS_BASIC
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Version: 1
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] -- Commands:
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- BASIC_GET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- BASIC_REPORT
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] --- BASIC_SET
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] ------------------------------------------
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0]
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 00>,
+  Level: { 'Setpoint Type': 'not supported' },
+  'Level2 (Raw)': <Buffer 01>,
+  Level2: { Size: 1, Scale: 0, Precision: 0 },
+  Value: <Buffer 00> }
+2020-03-29 21:35:42 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 03>,
+     Properties1: { Off: false, 'Fan Mode': 'High' } },
+  '2': null }
+2020-03-29 21:35:57 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 01>,
+     Properties1: { Off: false, 'Fan Mode': 'Low' } },
+  '2': null }
+2020-03-29 21:36:20 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 be> },
+  '2': null }
+2020-03-29 21:36:20 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 be> }
+2020-03-29 21:36:22 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 a0> },
+  '2': null }
+2020-03-29 21:36:22 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 a0> }
+2020-03-29 21:36:30 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 b4> },
+  '2': null }
+2020-03-29 21:36:30 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 b4> }
+2020-03-29 21:36:50 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 be> },
+  '2': null }
+2020-03-29 21:36:50 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 be> }
+2020-03-29 21:36:58 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 05>,
+     Properties1: { Off: false, 'Fan Mode': 'Medium' } },
+  '2': null }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 c8> },
+  '2': null }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 c8> }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 be> },
+  '2': null }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 be> }
+2020-03-29 21:38:28 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REP
+
+2020-03-29 21:31:16 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 00>,
+  Level: { 'Setpoint Type': 'not supported' },
+  'Level2 (Raw)': <Buffer 01>,
+  Level2: { Size: 1, Scale: 0, Precision: 0 },
+  Value: <Buffer 00> }
+2020-03-29 21:35:42 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 03>,
+     Properties1: { Off: false, 'Fan Mode': 'High' } },
+  '2': null }
+2020-03-29 21:35:57 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 01>,
+     Properties1: { Off: false, 'Fan Mode': 'Low' } },
+  '2': null }
+2020-03-29 21:36:20 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 be> },
+  '2': null }
+2020-03-29 21:36:20 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 be> }
+2020-03-29 21:36:22 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 a0> },
+  '2': null }
+2020-03-29 21:36:22 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 a0> }
+2020-03-29 21:36:30 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 b4> },
+  '2': null }
+2020-03-29 21:36:30 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 b4> }
+2020-03-29 21:36:50 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 be> },
+  '2': null }
+2020-03-29 21:36:50 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 be> }
+2020-03-29 21:36:58 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 05>,
+     Properties1: { Off: false, 'Fan Mode': 'Medium' } },
+  '2': null }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 c8> },
+  '2': null }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 c8> }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 be> },
+  '2': null }
+2020-03-29 21:38:24 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 be> }
+2020-03-29 21:38:28 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_SETPOINT'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_SETPOINT_REPORT' },
+  '1':
+   { 'Level (Raw)': <Buffer 0a>,
+     Level: { 'Setpoint Type': 'Auto changeover' },
+     'Level2 (Raw)': <Buffer 22>,
+     Level2: { Size: 2, Scale: 0, Precision: 1 },
+     Value: <Buffer 00 c8> },
+  '2': null }
+2020-03-29 21:38:28 [log] [ManagerDrivers] [SystemairHVAC] [0] THERMOSTAT_SETPOINT reportParserV3 { 'Level (Raw)': <Buffer 0a>,
+  Level: { 'Setpoint Type': 'Auto changeover' },
+  'Level2 (Raw)': <Buffer 22>,
+  Level2: { Size: 2, Scale: 0, Precision: 1 },
+  Value: <Buffer 00 c8> }
+2020-03-29 21:38:40 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 03>,
+     Properties1: { Off: false, 'Fan Mode': 'High' } },
+  '2': null }
+2020-03-29 21:39:02 [log] [ManagerDrivers] [SystemairHVAC] [0] node.CommandClass['COMMAND_CLASS_THERMOSTAT_FAN_MODE'].on('report') arguments: { '0': { value: 3, name: 'THERMOSTAT_FAN_MODE_REPORT' },
+  '1':
+   { 'Properties1 (Raw)': <Buffer 01>,
+     Properties1: { Off: false, 'Fan Mode': 'Low' } },
+  '2': null }

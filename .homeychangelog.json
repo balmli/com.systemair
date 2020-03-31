@@ -1,4 +1,8 @@
 {
+  "0.0.4": {
+    "en": "ESLint",
+    "no": "ESLint"
+  },
   "0.0.3": {
     "en": "Fixed fan mode. Fixed description",
     "no": "Rettet fan mode. Rettet description"

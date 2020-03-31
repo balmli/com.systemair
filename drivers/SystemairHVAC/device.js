@@ -2,18 +2,16 @@
 
 const Homey = require('homey');
 
-const ZwaveDevice = require('homey-meshdriver').ZwaveDevice;
+const { ZwaveDevice } = require('homey-meshdriver');
 
 class SystemairHVAC extends ZwaveDevice {
 
   async onInit() {
     super.onInit();
-    this.registerFlowCards();
-    this.log(`device initialized`);
+    this.log('device initialized');
   }
 
   async onMeshInit() {
-
     // enable debugging
     this.enableDebug();
 
@@ -34,10 +32,9 @@ class SystemairHVAC extends ZwaveDevice {
       },
       set: 'THERMOSTAT_SETPOINT_SET',
       setParser(value) {
-
         // Create value buffer
-        const bufferValue = new Buffer(2);
-        bufferValue.writeUInt16BE((Math.round(value * 2) / 2 * 10).toFixed(0));
+        const bufferValue = Buffer.alloc(2);
+        bufferValue.writeUInt16BE((Math.round(value * 2) * 5).toFixed(0));
 
         return {
           Level: {
@@ -58,7 +55,6 @@ class SystemairHVAC extends ZwaveDevice {
           && report.Level2.hasOwnProperty('Precision')
           && report.Level2.Scale === 0
           && typeof report.Level2.Size !== 'undefined') {
-
           let readValue;
           try {
             readValue = report.Value.readUIntBE(0, report.Level2.Size);
@@ -67,25 +63,25 @@ class SystemairHVAC extends ZwaveDevice {
           }
 
           if (typeof readValue !== 'undefined') {
-            return readValue / Math.pow(10, report.Level2.Precision);
+            return readValue / (10 ** report.Level2.Precision);
           }
           return null;
         }
         return null;
-      }
+      },
     });
 
     this.registerCapability('setpoint_capabilities', 'THERMOSTAT_SETPOINT_CAPABILITIES_GET', {
       getOpts: {
         getOnStart: true,
         pollInterval: 10,
-        pollMultiplication: 60000
+        pollMultiplication: 60000,
       },
       reportParserV3: report => {
         this.log('THERMOSTAT_SETPOINT_CAPABILITIES_GET reportParserV3', report);
         const value = typeof report === 'object' ? JSON.stringify(report) : report;
         return value;
-      }
+      },
     });
 
     this.registerCapability('systemair_boost', 'SWITCH_BINARY');
@@ -99,13 +95,13 @@ class SystemairHVAC extends ZwaveDevice {
       setParser: value => {
         this.log('BASIC setParser', value);
         return {
-          Value: parseInt(value)
+          Value: parseInt(value, 10),
         };
       },
       report: 'BASIC_REPORT',
       reportParser(report) {
         this.log('BASIC reportParser', report);
-        if (report && report.hasOwnProperty('Value')) return report.Value > 0 ? "255" : "0";
+        if (report && report.hasOwnProperty('Value')) return report.Value > 0 ? '255' : '0';
         return null;
       },
     });
@@ -122,7 +118,7 @@ class SystemairHVAC extends ZwaveDevice {
           Properties1: {
             'Fan Mode': value,
             Off: value === 'Off',
-          }
+          },
         };
       },
       report: 'THERMOSTAT_FAN_MODE_REPORT',
@@ -137,7 +133,7 @@ class SystemairHVAC extends ZwaveDevice {
           return off ? 'Off' : value;
         }
         return null;
-      }
+      },
     });
 
     this.registerCapability('systemair_alarm', 'NOTIFICATION', {
@@ -145,26 +141,21 @@ class SystemairHVAC extends ZwaveDevice {
         this.log('NOTIFICATION reportParserV3', report);
         const value = typeof report === 'object' ? JSON.stringify(report) : report;
         Homey.app.triggerSystemairAlarm.trigger(this, {
-          info: value
+          info: value,
         }, null);
         return value;
-      }
+      },
     });
-
   }
 
   async onAdded() {
-    this.log(`device added`);
+    this.log('device added');
   }
 
   onDeleted() {
-    this.log(`device deleted`);
-  }
-
-  async registerFlowCards() {
+    this.log('device deleted');
   }
 
 }
 
 module.exports = SystemairHVAC;
-
