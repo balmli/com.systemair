@@ -25,18 +25,6 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
-#### 0.0.4
+#### 0.9.0
 
-- ESLint
-
-#### 0.0.3
-
-- Fixed fan mode
-
-#### 0.0.2 
-
-- Added triggers and actions
-
-#### 0.0.1
-
-- Initial version
+- First version for app store

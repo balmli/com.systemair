@@ -1,4 +1,8 @@
 {
+  "0.9.0": {
+    "en": "First version for app store",
+    "no": "Første version for app store"
+  },
   "0.0.4": {
     "en": "ESLint",
     "no": "ESLint"
