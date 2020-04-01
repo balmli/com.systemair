@@ -25,7 +25,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
-#### 0.9.1
+#### 0.9.2
 
 - Fixed 'Set fan mode' action
 
