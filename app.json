@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -112,31 +112,31 @@
             "type": "dropdown",
             "values": [
               {
-                "id": "0",
+                "id": "Auto",
                 "label": {
                   "en": "Auto"
                 }
               },
               {
-                "id": "1",
+                "id": "Low",
                 "label": {
                   "en": "Low"
                 }
               },
               {
-                "id": "5",
+                "id": "Medium",
                 "label": {
                   "en": "Medium"
                 }
               },
               {
-                "id": "3",
+                "id": "High",
                 "label": {
                   "en": "High"
                 }
               },
               {
-                "id": "128",
+                "id": "Off",
                 "label": {
                   "en": "Off"
                 }

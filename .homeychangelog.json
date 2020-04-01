@@ -1,4 +1,8 @@
 {
+  "0.9.1": {
+    "en": "Fixed Set fan mode action",
+    "no": "Rettet Set fan mode action"
+  },
   "0.9.0": {
     "en": "First version for app store",
     "no": "Første version for app store"
