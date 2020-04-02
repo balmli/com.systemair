@@ -1,0 +1,26 @@
+{
+  "type": "enum",
+  "uiComponent": "picker",
+  "title": {
+    "en": "Mode"
+  },
+  "desc": {
+    "en": "Mode of the HVAC"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Auto Mode"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Manual Mode"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

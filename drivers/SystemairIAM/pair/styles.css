@@ -1,0 +1,27 @@
+.header {
+    padding-top: 70px;
+}
+
+.logo {
+    width: 160px
+}
+
+.grid_center {
+    text-align: center;
+}
+
+.input_iam {
+    text-align: center;
+    font-size: 12pt;
+}
+
+.input_password {
+    text-align: center;
+    font-size: 20pt;
+}
+
+.exec_button {
+    min-width: 100%;
+    background-color: #00c341;
+    color: white;
+}

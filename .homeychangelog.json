@@ -1,4 +1,8 @@
 {
+  "0.9.3": {
+    "en": "Initial support for the Internet Access Module (Cloud)",
+    "no": "Første versjon med støtte for Internet Access Module (Cloud)"
+  },
   "0.9.2": {
     "en": "Fixed Set fan mode action",
     "no": "Rettet Set fan mode action"

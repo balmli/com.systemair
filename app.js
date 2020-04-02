@@ -17,10 +17,22 @@ module.exports = class SystemairApp extends Homey.App {
         return args.device.triggerCapabilityListener('systemair_fan_mode', args.fanmode, {});
       });
 
+    this._actionSystemairIAMSetFanMode = new Homey.FlowCardAction('systemair_set_fan_mode_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.triggerCapabilityListener('systemair_fan_mode_iam', args.fanmode, {});
+      });
+
     this._actionSystemairSetMode = new Homey.FlowCardAction('systemair_set_mode')
       .register()
       .registerRunListener((args, state) => {
         return args.device.triggerCapabilityListener('systemair_mode', args.mode, {});
+      });
+
+    this._actionSystemairIAMSetMode = new Homey.FlowCardAction('systemair_set_mode_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.triggerCapabilityListener('systemair_mode_iam', args.mode, {});
       });
 
     this._actionSystemairBoostOn = new Homey.FlowCardAction('systemair_boost_on')

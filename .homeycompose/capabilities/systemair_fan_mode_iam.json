@@ -1,0 +1,38 @@
+{
+  "type": "enum",
+  "uiComponent": "picker",
+  "title": {
+    "en": "Fan mode"
+  },
+  "desc": {
+    "en": "Fan mode of the HVAC"
+  },
+  "values": [
+    {
+      "id": "2",
+      "title": {
+        "en": "Low"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "Normal"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "High"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Off"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}

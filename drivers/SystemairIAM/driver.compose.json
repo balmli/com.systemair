@@ -1,0 +1,46 @@
+{
+  "id": "SystemairIAM",
+  "name": {
+    "en": "Systemair IAM Cloud"
+  },
+  "icon": "{{driverAssetsPath}}/icon.svg",
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "class": "thermostat",
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature",
+    "measure_temperature.outdoor_air_temp",
+    "measure_temperature.supply_air_temp",
+    "measure_humidity",
+    "systemair_mode_iam",
+    "systemair_fan_mode_iam"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 16,
+      "max": 30,
+      "step": 0.5
+    },
+    "measure_temperature.outdoor_air_temp": {
+      "title": "Outdoor air temperature"
+    },
+    "measure_temperature.supply_air_temp": {
+      "title": "Supply air temperature"
+    }
+  },
+  "pair": [
+    {
+      "id": "enter_iam"
+    },
+    {
+      "id": "enter_password"
+    },
+    {
+      "id": "add_my_device",
+      "template": "add_devices"
+    }
+  ]
+}

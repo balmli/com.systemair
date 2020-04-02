@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -146,6 +146,52 @@
         ]
       },
       {
+        "id": "systemair_set_fan_mode_iam",
+        "title": {
+          "en": "Set fan mode"
+        },
+        "hint": {
+          "en": "Change the fan mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          },
+          {
+            "name": "fanmode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "2",
+                "label": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Normal"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "High"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Off"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "systemair_set_mode",
         "title": {
           "en": "Set mode"
@@ -173,6 +219,40 @@
                 "id": "0",
                 "label": {
                   "en": "Energy Saving Mode"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "systemair_set_mode_iam",
+        "title": {
+          "en": "Set mode"
+        },
+        "hint": {
+          "en": "Change the mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Auto Mode"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Manual Mode"
                 }
               }
             ]
@@ -423,6 +503,53 @@
           }
         }
       ]
+    },
+    {
+      "id": "SystemairIAM",
+      "name": {
+        "en": "Systemair IAM Cloud"
+      },
+      "icon": "/drivers/SystemairIAM/assets/icon.svg",
+      "images": {
+        "large": "/drivers/SystemairIAM/assets/images/large.png",
+        "small": "/drivers/SystemairIAM/assets/images/small.png"
+      },
+      "class": "thermostat",
+      "capabilities": [
+        "target_temperature",
+        "measure_temperature",
+        "measure_temperature.outdoor_air_temp",
+        "measure_temperature.supply_air_temp",
+        "measure_humidity",
+        "systemair_mode_iam",
+        "systemair_fan_mode_iam"
+      ],
+      "capabilitiesOptions": {
+        "target_temperature": {
+          "min": 16,
+          "max": 30,
+          "step": 0.5
+        },
+        "measure_temperature.outdoor_air_temp": {
+          "title": "Outdoor air temperature"
+        },
+        "measure_temperature.supply_air_temp": {
+          "title": "Supply air temperature"
+        }
+      },
+      "pair": [
+        {
+          "id": "enter_iam"
+        },
+        {
+          "id": "enter_password"
+        },
+        {
+          "id": "add_my_device",
+          "template": "add_devices"
+        }
+      ],
+      "settings": []
     }
   ],
   "capabilities": {
@@ -496,6 +623,44 @@
       "getable": true,
       "setable": true
     },
+    "systemair_fan_mode_iam": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Fan mode"
+      },
+      "desc": {
+        "en": "Fan mode of the HVAC"
+      },
+      "values": [
+        {
+          "id": "2",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Normal"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Off"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
     "systemair_mode": {
       "type": "enum",
       "uiComponent": "picker",
@@ -516,6 +681,32 @@
           "id": "0",
           "title": {
             "en": "Energy Saving Mode"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": true
+    },
+    "systemair_mode_iam": {
+      "type": "enum",
+      "uiComponent": "picker",
+      "title": {
+        "en": "Mode"
+      },
+      "desc": {
+        "en": "Mode of the HVAC"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Auto Mode"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Manual Mode"
           }
         }
       ],

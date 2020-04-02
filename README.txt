@@ -1,7 +1,7 @@
 
-With this app and a Systemair Z-wave adapter, you can control your Systemair HVAC.
+With this app and a Systemair Z-wave adapter or a Systemair Internet access module (IAM), you can control your Systemair HVAC.
 
-You can control the set point temperature, set the fan mode (Auto, Low, Medium, High, Off) and mode (Comfort, Energy Saving).
+You can control the set point temperature, set the fan mode and mode.
 
 
 Device: SystemairHVAC
@@ -16,6 +16,14 @@ Actions:
 - Set mode
 - Initiate boost mode
 
+
+Device: Systemair IAM Cloud
+
+Actions:
+
+- Set fan mode
+- Set mode
+- Set temperature
 
 
 Disclaimer:

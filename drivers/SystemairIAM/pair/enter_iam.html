@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="material.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="mdl-grid header">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone grid_center">
+        <img class="logo" src="logo.png" alt="Systemair" />
+    </div>
+</div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone">
+        <span data-i18n="pair.iam_help"></span>
+    </div>
+</div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone">
+        <small data-i18n="pair.iam_label"></small>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input input_iam"
+                   type="text"
+                   id="iam"
+                   maxlength="255">
+            <span class="mdl-textfield__error" data-i18n="pair.valid_iam"></span>
+        </div>
+    </div>
+</div>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone grid_center">
+        <button class="mdl-button mdl-js-button mdl-button--raised exec_button" id="next1" data-i18n="pair.iam_btn" style="color: white; background-color: #00c341;">
+            <i class="material-icons">navigate_next</i>
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+  Homey.setTitle(Homey.__('pair.title'));
+
+  document.getElementById('next1').onclick = (e) => {
+    e.preventDefault();
+    Homey.showLoadingOverlay();
+    const iam = document.getElementById("iam").value;
+    Homey.setViewStoreValue('enter_iam', 'params', { iam: iam }, (err, res) => {
+      Homey.showView('enter_password');
+    });
+  };
+</script>
+<script src="material.min.js"></script>
+</body>
+</html>
