@@ -7,3 +7,4 @@ node_modules/*
 !node_modules/homey-meshdriver
 !node_modules/hsluv
 !node_modules/mumath
+!node_modules/ws
