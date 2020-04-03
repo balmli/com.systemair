@@ -41,9 +41,9 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 #### 0.9.4
 
-- Fixed: An issue about setting modes between Auto and manual
-- Fixed: Missing check for IAM / password when adding the device
-- Systemair IAM Cloud: Added polling interval to Advanced settings. Default is 30 seconds. 
+- Systemair IAM Cloud: fixed an issue about setting modes between Auto and Manual
+- Systemair IAM Cloud: added check for IAM / password when adding the device
+- Systemair IAM Cloud: added polling interval to Advanced settings. Default is 30 seconds. 
 - Fixed README
 - Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'
 
