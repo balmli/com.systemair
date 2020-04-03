@@ -14,6 +14,8 @@ module.exports = class SystemairIAMApi {
     this._device = options.device;
     this._logger = options.logger;
     this._onUpdateValues = options.onUpdateValues;
+    this._iam = options.iam;
+    this._password = options.password;
   }
 
   _connection() {
@@ -27,45 +29,39 @@ module.exports = class SystemairIAMApi {
         self.socket = new WebSocket(uri);
 
         self.socket.on('open', data => {
-          self.socket.send(JSON.stringify(self._validationRequestCmd()), error => {
+          self.socket.send(JSON.stringify(self._loginCmd()), error => {
             if (error) {
-              self._logger('_connection validation request error', error);
-              throw new Error('Unable to log in');
+              self._logger('_connection login error', error);
+              reject('Unable to log in');
             }
           });
 
         }).on('message', data => {
           data = JSON.parse(data);
 
-          if (data.type === 'ID_VALIDATION') {
-            self.socket.send(JSON.stringify(self._loginCmd()), error => {
-              if (error) {
-                self._logger('_connection login error', error);
-                throw new Error('Unable to log in');
-              }
-            });
-          } else if (data.type === 'LOGGED_IN') {
-            //self._logger('socket message resolve LOGGED_IN');
+          if (data.type === 'LOGGED_IN') {
             self._addSocketTimeout();
             resolve(true);
           } else if (data.type === 'ERROR' && (data.errorTypeId === 'UNIT_NOT_CONNECTED' ||
             data.errorTypeId === 'ACCESS_DENIED_SEVERE' ||
             data.errorTypeId === 'WRONG_PASSWORD')) {
-            throw new Error('Unable to log in');
+            self._logger('_connection login error', data);
+            self.socket.close();
+            reject('Invalid IAM id or password');
+          } else {
+            self.handleMessage(data);
           }
-
-          self.handleMessage(data);
         }).on('close', () => {
           self._logger('socket close');
           self._clearSocketTimeout();
           self.socket = null;
         }).on('error', err => {
           if (err.code && err.code === 'ECONNREFUSED') {
-            throw new Error(`Connection is refused (${uri})`);
+            reject(`Connection is refused (${uri})`);
           } else if (err.code && err.code === 'EHOSTUNREACH') {
-            throw new Error(`Connection is unreachable (${uri})`);
+            reject(`Connection is unreachable (${uri})`);
           } else if (err.code && err.code === 'ENETUNREACH') {
-            throw new Error(`Connection is unreachable (${uri})`);
+            reject(`Connection is unreachable (${uri})`);
           } else {
             self._logger('_connection ERROR', err);
             reject(err);
@@ -98,25 +94,14 @@ module.exports = class SystemairIAMApi {
     }
   }
 
-  _validationRequestCmd() {
-    const iamId = this._device.getStoreValue(SECURE_IAM_ID);
-    this._sessionClientId = `client-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-    return {
-      type: 'LOGIN',
-      machineId: iamId,
-      passCode: 'ID_VALIDATION_REQUEST',
-      sessionClientId: this._sessionClientId,
-    };
-  }
-
   _loginCmd() {
-    const iamId = this._device.getStoreValue(SECURE_IAM_ID);
-    const password = this._device.getStoreValue(SECURE_PASSWORD);
+    const iamId = this._device ? this._device.getStoreValue(SECURE_IAM_ID) : this._iam;
+    const password = this._device ? this._device.getStoreValue(SECURE_PASSWORD) : this._password;
     return {
       type: 'LOGIN',
       machineId: iamId,
       passCode: password,
-      sessionClientId: this._sessionClientId,
+      sessionClientId: `client-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
     };
   }
 
