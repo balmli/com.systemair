@@ -1,10 +1,27 @@
-# Systemair HVAC Z-wave app for Athom Homey
+# Systemair support for Athom Homey
 
 With this app and a Systemair Z-wave adapter or a Systemair Internet access module (IAM), you can control your Systemair HVAC.
 
 You can control the set point temperature, set the fan mode and mode.
 
-## Device: SystemairHVAC
+## Device: Systemair IAM Cloud
+
+This device supports the Systemair Internett access module in "Cloud" mode.  "Modbus TCP" mode is not supported. 
+
+#### Actions
+
+- Set fan mode
+- Set mode
+- Set temperature
+
+#### Known issues
+
+* An issue about setting modes between Auto and manual
+* Missing check for IAM / password when adding the device
+
+## Device: Systemair Z-wave
+
+This devices supports the Systemair Z-wave adapter.
 
 #### Triggers
 
@@ -16,15 +33,9 @@ You can control the set point temperature, set the fan mode and mode.
 - Set mode
 - Initiate boost mode
 
+## Acknowledgements:
 
-## Device: Systemair IAM Cloud
-
-#### Actions
-
-- Set fan mode
-- Set mode
-- Set temperature
-
+Thanks to https://github.com/perara/python-systemair-savecair for communicating with the Systemair IAM.
 
 ## Disclaimer:
 
@@ -32,6 +43,11 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 
 ## Release Notes:
+
+#### 0.9.4
+
+- Fixed README
+- Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'
 
 #### 0.9.3
 

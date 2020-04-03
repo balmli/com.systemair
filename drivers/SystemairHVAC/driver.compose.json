@@ -1,7 +1,7 @@
 {
   "id": "SystemairHVAC",
   "name": {
-    "en": "Systemair HVAC adapter"
+    "en": "Systemair Z-wave"
   },
   "icon": "{{driverAssetsPath}}/icon.svg",
   "images": {
@@ -33,6 +33,7 @@
     "pid": 1768,
     "imageRemotePath": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_pictures/ZC10-16065101.jpg",
     "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
       "instruction": {
         "en": "Press the button on your device three times"
       }

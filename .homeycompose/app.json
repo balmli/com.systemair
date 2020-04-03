@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -48,5 +48,6 @@
   "bugs": {
     "url": "https://github.com/balmli/com.systemair/issues"
   },
+  "homeyCommunityTopicId": 27862,
   "source": "https://github.com/balmli/com.systemair"
 }

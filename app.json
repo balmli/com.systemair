@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -48,6 +48,7 @@
   "bugs": {
     "url": "https://github.com/balmli/com.systemair/issues"
   },
+  "homeyCommunityTopicId": 27862,
   "source": "https://github.com/balmli/com.systemair",
   "flow": {
     "triggers": [
@@ -265,7 +266,7 @@
     {
       "id": "SystemairHVAC",
       "name": {
-        "en": "Systemair HVAC adapter"
+        "en": "Systemair Z-wave"
       },
       "icon": "/drivers/SystemairHVAC/assets/icon.svg",
       "images": {
@@ -297,6 +298,7 @@
         "pid": 1768,
         "imageRemotePath": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_pictures/ZC10-16065101.jpg",
         "learnmode": {
+          "image": "/drivers/SystemairHVAC/assets/learnmode.svg",
           "instruction": {
             "en": "Press the button on your device three times"
           }

@@ -1,4 +1,8 @@
 {
+  "0.9.4": {
+    "en": "Fixed README. Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'",
+    "no": "Fikset README. Endret navn på 'Systemair HVAC adapter' til 'Systemair Z-wave'"
+  },
   "0.9.3": {
     "en": "Initial support for the Internet Access Module (Cloud)",
     "no": "Første versjon med støtte for Internet Access Module (Cloud)"
