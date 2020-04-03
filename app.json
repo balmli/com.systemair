@@ -551,7 +551,21 @@
           "template": "add_devices"
         }
       ],
-      "settings": []
+      "settings": [
+        {
+          "id": "Polling_Interval",
+          "type": "number",
+          "label": {
+            "en": "Polling interval"
+          },
+          "value": 30,
+          "min": 10,
+          "max": 300,
+          "hint": {
+            "en": "Polling interval (seconds)"
+          }
+        }
+      ]
     }
   ],
   "capabilities": {

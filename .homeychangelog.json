@@ -1,7 +1,7 @@
 {
   "0.9.4": {
-    "en": "Fixed README. Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'",
-    "no": "Fikset README. Endret navn på 'Systemair HVAC adapter' til 'Systemair Z-wave'"
+    "en": "Fixed README. Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave', Systemair IAM Cloud: Added polling interval to Advanced settings. Default is 30 seconds.",
+    "no": "Fikset README. Endret navn på 'Systemair HVAC adapter' til 'Systemair Z-wave'.  La inn polle interval i Avanserte instillinger.  Default er 30 sekunder."
   },
   "0.9.3": {
     "en": "Initial support for the Internet Access Module (Cloud)",

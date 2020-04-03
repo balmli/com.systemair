@@ -1,2 +1,6 @@
 [
+  {
+    "$extends": "Polling_Interval",
+    "id": "Polling_Interval"
+  }
 ]

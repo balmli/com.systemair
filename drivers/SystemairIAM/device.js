@@ -42,9 +42,22 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     this.log('device deleted');
   }
 
-  addFetchTimeout(seconds = 30) {
+  async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr, callback) {
+    if (changedKeysArr.includes('Polling_Interval')) {
+      this.addFetchTimeout();
+    }
+
+    callback(null, true);
+  }
+
+  async addFetchTimeout(seconds) {
     this._clearFetchTimeout();
-    this.fetchTimeout = setTimeout(() => this.fetchSensors(), 1000 * seconds);
+    let interval = seconds;
+    if (!interval) {
+      let settings = await this.getSettings();
+      interval = settings.Polling_Interval || 30;
+    }
+    this.fetchTimeout = setTimeout(() => this.fetchSensors(), 1000 * interval);
   }
 
   _clearFetchTimeout() {
