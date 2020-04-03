@@ -138,6 +138,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateString("systemair_fan_mode_iam", message.readValues.main_airflow);
     }
     if (message.changedValues && !message.askedByClient) {
+      device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
       device.updateString("systemair_mode_iam", message.changedValues.main_user_mode);
       device.updateString("systemair_fan_mode_iam", message.changedValues.main_airflow);
     }
