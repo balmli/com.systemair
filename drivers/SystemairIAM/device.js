@@ -139,6 +139,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     }
     if (message.changedValues && !message.askedByClient) {
       device.updateString("systemair_mode_iam", message.changedValues.main_user_mode);
+      device.updateString("systemair_fan_mode_iam", message.changedValues.main_airflow);
     }
   }
 
