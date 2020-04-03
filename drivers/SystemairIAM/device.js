@@ -2,14 +2,18 @@
 
 const Homey = require('homey');
 const WebSocket = require('ws');
-
-const SECURE_IAM_ID = 'iam_id';
-const SECURE_PASSWORD = 'password';
+const IAMApi = require('./systemair_iam_api');
 
 module.exports = class SystemairIAMDevice extends Homey.Device {
 
   onInit() {
     this.log('device initialized');
+
+    this._api = new IAMApi({
+      device: this,
+      logger: this.log,
+      onUpdateValues: this.onUpdateValues
+    });
 
     this.registerCapabilityListener('target_temperature', (value, opts) => {
       return this.onUpdateTargetTemperature(value, opts);
@@ -24,7 +28,6 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     });
 
     this.addFetchTimeout(1);
-    setTimeout(() => this.fetchParamFileMappings(), 10000);
   }
 
   async onAdded() {
@@ -33,16 +36,10 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   onDeleted() {
     this._clearFetchTimeout();
-    this._clearSocketTimeout();
-    this.log('device deleted');
-  }
-
-  async fetchParamFileMappings() {
-    try {
-      await this.connectAndSend(this._paramFileMappingsCmd())
-    } catch (err) {
-      this.log('fetchParamFileMappings error', err);
+    if (this._api && this._api._clearSocketTimeout) {
+      this._api._clearSocketTimeout();
     }
+    this.log('device deleted');
   }
 
   addFetchTimeout(seconds = 30) {
@@ -59,12 +56,12 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async fetchSensors() {
     try {
-      await this.connectAndSend(this._readCmd([
+      await this._api.read([
         "components_filter_time_left",
         "eco_mode",
         "control_regulation_temp_unit",
         "main_temperature_offset",
-        "mode_change_request",
+        "main_user_mode",
         "main_airflow",
         "demand_control_fan_speed",
         "control_regulation_speed_after_free_cooling_saf",
@@ -73,7 +70,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         "supply_air_temp",
         "overheat_temp",
         "rh_sensor"
-      ]));
+      ]);
     } catch (err) {
       this.log('fetchSensors error', err);
     } finally {
@@ -84,9 +81,9 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   async onUpdateTargetTemperature(value, opts) {
     try {
       this._clearFetchTimeout();
-      await this.connectAndSend(this._writeCmd({
+      await this._api.write({
         main_temperature_offset: value * 10
-      }));
+      });
       this.log(`set target temperature OK: ${value}`);
     } finally {
       this.addFetchTimeout();
@@ -96,9 +93,9 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   async onUpdateMode(value, opts) {
     try {
       this._clearFetchTimeout();
-      await this.connectAndSend(this._writeCmd({
+      await this._api.write({
         mode_change_request: value
-      }));
+      });
       this.log(`set mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
@@ -108,178 +105,27 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   async onUpdateFanMode(value, opts) {
     try {
       this._clearFetchTimeout();
-      await this.connectAndSend(this._writeCmd({
+      await this._api.write({
         main_airflow: value
-      }));
+      });
       this.log(`set fan mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
-  _connection() {
-    return new Promise((resolve, reject) => {
-      if (this.socket) {
-        this._addSocketTimeout();
-        resolve(true);
-      } else {
-        const uri = this._getWsUri();
-        const self = this;
-        self.socket = new WebSocket(uri);
-
-        self.socket.on('open', data => {
-          self.socket.send(JSON.stringify(self._validationRequestCmd()), error => {
-            if (error) {
-              self.log('_connection validation request error', error);
-              throw new Error('Unable to log in');
-            }
-          });
-
-        }).on('message', data => {
-          data = JSON.parse(data);
-
-          if (data.type === 'ID_VALIDATION') {
-            self.socket.send(JSON.stringify(self._loginCmd()), error => {
-              if (error) {
-                self.log('_connection login error', error);
-                throw new Error('Unable to log in');
-              }
-            });
-          } else if (data.type === 'LOGGED_IN') {
-            //self.log('socket message resolve LOGGED_IN');
-            self._addSocketTimeout();
-            resolve(true);
-          }
-
-          self.handleMessage(data);
-        }).on('close', () => {
-          self.log('socket close');
-          self._clearSocketTimeout();
-          self.socket = null;
-        }).on('error', err => {
-          if (err.code && err.code === 'ECONNREFUSED') {
-            throw new Error(`Connection is refused (${uri})`);
-          } else if (err.code && err.code === 'EHOSTUNREACH') {
-            throw new Error(`Connection is unreachable (${uri})`);
-          } else if (err.code && err.code === 'ENETUNREACH') {
-            throw new Error(`Connection is unreachable (${uri})`);
-          } else {
-            self.log('_connection ERROR', err);
-            reject(err);
-          }
-        });
-      }
-    });
-  }
-
-  _getWsUri() {
-    return 'wss://homesolutions.systemair.com/ws/';
-  }
-
-  _addSocketTimeout() {
-    this._clearSocketTimeout();
-    this.socketTimeout = setTimeout(() => this._onSocketTimeout(), 1000 * 60 * 2);
-  }
-
-  _clearSocketTimeout() {
-    if (this.socketTimeout) {
-      clearTimeout(this.socketTimeout);
-      this.socketTimeout = undefined;
+  onUpdateValues(message, device) {
+    if (message.readValues) {
+      device.updateNumber("target_temperature", message.readValues.main_temperature_offset, 10);
+      device.updateNumber("measure_temperature", message.readValues.supply_air_temp, 10);
+      device.updateNumber("measure_temperature.outdoor_air_temp", message.readValues.outdoor_air_temp, 10);
+      device.updateNumber("measure_temperature.supply_air_temp", message.readValues.supply_air_temp, 10);
+      device.updateNumber("measure_humidity", message.readValues.rh_sensor);
+      device.updateString("systemair_mode_iam", message.readValues.main_user_mode);
+      device.updateString("systemair_fan_mode_iam", message.readValues.main_airflow);
     }
-  }
-
-  _onSocketTimeout() {
-    if (this.socket) {
-      this.log('_onSocketTimeout');
-      this.socket.close();
-    }
-  }
-
-  _validationRequestCmd() {
-    const iamId = this.getStoreValue(SECURE_IAM_ID);
-    this._sessionClientId = `client-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-    return {
-      type: 'LOGIN',
-      machineId: iamId,
-      passCode: 'ID_VALIDATION_REQUEST',
-      sessionClientId: this._sessionClientId,
-    };
-  }
-
-  _loginCmd() {
-    const iamId = this.getStoreValue(SECURE_IAM_ID);
-    const password = this.getStoreValue(SECURE_PASSWORD);
-    return {
-      type: 'LOGIN',
-      machineId: iamId,
-      passCode: password,
-      sessionClientId: this._sessionClientId,
-    };
-  }
-
-  _paramFileMappingsCmd(items) {
-    return {
-      type: 'PARAM_FILE_MAPPINGS',
-    };
-  }
-
-  _readCmd(items) {
-    return {
-      type: 'READ',
-      idsToRead: items,
-    };
-  }
-
-  _writeCmd(values) {
-    return {
-      type: 'WRITE',
-      valuesToWrite: values,
-    };
-  }
-
-  async _send(aCmd) {
-    if (!this.socket) {
-      throw new Error('Not connected');
-    }
-    return new Promise((resolve, reject) => {
-      this.socket.send(JSON.stringify(aCmd), error => {
-        if (error) {
-          this.log('send ERROR', aCmd, error);
-          reject(error);
-        } else {
-          resolve(true);
-        }
-      });
-    });
-  }
-
-  async connectAndSend(aCmd) {
-    await this._connection();
-    await this._send(aCmd);
-  }
-
-  async handleMessage(message) {
-    if (message.type === 'ID_VALIDATION') {
-      this.log('handleMessage: id validation', message);
-    } else if (message.type === 'LOGGED_IN') {
-      this.log('handleMessage: logged in', message);
-    } else if (message.type === 'PARAM_FILE_MAPPINGS') {
-      this.log('handleMessage: param file mappings', message.mappings);
-    } else if (message.type === 'READ') {
-      this.log('handleMessage: read', message.readValues);
-      this.updateNumber("target_temperature", message.readValues.main_temperature_offset, 10);
-      this.updateNumber("measure_temperature", message.readValues.supply_air_temp, 10);
-      this.updateNumber("measure_temperature.outdoor_air_temp", message.readValues.outdoor_air_temp, 10);
-      this.updateNumber("measure_temperature.supply_air_temp", message.readValues.supply_air_temp, 10);
-      this.updateNumber("measure_humidity", message.readValues.rh_sensor);
-      this.updateString("systemair_mode_iam", message.readValues.mode_change_request);
-      this.updateString("systemair_fan_mode_iam", message.readValues.main_airflow);
-    } else if (message.type === 'VALUE_CHANGED') {
-      this.log('handleMessage: value changed', message);
-    } else if (message.type === 'ERROR') {
-      this.log('handleMessage: ERROR', message);
-    } else {
-      this.log('handleMessage: unknown type', message.type, message);
+    if (message.changedValues && !message.askedByClient) {
+      device.updateString("systemair_mode_iam", message.changedValues.main_user_mode);
     }
   }
 
