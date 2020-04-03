@@ -14,11 +14,6 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Set mode
 - Set temperature
 
-#### Known issues
-
-* An issue about setting modes between Auto and manual
-* Missing check for IAM / password when adding the device
-
 ## Device: Systemair Z-wave
 
 This devices supports the Systemair Z-wave adapter.
@@ -46,6 +41,8 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 #### 0.9.4
 
+- Fixed: An issue about setting modes between Auto and manual
+- Fixed: Missing check for IAM / password when adding the device
 - Systemair IAM Cloud: Added polling interval to Advanced settings. Default is 30 seconds. 
 - Fixed README
 - Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'
