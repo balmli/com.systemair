@@ -39,6 +39,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 0.9.5
+
+- Systemair IAM Cloud: fixed icon
+
 #### 0.9.4
 
 - Systemair IAM Cloud: fixed an issue about setting modes between Auto and Manual
