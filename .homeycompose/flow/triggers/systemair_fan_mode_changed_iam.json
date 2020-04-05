@@ -1,0 +1,35 @@
+{
+  "id": "systemair_fan_mode_changed_iam",
+  "title": {
+    "en": "Fan mode changed"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "fanmode",
+      "title": {
+        "en": "Fan mode"
+      },
+      "type": "string",
+      "example": {
+        "en": "Normal"
+      }
+    },
+    {
+      "name": "changedByHomey",
+      "title": {
+        "en": "Changed by Homey"
+      },
+      "type": "boolean",
+      "example": {
+        "en": "true"
+      }
+    }
+  ]
+}

@@ -9,6 +9,14 @@ module.exports = class SystemairApp extends Homey.App {
 
     // Systemair IAM Cloud
 
+    this.triggerSystemairFanModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_fan_mode_changed_iam');
+    this.triggerSystemairFanModeChangedIAM
+      .register();
+
+    this.triggerSystemairModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_mode_changed_iam');
+    this.triggerSystemairModeChangedIAM
+      .register();
+
     new Homey.FlowCardCondition('systemair_fan_mode_iam')
       .register()
       .registerRunListener((args) => {

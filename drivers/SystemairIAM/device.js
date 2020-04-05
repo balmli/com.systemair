@@ -3,6 +3,7 @@
 const Homey = require('homey');
 const WebSocket = require('ws');
 const IAMApi = require('./systemair_iam_api');
+const { FAN_MODES, MODES } = require('./constants');
 
 module.exports = class SystemairIAMDevice extends Homey.Device {
 
@@ -128,6 +129,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   }
 
   onUpdateValues(message, device) {
+    device.checkChangedValues(message);
     if (message.readValues) {
       device.updateNumber("target_temperature", message.readValues.main_temperature_offset, 10);
       device.updateNumber("measure_temperature", message.readValues.supply_air_temp, 10);
@@ -141,6 +143,34 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
       device.updateString("systemair_mode_iam", message.changedValues.main_user_mode);
       device.updateString("systemair_fan_mode_iam", message.changedValues.main_airflow);
+    }
+  }
+
+  checkChangedValues(message) {
+    const values = message.readValues ? message.readValues : message.changedValues;
+
+    // Fan mode changed ?
+    const fanMode = this.getCapabilityValue('systemair_fan_mode_iam');
+    if (fanMode && values) {
+      const newFanMode = values.main_airflow;
+      if (newFanMode && fanMode !== newFanMode) {
+        Homey.app.triggerSystemairFanModeChangedIAM.trigger(this, {
+          fanmode: FAN_MODES[newFanMode] ? FAN_MODES[newFanMode] : newFanMode,
+          changedByHomey: values.askedByClient
+        }, null);
+      }
+    }
+
+    // Mode changed ?
+    const mode = this.getCapabilityValue('systemair_mode_iam');
+    if (mode && values) {
+      const newMode = values.main_airflow;
+      if (newMode && mode !== newMode) {
+        Homey.app.triggerSystemairModeChangedIAM.trigger(this, {
+          mode: MODES[newMode] ? MODES[newMode] : newMode,
+          changedByHomey: values.askedByClient
+        }, null);
+      }
     }
   }
 

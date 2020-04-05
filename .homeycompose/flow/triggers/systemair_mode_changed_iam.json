@@ -1,0 +1,35 @@
+{
+  "id": "systemair_mode_changed_iam",
+  "title": {
+    "en": "Mode changed"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "mode",
+      "title": {
+        "en": "Mode"
+      },
+      "type": "string",
+      "example": {
+        "en": "Manual"
+      }
+    },
+    {
+      "name": "changedByHomey",
+      "title": {
+        "en": "Changed by Homey"
+      },
+      "type": "boolean",
+      "example": {
+        "en": "true"
+      }
+    }
+  ]
+}
