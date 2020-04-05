@@ -16,9 +16,8 @@
       "title": {
         "en": "Info"
       },
-      "example": {
-        "en": "Alarm"
-      }
+      "type": "string",
+      "example": "Alarm"
     }
   ]
 }

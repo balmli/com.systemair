@@ -8,11 +8,30 @@ Device: Systemair IAM Cloud
 
 This device supports the Systemair Internett access module in "Cloud" mode.  "Modbus TCP" mode is not supported.
 
+Triggers:
+
+- Set point temperature was changed
+- Temperature changed
+- Humidity changed
+- Fan mode changed
+- Mode changed
+
+Conditions:
+
+- Fan mode is
+- Mode is
+
 Actions:
 
+- Set temperature
 - Set fan mode
 - Set mode
-- Set temperature
+- Initiate boost mode
+- Initiate away mode
+- Initiate crowded mode
+- Initiate fireplace mode
+- Initiate holiday mode
+- Initiate refresh mode
 
 
 Device: Systemair Z-wave

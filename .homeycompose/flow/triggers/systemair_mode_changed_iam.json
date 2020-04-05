@@ -17,19 +17,7 @@
         "en": "Mode"
       },
       "type": "string",
-      "example": {
-        "en": "Manual"
-      }
-    },
-    {
-      "name": "changedByHomey",
-      "title": {
-        "en": "Changed by Homey"
-      },
-      "type": "boolean",
-      "example": {
-        "en": "true"
-      }
+      "example": "Manual"
     }
   ]
 }

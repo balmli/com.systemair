@@ -70,9 +70,8 @@
             "title": {
               "en": "Info"
             },
-            "example": {
-              "en": "Alarm"
-            }
+            "type": "string",
+            "example": "Alarm"
           }
         ]
       },
@@ -95,19 +94,7 @@
               "en": "Fan mode"
             },
             "type": "string",
-            "example": {
-              "en": "Normal"
-            }
-          },
-          {
-            "name": "changedByHomey",
-            "title": {
-              "en": "Changed by Homey"
-            },
-            "type": "boolean",
-            "example": {
-              "en": "true"
-            }
+            "example": "Normal"
           }
         ]
       },
@@ -130,19 +117,7 @@
               "en": "Mode"
             },
             "type": "string",
-            "example": {
-              "en": "Manual"
-            }
-          },
-          {
-            "name": "changedByHomey",
-            "title": {
-              "en": "Changed by Homey"
-            },
-            "type": "boolean",
-            "example": {
-              "en": "true"
-            }
+            "example": "Manual"
           }
         ]
       }

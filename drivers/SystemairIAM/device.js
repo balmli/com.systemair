@@ -16,6 +16,14 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       onUpdateValues: this.onUpdateValues
     });
 
+    this.triggerSystemairFanModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_fan_mode_changed_iam');
+    this.triggerSystemairFanModeChangedIAM
+      .register();
+
+    this.triggerSystemairModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_mode_changed_iam');
+    this.triggerSystemairModeChangedIAM
+      .register();
+
     this.registerCapabilityListener('target_temperature', (value, opts) => {
       return this.onUpdateTargetTemperature(value, opts);
     });
@@ -130,7 +138,6 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   }
 
   onUpdateValues(message, device) {
-    device.checkChangedValues(message);
     if (message.readValues) {
       device.updateNumber("target_temperature", message.readValues.main_temperature_offset, 10);
       device.updateNumber("measure_temperature", message.readValues.supply_air_temp, 10);
@@ -147,34 +154,6 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     }
   }
 
-  checkChangedValues(message) {
-    const values = message.readValues ? message.readValues : message.changedValues;
-
-    // Fan mode changed ?
-    const fanMode = this.getCapabilityValue('systemair_fan_mode_iam');
-    if (fanMode && values) {
-      const newFanMode = values.main_airflow;
-      if (newFanMode && fanMode !== newFanMode) {
-        Homey.app.triggerSystemairFanModeChangedIAM.trigger(this, {
-          fanmode: FAN_MODES[newFanMode] ? FAN_MODES[newFanMode] : newFanMode,
-          changedByHomey: values.askedByClient
-        }, null);
-      }
-    }
-
-    // Mode changed ?
-    const mode = this.getCapabilityValue('systemair_mode_iam');
-    if (mode && values) {
-      const newMode = values.main_airflow;
-      if (newMode && mode !== newMode) {
-        Homey.app.triggerSystemairModeChangedIAM.trigger(this, {
-          mode: MODES[newMode] ? MODES[newMode] : newMode,
-          changedByHomey: values.askedByClient
-        }, null);
-      }
-    }
-  }
-
   updateNumber(cap, toValue, factor = 1) {
     if (toValue !== undefined && this.hasCapability(cap)) {
       this.setCapabilityValue(cap, Math.round(10 * toValue / factor) / 10).catch(err => this.log(err));
@@ -183,6 +162,19 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   updateString(cap, toValue) {
     if (toValue !== undefined && this.hasCapability(cap)) {
+      const curValue = this.getCapabilityValue(cap);
+      if (curValue !== toValue) {
+        if (cap === 'systemair_mode_iam') {
+          this.triggerSystemairModeChangedIAM.trigger(this, {
+            mode: MODES[toValue] ? MODES[toValue] : toValue
+          });
+        }
+        if (cap === 'systemair_fan_mode_iam') {
+          this.triggerSystemairFanModeChangedIAM.trigger(this, {
+            fanmode: FAN_MODES[toValue] ? FAN_MODES[toValue] : toValue
+          });
+        }
+      }
       this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
     }
   }
@@ -233,6 +225,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         mode_change_request: '5',
         user_mode_away_duration: period
       });
+      this.log(`away mode started for ${period} hours`);
     } finally {
       this.addFetchTimeout();
     }
@@ -245,6 +238,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         mode_change_request: '2',
         user_mode_crowded_duration: period
       });
+      this.log(`crowded mode started for ${period} hours`);
     } finally {
       this.addFetchTimeout();
     }
@@ -257,6 +251,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         mode_change_request: '4',
         user_mode_fireplace_duration: period
       });
+      this.log(`fireplace mode started for ${period} minutes`);
     } finally {
       this.addFetchTimeout();
     }
@@ -269,6 +264,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         mode_change_request: '6',
         user_mode_holiday_duration: period
       });
+      this.log(`holiday mode started for ${period} days`);
     } finally {
       this.addFetchTimeout();
     }
@@ -281,6 +277,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         mode_change_request: '3',
         user_mode_refresh_duration: period
       });
+      this.log(`refresh mode started for ${period} minutes`);
     } finally {
       this.addFetchTimeout();
     }
