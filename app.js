@@ -41,6 +41,12 @@ module.exports = class SystemairApp extends Homey.App {
         return args.device.triggerCapabilityListener('systemair_mode_iam', args.mode, {});
       });
 
+    new Homey.FlowCardAction('systemair_boost_on_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.setBoostMode(args.boost_period);
+      });
+
     // Systemair Z-wave
 
     this.triggerSystemairAlarm = new Homey.FlowCardTriggerDevice('systemair_alarm');

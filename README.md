@@ -43,6 +43,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 - Systemair IAM Cloud: added conditions for fan mode and mode
 - Systemair IAM Cloud: added triggers for fan mode changed and mode changed
+- Systemair IAM Cloud: added boost mode
 
 #### 0.9.5
 

@@ -36,7 +36,8 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   }
 
   onDeleted() {
-    this._clearFetchTimeout();
+    this.clearFetchTimeout();
+    this.clearBoostTimeout();
     if (this._api && this._api._clearSocketTimeout) {
       this._api._clearSocketTimeout();
     }
@@ -52,7 +53,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
   }
 
   async addFetchTimeout(seconds) {
-    this._clearFetchTimeout();
+    this.clearFetchTimeout();
     let interval = seconds;
     if (!interval) {
       let settings = await this.getSettings();
@@ -61,7 +62,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     this.fetchTimeout = setTimeout(() => this.fetchSensors(), 1000 * interval);
   }
 
-  _clearFetchTimeout() {
+  clearFetchTimeout() {
     if (this.fetchTimeout) {
       clearTimeout(this.fetchTimeout);
       this.fetchTimeout = undefined;
@@ -94,7 +95,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async onUpdateTargetTemperature(value, opts) {
     try {
-      this._clearFetchTimeout();
+      this.clearFetchTimeout();
       await this._api.write({
         main_temperature_offset: value * 10
       });
@@ -106,7 +107,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async onUpdateMode(value, opts) {
     try {
-      this._clearFetchTimeout();
+      this.clearFetchTimeout();
       await this._api.write({
         mode_change_request: value
       });
@@ -118,7 +119,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async onUpdateFanMode(value, opts) {
     try {
-      this._clearFetchTimeout();
+      this.clearFetchTimeout();
       await this._api.write({
         main_airflow: value
       });
@@ -185,4 +186,44 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
     }
   }
+
+  async setBoostMode(boost_period) {
+    try {
+      this._boostMode = this.getCapabilityValue('systemair_mode_iam');
+      this._boostFanMode = this.getCapabilityValue('systemair_fan_mode_iam');
+      this.clearBoostTimeout();
+      this.clearFetchTimeout();
+      await this._api.write({
+        mode_change_request: '1', // Manual
+        main_airflow: '4' // High
+      });
+      this.boostTimeout = setTimeout(() => this.onBoostEnded(), 1000 * 60 * boost_period);
+      this.log(`boost mode started for ${boost_period} minutes`);
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
+  async onBoostEnded() {
+    this.log(`boost mode ended`);
+    if (this._boostMode && this._boostFanMode) {
+      try {
+        this.clearFetchTimeout();
+        await this._api.write({
+          mode_change_request: this._boostMode,
+          main_airflow: this._boostFanMode
+        });
+      } finally {
+        this.addFetchTimeout();
+      }
+    }
+  }
+
+  clearBoostTimeout() {
+    if (this.boostTimeout) {
+      clearTimeout(this.boostTimeout);
+      this.boostTimeout = undefined;
+    }
+  }
+
 };
