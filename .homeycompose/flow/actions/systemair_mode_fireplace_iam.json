@@ -1,0 +1,28 @@
+{
+  "id": "systemair_mode_fireplace_iam",
+  "title": {
+    "en": "Initiate fireplace mode"
+  },
+  "hint": {
+    "en": "Fireplace mode for a period."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    },
+    {
+      "name": "period",
+      "type": "range",
+      "min": 1,
+      "max": 60,
+      "step": 1,
+      "label": "min",
+      "labelDecimals": 0,
+      "title": {
+        "en": "Minutes"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "systemair_mode_crowded_iam",
+  "title": {
+    "en": "Initiate crowded mode"
+  },
+  "hint": {
+    "en": "Crowded mode for a period."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    },
+    {
+      "name": "period",
+      "type": "range",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "label": "h",
+      "labelDecimals": 0,
+      "title": {
+        "en": "Hours"
+      }
+    }
+  ]
+}

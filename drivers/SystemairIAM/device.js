@@ -226,4 +226,64 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     }
   }
 
+  async setAwayMode(period) {
+    try {
+      this.clearFetchTimeout();
+      await this._api.write({
+        mode_change_request: '5',
+        user_mode_away_duration: period
+      });
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
+  async setCrowdedMode(period) {
+    try {
+      this.clearFetchTimeout();
+      await this._api.write({
+        mode_change_request: '2',
+        user_mode_crowded_duration: period
+      });
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
+  async setFireplaceMode(period) {
+    try {
+      this.clearFetchTimeout();
+      await this._api.write({
+        mode_change_request: '4',
+        user_mode_fireplace_duration: period
+      });
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
+  async setHolidayMode(period) {
+    try {
+      this.clearFetchTimeout();
+      await this._api.write({
+        mode_change_request: '6',
+        user_mode_holiday_duration: period
+      });
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
+  async setRefreshMode(period) {
+    try {
+      this.clearFetchTimeout();
+      await this._api.write({
+        mode_change_request: '3',
+        user_mode_refresh_duration: period
+      });
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
 };

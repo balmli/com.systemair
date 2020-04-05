@@ -47,6 +47,36 @@ module.exports = class SystemairApp extends Homey.App {
         return args.device.setBoostMode(args.boost_period);
       });
 
+    new Homey.FlowCardAction('systemair_mode_away_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.setAwayMode(args.period);
+      });
+
+    new Homey.FlowCardAction('systemair_mode_crowded_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.setCrowdedMode(args.period);
+      });
+
+    new Homey.FlowCardAction('systemair_mode_fireplace_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.setFireplaceMode(args.period);
+      });
+
+    new Homey.FlowCardAction('systemair_mode_holiday_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.setHolidayMode(args.period);
+      });
+
+    new Homey.FlowCardAction('systemair_mode_refresh_iam')
+      .register()
+      .registerRunListener((args, state) => {
+        return args.device.setRefreshMode(args.period);
+      });
+
     // Systemair Z-wave
 
     this.triggerSystemairAlarm = new Homey.FlowCardTriggerDevice('systemair_alarm');

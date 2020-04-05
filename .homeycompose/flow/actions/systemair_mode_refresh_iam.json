@@ -1,0 +1,28 @@
+{
+  "id": "systemair_mode_refresh_iam",
+  "title": {
+    "en": "Initiate refresh mode"
+  },
+  "hint": {
+    "en": "Refresh mode for a period."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    },
+    {
+      "name": "period",
+      "type": "range",
+      "min": 1,
+      "max": 240,
+      "step": 1,
+      "label": "min",
+      "labelDecimals": 0,
+      "title": {
+        "en": "Minutes"
+      }
+    }
+  ]
+}
