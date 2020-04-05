@@ -12,11 +12,13 @@
   "capabilities": [
     "target_temperature",
     "measure_temperature",
+    "systemair_mode_iam",
+    "systemair_fan_mode_iam",
     "measure_temperature.outdoor_air_temp",
     "measure_temperature.supply_air_temp",
-    "measure_humidity",
-    "systemair_mode_iam",
-    "systemair_fan_mode_iam"
+    "systemair_mode_iam_ro",
+    "systemair_fan_mode_iam_ro",
+    "measure_humidity"
   ],
   "capabilitiesOptions": {
     "target_temperature": {

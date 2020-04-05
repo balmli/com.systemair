@@ -1,0 +1,14 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Mode"
+  },
+  "insights": false,
+  "desc": {
+    "en": "Mode"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/systemair_mode.svg"
+}

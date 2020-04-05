@@ -1,0 +1,14 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Fan mode"
+  },
+  "insights": false,
+  "desc": {
+    "en": "Fan mode"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/systemair_fan_mode.svg"
+}

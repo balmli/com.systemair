@@ -3,7 +3,7 @@
 const Homey = require('homey');
 const WebSocket = require('ws');
 const IAMApi = require('./systemair_iam_api');
-const { FAN_MODES, MODES } = require('./constants');
+const { FAN_MODES, MODES, FAN_MODES_LIST, MODES_LIST } = require('./constants');
 
 module.exports = class SystemairIAMDevice extends Homey.Device {
 
@@ -144,13 +144,13 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("measure_temperature.outdoor_air_temp", message.readValues.outdoor_air_temp, 10);
       device.updateNumber("measure_temperature.supply_air_temp", message.readValues.supply_air_temp, 10);
       device.updateNumber("measure_humidity", message.readValues.rh_sensor);
-      device.updateString("systemair_mode_iam", message.readValues.main_user_mode);
-      device.updateString("systemair_fan_mode_iam", message.readValues.main_airflow);
+      device.updateMode(message.readValues.main_user_mode);
+      device.updateFanMode(message.readValues.main_airflow);
     }
     if (message.changedValues && !message.askedByClient) {
       device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
-      device.updateString("systemair_mode_iam", message.changedValues.main_user_mode);
-      device.updateString("systemair_fan_mode_iam", message.changedValues.main_airflow);
+      device.updateMode(message.changedValues.main_user_mode);
+      device.updateFanMode(message.changedValues.main_airflow);
     }
   }
 
@@ -160,22 +160,37 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     }
   }
 
-  updateString(cap, toValue) {
-    if (toValue !== undefined && this.hasCapability(cap)) {
-      const curValue = this.getCapabilityValue(cap);
-      if (curValue !== toValue) {
-        if (cap === 'systemair_mode_iam') {
-          this.triggerSystemairModeChangedIAM.trigger(this, {
-            mode: MODES[toValue] ? MODES[toValue] : toValue
-          });
-        }
-        if (cap === 'systemair_fan_mode_iam') {
-          this.triggerSystemairFanModeChangedIAM.trigger(this, {
-            fanmode: FAN_MODES[toValue] ? FAN_MODES[toValue] : toValue
-          });
-        }
+  updateMode(toValue) {
+    const cap = 'systemair_mode_iam';
+    const capRo = 'systemair_mode_iam_ro';
+    if (toValue !== undefined) {
+      if (this.hasCapability(cap) && toValue !== this.getCapabilityValue(cap) && MODES_LIST[toValue]) {
+        this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
       }
-      this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
+      const modeTxt = MODES[toValue] ? MODES[toValue] : toValue;
+      if (this.hasCapability(capRo) && modeTxt !== this.getCapabilityValue(capRo)) {
+        this.triggerSystemairModeChangedIAM.trigger(this, {
+          mode: modeTxt
+        });
+        this.setCapabilityValue(capRo, modeTxt).catch(err => this.log(err));
+      }
+    }
+  }
+
+  updateFanMode(toValue) {
+    const cap = 'systemair_fan_mode_iam';
+    const capRo = 'systemair_fan_mode_iam_ro';
+    if (toValue !== undefined) {
+      if (this.hasCapability(cap) && toValue !== this.getCapabilityValue(cap) && FAN_MODES_LIST[toValue]) {
+        this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
+      }
+      const fanModeTxt = FAN_MODES[toValue] ? FAN_MODES[toValue] : toValue;
+      if (this.hasCapability(capRo) && fanModeTxt !== this.getCapabilityValue(capRo)) {
+        this.triggerSystemairFanModeChangedIAM.trigger(this, {
+          fanmode: fanModeTxt
+        });
+        this.setCapabilityValue(capRo, fanModeTxt).catch(err => this.log(err));
+      }
     }
   }
 

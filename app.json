@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -839,11 +839,13 @@
       "capabilities": [
         "target_temperature",
         "measure_temperature",
+        "systemair_mode_iam",
+        "systemair_fan_mode_iam",
         "measure_temperature.outdoor_air_temp",
         "measure_temperature.supply_air_temp",
-        "measure_humidity",
-        "systemair_mode_iam",
-        "systemair_fan_mode_iam"
+        "systemair_mode_iam_ro",
+        "systemair_fan_mode_iam_ro",
+        "measure_humidity"
       ],
       "capabilitiesOptions": {
         "target_temperature": {
@@ -996,6 +998,20 @@
       "getable": true,
       "setable": true
     },
+    "systemair_fan_mode_iam_ro": {
+      "type": "string",
+      "title": {
+        "en": "Fan mode"
+      },
+      "insights": false,
+      "desc": {
+        "en": "Fan mode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/systemair_fan_mode.svg"
+    },
     "systemair_mode": {
       "type": "enum",
       "uiComponent": "picker",
@@ -1047,6 +1063,20 @@
       ],
       "getable": true,
       "setable": true
+    },
+    "systemair_mode_iam_ro": {
+      "type": "string",
+      "title": {
+        "en": "Mode"
+      },
+      "insights": false,
+      "desc": {
+        "en": "Mode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/systemair_mode.svg"
     },
     "systemair_setpoint": {
       "type": "string",
