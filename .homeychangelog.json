@@ -1,4 +1,8 @@
 {
+  "0.9.6": {
+    "en": "Systemair IAM Cloud: added conditions for fan mode and mode",
+    "no": "Systemair IAM Cloud: la inn conditions for fan mode og mode"
+  },
   "0.9.5": {
     "en": "Systemair IAM Cloud: fixed an issue about setting modes between Auto and Manual. Systemair IAM Cloud: added check for IAM / password when adding the device. Systemair IAM Cloud: added polling interval to Advanced settings. Default is 30 seconds. Fixed README. Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'. Systemair IAM Cloud: Fixed icon.",
     "no": "Systemair IAM Cloud: rettet en feil ved bytting mellom Auto og Manuell. Systemair IAM Cloud: la inn sjekk for IAM id og passord. Systemair IAM Cloud: la inn polle interval i Avanserte instillinger.  Default er 30 sekunder. Fikset README. Endret navn på 'Systemair HVAC adapter' til 'Systemair Z-wave'. Systemair IAM Cloud: rettet icon."

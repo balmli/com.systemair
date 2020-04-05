@@ -39,6 +39,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 0.9.6
+
+- Systemair IAM Cloud: added conditions for fan mode and mode
+
 #### 0.9.5
 
 - Systemair IAM Cloud: fixed icon

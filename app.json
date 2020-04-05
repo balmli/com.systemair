@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -73,6 +73,112 @@
             "example": {
               "en": "Alarm"
             }
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "systemair_fan_mode_iam",
+        "title": {
+          "en": "Fan mode !{{is|isn't}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          },
+          {
+            "name": "fanmode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "2",
+                "label": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Normal"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "High"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Off"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "systemair_mode_iam",
+        "title": {
+          "en": "Mode !{{is|isn't}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Auto Mode"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Manual Mode"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Crowded Mode"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Refresh Mode"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Fireplace Mode"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Away Mode"
+                }
+              },
+              {
+                "id": "6",
+                "label": {
+                  "en": "Holiday Mode"
+                }
+              }
+            ]
           }
         ]
       }
