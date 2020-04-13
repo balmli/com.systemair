@@ -59,6 +59,11 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 0.9.8
+
+- Systemair IAM Cloud: added Extract air temperature
+- Systemair IAM Cloud: added Outdoor, Supply and Extract temperature changed triggers
+
 #### 0.9.7
 
 - Systemair IAM Cloud: view Mode and Fan mode as sensors

@@ -9,6 +9,26 @@ module.exports = class SystemairApp extends Homey.App {
 
     // Systemair IAM Cloud
 
+    this.triggerMeasureTemperatureOutdoorAirTemp = new Homey.FlowCardTriggerDevice('measure_temperature.outdoor_air_temp_changed');
+    this.triggerMeasureTemperatureOutdoorAirTemp
+      .register();
+
+    this.triggerMeasureTemperatureExtractAirTemp = new Homey.FlowCardTriggerDevice('measure_temperature.extract_air_temp_changed');
+    this.triggerMeasureTemperatureExtractAirTemp
+      .register();
+
+    this.triggerMeasureTemperatureSupplyAirTemp = new Homey.FlowCardTriggerDevice('measure_temperature.supply_air_temp_changed');
+    this.triggerMeasureTemperatureSupplyAirTemp
+      .register();
+
+    this.triggerSystemairFanModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_fan_mode_changed_iam');
+    this.triggerSystemairFanModeChangedIAM
+      .register();
+
+    this.triggerSystemairModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_mode_changed_iam');
+    this.triggerSystemairModeChangedIAM
+      .register();
+
     new Homey.FlowCardCondition('systemair_fan_mode_iam')
       .register()
       .registerRunListener((args) => {
@@ -70,6 +90,10 @@ module.exports = class SystemairApp extends Homey.App {
       });
 
     // Systemair Z-wave
+
+    this.triggerSystemairAlarm = new Homey.FlowCardTriggerDevice('systemair_alarm');
+    this.triggerSystemairAlarm
+      .register();
 
     new Homey.FlowCardAction('systemair_set_fan_mode')
       .register()

@@ -1,6 +1,6 @@
 {
   "id": "com.systemair",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#004B88",
@@ -52,6 +52,75 @@
   "source": "https://github.com/balmli/com.systemair",
   "flow": {
     "triggers": [
+      {
+        "id": "measure_temperature.extract_air_temp_changed",
+        "title": {
+          "en": "The extract air temperature changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "measure_temperature.extract_air_temp",
+            "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
+            "example": 23.5
+          }
+        ]
+      },
+      {
+        "id": "measure_temperature.outdoor_air_temp_changed",
+        "title": {
+          "en": "The outdoor air temperature changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "measure_temperature.outdoor_air_temp",
+            "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
+            "example": 23.5
+          }
+        ]
+      },
+      {
+        "id": "measure_temperature.supply_air_temp_changed",
+        "title": {
+          "en": "The supply air temperature changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "measure_temperature.supply_air_temp",
+            "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
+            "example": 23.5
+          }
+        ]
+      },
       {
         "id": "systemair_alarm",
         "title": {
@@ -841,10 +910,11 @@
         "measure_temperature",
         "systemair_mode_iam",
         "systemair_fan_mode_iam",
-        "measure_temperature.outdoor_air_temp",
-        "measure_temperature.supply_air_temp",
         "systemair_mode_iam_ro",
         "systemair_fan_mode_iam_ro",
+        "measure_temperature.outdoor_air_temp",
+        "measure_temperature.supply_air_temp",
+        "measure_temperature.extract_air_temp",
         "measure_humidity"
       ],
       "capabilitiesOptions": {
@@ -858,6 +928,9 @@
         },
         "measure_temperature.supply_air_temp": {
           "title": "Supply air temperature"
+        },
+        "measure_temperature.extract_air_temp": {
+          "title": "Extract air temperature"
         }
       },
       "pair": [

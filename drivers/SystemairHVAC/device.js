@@ -9,9 +9,7 @@ class SystemairHVAC extends ZwaveDevice {
   async onInit() {
     super.onInit();
 
-    this.triggerSystemairAlarm = new Homey.FlowCardTriggerDevice('systemair_alarm');
-    this.triggerSystemairAlarm
-      .register();
+
 
     this.log('device initialized');
   }
@@ -145,9 +143,9 @@ class SystemairHVAC extends ZwaveDevice {
       reportParserV3: report => {
         this.log('NOTIFICATION reportParserV3', report);
         const value = typeof report === 'object' ? JSON.stringify(report) : report;
-        this.triggerSystemairAlarm.trigger(this, {
+        Homey.app.triggerSystemairAlarm.trigger(this, {
           info: value,
-        });
+        }, null);
         return value;
       },
     });

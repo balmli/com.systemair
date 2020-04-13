@@ -16,13 +16,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       onUpdateValues: this.onUpdateValues
     });
 
-    this.triggerSystemairFanModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_fan_mode_changed_iam');
-    this.triggerSystemairFanModeChangedIAM
-      .register();
 
-    this.triggerSystemairModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_mode_changed_iam');
-    this.triggerSystemairModeChangedIAM
-      .register();
 
     this.registerCapabilityListener('target_temperature', (value, opts) => {
       return this.onUpdateTargetTemperature(value, opts);
@@ -91,6 +85,8 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         "control_regulation_speed_after_free_cooling_eaf",
         "outdoor_air_temp",
         "supply_air_temp",
+        "pdm_input_temp_value",
+        "pdm_input_rh_value",
         "overheat_temp",
         "rh_sensor"
       ]);
@@ -143,7 +139,8 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("measure_temperature", message.readValues.supply_air_temp, 10);
       device.updateNumber("measure_temperature.outdoor_air_temp", message.readValues.outdoor_air_temp, 10);
       device.updateNumber("measure_temperature.supply_air_temp", message.readValues.supply_air_temp, 10);
-      device.updateNumber("measure_humidity", message.readValues.rh_sensor);
+      device.updateNumber("measure_temperature.extract_air_temp", message.readValues.pdm_input_temp_value, 10);
+      device.updateNumber("measure_humidity", message.readValues.pdm_input_rh_value);
       device.updateMode(message.readValues.main_user_mode);
       device.updateFanMode(message.readValues.main_airflow);
     }
@@ -169,9 +166,9 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       }
       const modeTxt = MODES[toValue] ? MODES[toValue] : toValue;
       if (this.hasCapability(capRo) && modeTxt !== this.getCapabilityValue(capRo)) {
-        this.triggerSystemairModeChangedIAM.trigger(this, {
+        Homey.app.triggerSystemairModeChangedIAM.trigger(this, {
           mode: modeTxt
-        });
+        }, null);
         this.setCapabilityValue(capRo, modeTxt).catch(err => this.log(err));
       }
     }
@@ -186,9 +183,9 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       }
       const fanModeTxt = FAN_MODES[toValue] ? FAN_MODES[toValue] : toValue;
       if (this.hasCapability(capRo) && fanModeTxt !== this.getCapabilityValue(capRo)) {
-        this.triggerSystemairFanModeChangedIAM.trigger(this, {
+        Homey.app.triggerSystemairFanModeChangedIAM.trigger(this, {
           fanmode: fanModeTxt
-        });
+        }, null);
         this.setCapabilityValue(capRo, fanModeTxt).catch(err => this.log(err));
       }
     }

@@ -1,4 +1,8 @@
 {
+  "0.9.8": {
+    "en": "Systemair IAM Cloud: added Extract air temperature. Systemair IAM Cloud: added Outdoor, Supply and Extract temperature changed triggers.",
+    "no": "Systemair IAM Cloud: la inn Extract air temperature. Systemair IAM Cloud: la inn triggere for Outdoor, Supply og Extract temperatur."
+  },
   "0.9.7": {
     "en": "Systemair IAM Cloud: added conditions for fan mode and mode. Systemair IAM Cloud: added triggers for fan mode changed and mode changed. Systemair IAM Cloud: added boost mode. Systemair IAM Cloud: added modes for Away, Crowded, Fireplace, Holiday and Refresh. Systemair IAM Cloud: view Mode and Fan mode as sensors",
     "no": "Systemair IAM Cloud: la inn conditions for fan mode og mode. Systemair IAM Cloud: la inn triggere for fan mode changed og mode changed. Systemair IAM Cloud: la til boost mode. Systemair IAM Cloud: la inn modes for Away, Crowded, Fireplace, Holiday og Refresh. Systemair IAM Cloud: vise Mode og Fan mode som sensors"

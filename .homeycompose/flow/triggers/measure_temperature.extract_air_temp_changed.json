@@ -1,0 +1,23 @@
+{
+  "id": "measure_temperature.extract_air_temp_changed",
+  "title": {
+    "en": "The extract air temperature changed"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "measure_temperature.extract_air_temp",
+      "type": "number",
+      "title": {
+        "en": "Temperature"
+      },
+      "example": 23.5
+    }
+  ]
+}
