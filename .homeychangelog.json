@@ -1,4 +1,7 @@
 {
+  "0.9.9": {
+    "en": "Updated dependencies."
+  },
   "0.9.8": {
     "en": "Systemair IAM Cloud: added Extract air temperature. Systemair IAM Cloud: added Outdoor, Supply and Extract temperature changed triggers.",
     "no": "Systemair IAM Cloud: la inn Extract air temperature. Systemair IAM Cloud: la inn triggere for Outdoor, Supply og Extract temperatur."

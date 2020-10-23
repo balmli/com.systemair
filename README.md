@@ -6,7 +6,7 @@ You can control the set point temperature, set the fan mode and mode.
 
 ## Device: Systemair IAM Cloud
 
-This device supports the Systemair Internett access module in "Cloud" mode.  "Modbus TCP" mode is not supported. 
+This device supports the Systemair Internett access module in "Cloud" mode.  "Modbus TCP" mode is not supported.
 
 #### Triggers
 
@@ -59,6 +59,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 0.9.9
+
+- Updated dependencies
+
 #### 0.9.8
 
 - Systemair IAM Cloud: added Extract air temperature
@@ -83,7 +87,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 - Systemair IAM Cloud: fixed an issue about setting modes between Auto and Manual
 - Systemair IAM Cloud: added check for IAM / password when adding the device
-- Systemair IAM Cloud: added polling interval to Advanced settings. Default is 30 seconds. 
+- Systemair IAM Cloud: added polling interval to Advanced settings. Default is 30 seconds.
 - Fixed README
 - Renamed 'Systemair HVAC adapter' to 'Systemair Z-wave'
 
