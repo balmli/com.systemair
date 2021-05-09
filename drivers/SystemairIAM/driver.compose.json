@@ -16,9 +16,12 @@
     "systemair_fan_mode_iam",
     "systemair_mode_iam_ro",
     "systemair_fan_mode_iam_ro",
+    "cooker_hood",
+    "filter_time_left",
     "measure_temperature.outdoor_air_temp",
     "measure_temperature.supply_air_temp",
     "measure_temperature.extract_air_temp",
+    "measure_temperature.overheat_temp",
     "measure_humidity"
   ],
   "capabilitiesOptions": {
@@ -35,6 +38,9 @@
     },
     "measure_temperature.extract_air_temp": {
       "title": "Extract air temperature"
+    },
+    "measure_temperature.overheat_temp": {
+      "title": "Overheat temperature"
     }
   },
   "pair": [

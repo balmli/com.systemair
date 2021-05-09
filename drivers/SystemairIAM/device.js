@@ -7,16 +7,16 @@ const { FAN_MODES, MODES, FAN_MODES_LIST, MODES_LIST } = require('./constants');
 
 module.exports = class SystemairIAMDevice extends Homey.Device {
 
-  onInit() {
+  async onInit() {
     this.log('device initialized');
+
+    await this.migrate();
 
     this._api = new IAMApi({
       device: this,
       logger: this.log,
       onUpdateValues: this.onUpdateValues
     });
-
-
 
     this.registerCapabilityListener('target_temperature', (value, opts) => {
       return this.onUpdateTargetTemperature(value, opts);
@@ -33,6 +33,28 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     this.addFetchTimeout(1);
   }
 
+  async migrate() {
+    try {
+      const migVersion = this.getStoreValue('version');
+      if (!migVersion || migVersion < 1) {
+        await this.removeCapability('measure_humidity');
+        if (!this.hasCapability('measure_temperature.overheat_temp')) {
+          await this.addCapability('measure_temperature.overheat_temp');
+        }
+        await this.addCapability('measure_humidity');
+      }
+      if (!this.hasCapability('cooker_hood')) {
+        await this.addCapability('cooker_hood');
+      }
+      if (!this.hasCapability('filter_time_left')) {
+        await this.addCapability('filter_time_left');
+      }
+      await this.setStoreValue('version', 1);
+    } catch (err) {
+      this.log('migrate error:', err);
+    }
+  }
+
   async onAdded() {
     this.log('device added');
   }
@@ -46,12 +68,10 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     this.log('device deleted');
   }
 
-  async onSettings(oldSettingsObj, newSettingsObj, changedKeysArr, callback) {
-    if (changedKeysArr.includes('Polling_Interval')) {
+  async onSettings({ oldSettings, newSettings, changedKeys }) {
+    if (changedKeys.includes('Polling_Interval')) {
       this.addFetchTimeout();
     }
-
-    callback(null, true);
   }
 
   async addFetchTimeout(seconds) {
@@ -59,7 +79,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     let interval = seconds;
     if (!interval) {
       let settings = await this.getSettings();
-      interval = settings.Polling_Interval || 30;
+      interval = settings.Polling_Interval || 10;
     }
     this.fetchTimeout = setTimeout(() => this.fetchSensors(), 1000 * interval);
   }
@@ -88,7 +108,13 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         "pdm_input_temp_value",
         "pdm_input_rh_value",
         "overheat_temp",
-        "rh_sensor"
+        "rh_sensor",
+        "digital_input_tacho_saf_value",
+        "digital_input_tacho_eaf_value",
+        "digital_input_type1",
+        "digital_input_type2",
+        "digital_input_value1",
+        "digital_input_value2",
       ]);
     } catch (err) {
       this.log('fetchSensors error', err);
@@ -140,9 +166,12 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("measure_temperature.outdoor_air_temp", message.readValues.outdoor_air_temp, 10);
       device.updateNumber("measure_temperature.supply_air_temp", message.readValues.supply_air_temp, 10);
       device.updateNumber("measure_temperature.extract_air_temp", message.readValues.pdm_input_temp_value, 10);
+      device.updateNumber("measure_temperature.overheat_temp", message.readValues.overheat_temp, 10);
       device.updateNumber("measure_humidity", message.readValues.pdm_input_rh_value);
       device.updateMode(message.readValues.main_user_mode);
       device.updateFanMode(message.readValues.main_airflow);
+      device.updateCookerHood(message.readValues);
+      device.updateFilterTimeLeft(message.readValues.components_filter_time_left);
     }
     if (message.changedValues && !message.askedByClient) {
       device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
@@ -151,43 +180,57 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     }
   }
 
-  updateNumber(cap, toValue, factor = 1) {
-    if (toValue !== undefined && this.hasCapability(cap)) {
-      this.setCapabilityValue(cap, Math.round(10 * toValue / factor) / 10).catch(err => this.log(err));
+  async updateNumber(cap, toValue, factor = 1) {
+    if (toValue !== undefined && toValue !== null && this.hasCapability(cap)) {
+      await this.setCapabilityValue(cap, Math.round(10 * toValue / factor) / 10).catch(err => this.log(err));
     }
   }
 
-  updateMode(toValue) {
+  async updateMode(toValue) {
     const cap = 'systemair_mode_iam';
     const capRo = 'systemair_mode_iam_ro';
-    if (toValue !== undefined) {
+    if (toValue !== undefined && toValue !== null) {
       if (this.hasCapability(cap) && toValue !== this.getCapabilityValue(cap) && MODES_LIST[toValue]) {
-        this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
+        await this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
       }
       const modeTxt = MODES[toValue] ? MODES[toValue] : toValue;
       if (this.hasCapability(capRo) && modeTxt !== this.getCapabilityValue(capRo)) {
-        Homey.app.triggerSystemairModeChangedIAM.trigger(this, {
+        this.homey.app.triggerSystemairModeChangedIAM.trigger(this, {
           mode: modeTxt
         }, null);
-        this.setCapabilityValue(capRo, modeTxt).catch(err => this.log(err));
+        await this.setCapabilityValue(capRo, modeTxt).catch(err => this.log(err));
       }
     }
   }
 
-  updateFanMode(toValue) {
+  async updateFanMode(toValue) {
     const cap = 'systemair_fan_mode_iam';
     const capRo = 'systemair_fan_mode_iam_ro';
-    if (toValue !== undefined) {
+    if (toValue !== undefined && toValue !== null) {
       if (this.hasCapability(cap) && toValue !== this.getCapabilityValue(cap) && FAN_MODES_LIST[toValue]) {
-        this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
+        await this.setCapabilityValue(cap, toValue).catch(err => this.log(err));
       }
       const fanModeTxt = FAN_MODES[toValue] ? FAN_MODES[toValue] : toValue;
       if (this.hasCapability(capRo) && fanModeTxt !== this.getCapabilityValue(capRo)) {
-        Homey.app.triggerSystemairFanModeChangedIAM.trigger(this, {
+        this.homey.app.triggerSystemairFanModeChangedIAM.trigger(this, {
           fanmode: fanModeTxt
         }, null);
-        this.setCapabilityValue(capRo, fanModeTxt).catch(err => this.log(err));
+        await this.setCapabilityValue(capRo, fanModeTxt).catch(err => this.log(err));
       }
+    }
+  }
+
+  async updateCookerHood(readValues) {
+    if (readValues.digital_input_type1 === 'cooker' && readValues.digital_input_value1 !== null) {
+      await this.setCapabilityValue('cooker_hood', readValues.digital_input_value1 !== 0).catch(err => this.log(err));
+    } else if (readValues.digital_input_type2 === 'cooker' && readValues.digital_input_value2 !== null) {
+      await this.setCapabilityValue('cooker_hood', readValues.digital_input_value2 !== 0).catch(err => this.log(err));
+    }
+  }
+
+  async updateFilterTimeLeft(toValue) {
+    if (toValue !== undefined && toValue !== null) {
+      await this.setCapabilityValue('filter_time_left', Math.ceil(toValue / 86400)).catch(err => this.log(err));
     }
   }
 

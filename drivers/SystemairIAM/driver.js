@@ -5,14 +5,12 @@ const IAMApi = require('./systemair_iam_api');
 
 module.exports = class SystemairIAMDriver extends Homey.Driver {
 
-  onInit() {
+  async onInit() {
     this.log('SystemairIAMDriver has been initialized');
   }
 
-  onPair(socket) {
-    let self = this;
-
-    socket.on('password_input', (data, callback) => {
+  async onPair(session) {
+    session.setHandler('password_input', async (data) => {
 
       const _api = new IAMApi({
         logger: this.log,
@@ -20,14 +18,12 @@ module.exports = class SystemairIAMDriver extends Homey.Driver {
         password: data.password
       });
 
-      _api._connection()
-        .then(response => {
-          callback(null, response);
-        })
-        .catch(err => {
-          self.log('SystemairIAMDriver login error', err);
-          callback(err, null);
-        });
+      try {
+        return await _api._connection();
+      } catch (err) {
+        this.log('SystemairIAMDriver login error', err);
+        throw err;
+      }
     });
 
   }

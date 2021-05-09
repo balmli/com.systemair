@@ -4,7 +4,7 @@ env.json
 node_modules/*
 !node_modules/almost-equal
 !node_modules/color-space
-!node_modules/homey-meshdriver
+!node_modules/homey-zwavedriver
 !node_modules/hsluv
 !node_modules/mumath
 !node_modules/ws

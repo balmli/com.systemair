@@ -4,7 +4,7 @@
   "label": {
     "en": "Polling interval"
   },
-  "value": 30,
+  "value": 10,
   "min": 10,
   "max": 300,
   "hint": {

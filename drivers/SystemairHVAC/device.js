@@ -1,20 +1,13 @@
 'use strict';
 
-const Homey = require('homey');
-
-const { ZwaveDevice } = require('homey-meshdriver');
+const { ZwaveDevice } = require('homey-zwavedriver');
 
 class SystemairHVAC extends ZwaveDevice {
 
-  async onInit() {
-    super.onInit();
+  onMeshInit() {}
 
+  async onNodeInit({ node }) {
 
-
-    this.log('device initialized');
-  }
-
-  async onMeshInit() {
     // enable debugging
     this.enableDebug();
 
@@ -143,7 +136,7 @@ class SystemairHVAC extends ZwaveDevice {
       reportParserV3: report => {
         this.log('NOTIFICATION reportParserV3', report);
         const value = typeof report === 'object' ? JSON.stringify(report) : report;
-        Homey.app.triggerSystemairAlarm.trigger(this, {
+        this.homey.app.triggerSystemairAlarm.trigger(this, {
           info: value,
         }, null);
         return value;

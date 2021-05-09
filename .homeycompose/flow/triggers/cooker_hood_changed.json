@@ -1,0 +1,22 @@
+{
+  "id": "cooker_hood_changed",
+  "title": {
+    "en": "Cooker hood changed"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "cooker_hood",
+      "title": {
+        "en": "Cooker hood enabled"
+      },
+      "type": "boolean"
+    }
+  ]
+}

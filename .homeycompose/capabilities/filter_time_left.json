@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Days before filter replacement"
+  },
+  "insights": false,
+  "desc": {
+    "en": "Days before filter replacement"
+  },
+  "units": {
+    "en": " days"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}

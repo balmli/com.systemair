@@ -59,6 +59,13 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.0.0
+
+- Added support for cooker hoods
+- Added capability for overheat temperature
+- Added capability for days before filter replacement
+- Updated to firmware 5.0.0
+
 #### 0.9.9
 
 - Updated dependencies

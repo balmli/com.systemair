@@ -1,0 +1,13 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Cooker hood"
+  },
+  "insights": false,
+  "desc": {
+    "en": "Cooker hood"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}

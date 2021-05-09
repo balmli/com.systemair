@@ -4,114 +4,66 @@ const Homey = require('homey');
 
 module.exports = class SystemairApp extends Homey.App {
 
-  onInit() {
+  async onInit() {
+    await this._initFlows();
     this.log('SystemairApp is running...');
+  }
+
+  async _initFlows() {
 
     // Systemair IAM Cloud
 
-    this.triggerMeasureTemperatureOutdoorAirTemp = new Homey.FlowCardTriggerDevice('measure_temperature.outdoor_air_temp_changed');
-    this.triggerMeasureTemperatureOutdoorAirTemp
-      .register();
+    this.triggerMeasureTemperatureOutdoorAirTemp = this.homey.flow.getDeviceTriggerCard('measure_temperature.outdoor_air_temp_changed');
+    this.triggerMeasureTemperatureExtractAirTemp = this.homey.flow.getDeviceTriggerCard('measure_temperature.extract_air_temp_changed');
+    this.triggerMeasureTemperatureSupplyAirTemp = this.homey.flow.getDeviceTriggerCard('measure_temperature.supply_air_temp_changed');
+    this.triggerMeasureTemperatureOverheatTemp = this.homey.flow.getDeviceTriggerCard('measure_temperature.overheat_temp_changed');
+    this.triggerCookerHoodChanged = this.homey.flow.getDeviceTriggerCard('cooker_hood_changed');
+    this.triggerSystemairFanModeChangedIAM = this.homey.flow.getDeviceTriggerCard('systemair_fan_mode_changed_iam');
+    this.triggerSystemairModeChangedIAM = this.homey.flow.getDeviceTriggerCard('systemair_mode_changed_iam');
 
-    this.triggerMeasureTemperatureExtractAirTemp = new Homey.FlowCardTriggerDevice('measure_temperature.extract_air_temp_changed');
-    this.triggerMeasureTemperatureExtractAirTemp
-      .register();
+    this.homey.flow.getConditionCard('systemair_fan_mode_iam')
+      .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_fan_mode_iam') === args.fanmode);
 
-    this.triggerMeasureTemperatureSupplyAirTemp = new Homey.FlowCardTriggerDevice('measure_temperature.supply_air_temp_changed');
-    this.triggerMeasureTemperatureSupplyAirTemp
-      .register();
+    this.homey.flow.getConditionCard('systemair_mode_iam')
+      .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_mode_iam') === args.mode);
 
-    this.triggerSystemairFanModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_fan_mode_changed_iam');
-    this.triggerSystemairFanModeChangedIAM
-      .register();
+    this.homey.flow.getActionCard('systemair_set_fan_mode_iam')
+      .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_fan_mode_iam', args.fanmode, {}));
 
-    this.triggerSystemairModeChangedIAM = new Homey.FlowCardTriggerDevice('systemair_mode_changed_iam');
-    this.triggerSystemairModeChangedIAM
-      .register();
+    this.homey.flow.getActionCard('systemair_set_mode_iam')
+      .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_mode_iam', args.mode, {}));
 
-    new Homey.FlowCardCondition('systemair_fan_mode_iam')
-      .register()
-      .registerRunListener((args) => {
-        return args.device.getCapabilityValue('systemair_fan_mode_iam') === args.fanmode;
-      });
+    this.homey.flow.getActionCard('systemair_boost_on_iam')
+      .registerRunListener((args, state) => args.device.setBoostMode(args.boost_period));
 
-    new Homey.FlowCardCondition('systemair_mode_iam')
-      .register()
-      .registerRunListener((args) => {
-        return args.device.getCapabilityValue('systemair_mode_iam') === args.mode;
-      });
+    this.homey.flow.getActionCard('systemair_mode_away_iam')
+      .registerRunListener((args, state) => args.device.setAwayMode(args.period));
 
-    new Homey.FlowCardAction('systemair_set_fan_mode_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.triggerCapabilityListener('systemair_fan_mode_iam', args.fanmode, {});
-      });
+    this.homey.flow.getActionCard('systemair_mode_crowded_iam')
+      .registerRunListener((args, state) => args.device.setCrowdedMode(args.period));
 
-    new Homey.FlowCardAction('systemair_set_mode_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.triggerCapabilityListener('systemair_mode_iam', args.mode, {});
-      });
+    this.homey.flow.getActionCard('systemair_mode_fireplace_iam')
+      .registerRunListener((args, state) => args.device.setFireplaceMode(args.period));
 
-    new Homey.FlowCardAction('systemair_boost_on_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.setBoostMode(args.boost_period);
-      });
+    this.homey.flow.getActionCard('systemair_mode_holiday_iam')
+      .registerRunListener((args, state) => args.device.setHolidayMode(args.period));
 
-    new Homey.FlowCardAction('systemair_mode_away_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.setAwayMode(args.period);
-      });
+    this.homey.flow.getActionCard('systemair_mode_refresh_iam')
+      .registerRunListener((args, state) => args.device.setRefreshMode(args.period));
 
-    new Homey.FlowCardAction('systemair_mode_crowded_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.setCrowdedMode(args.period);
-      });
-
-    new Homey.FlowCardAction('systemair_mode_fireplace_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.setFireplaceMode(args.period);
-      });
-
-    new Homey.FlowCardAction('systemair_mode_holiday_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.setHolidayMode(args.period);
-      });
-
-    new Homey.FlowCardAction('systemair_mode_refresh_iam')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.setRefreshMode(args.period);
-      });
 
     // Systemair Z-wave
 
-    this.triggerSystemairAlarm = new Homey.FlowCardTriggerDevice('systemair_alarm');
-    this.triggerSystemairAlarm
-      .register();
+    this.triggerSystemairAlarm = this.homey.flow.getDeviceTriggerCard('systemair_alarm');
 
-    new Homey.FlowCardAction('systemair_set_fan_mode')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.triggerCapabilityListener('systemair_fan_mode', args.fanmode, {});
-      });
+    this.homey.flow.getActionCard('systemair_set_fan_mode')
+      .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_fan_mode', args.fanmode, {}));
 
-    new Homey.FlowCardAction('systemair_set_mode')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.triggerCapabilityListener('systemair_mode', args.mode, {});
-      });
+    this.homey.flow.getActionCard('systemair_set_mode')
+      .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_mode', args.mode, {}));
 
-    new Homey.FlowCardAction('systemair_boost_on')
-      .register()
-      .registerRunListener((args, state) => {
-        return args.device.triggerCapabilityListener('systemair_boost', true, {});
-      });
+    this.homey.flow.getActionCard('systemair_boost_on')
+      .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_boost', true, {}));
   }
 
 };

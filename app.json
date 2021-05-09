@@ -1,8 +1,9 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.systemair",
-  "version": "0.9.9",
-  "compatibility": ">=2.0.0",
-  "sdk": 2,
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
   "brandColor": "#004B88",
   "name": {
     "en": "Systemair"
@@ -53,6 +54,28 @@
   "flow": {
     "triggers": [
       {
+        "id": "cooker_hood_changed",
+        "title": {
+          "en": "Cooker hood changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "cooker_hood",
+            "title": {
+              "en": "Cooker hood enabled"
+            },
+            "type": "boolean"
+          }
+        ]
+      },
+      {
         "id": "measure_temperature.extract_air_temp_changed",
         "title": {
           "en": "The extract air temperature changed"
@@ -90,6 +113,29 @@
         "tokens": [
           {
             "name": "measure_temperature.outdoor_air_temp",
+            "type": "number",
+            "title": {
+              "en": "Temperature"
+            },
+            "example": 23.5
+          }
+        ]
+      },
+      {
+        "id": "measure_temperature.overheat_temp_changed",
+        "title": {
+          "en": "The overheat temperature changed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "measure_temperature.overheat_temp",
             "type": "number",
             "title": {
               "en": "Temperature"
@@ -912,9 +958,12 @@
         "systemair_fan_mode_iam",
         "systemair_mode_iam_ro",
         "systemair_fan_mode_iam_ro",
+        "cooker_hood",
+        "filter_time_left",
         "measure_temperature.outdoor_air_temp",
         "measure_temperature.supply_air_temp",
         "measure_temperature.extract_air_temp",
+        "measure_temperature.overheat_temp",
         "measure_humidity"
       ],
       "capabilitiesOptions": {
@@ -931,6 +980,9 @@
         },
         "measure_temperature.extract_air_temp": {
           "title": "Extract air temperature"
+        },
+        "measure_temperature.overheat_temp": {
+          "title": "Overheat temperature"
         }
       },
       "pair": [
@@ -952,7 +1004,7 @@
           "label": {
             "en": "Polling interval"
           },
-          "value": 30,
+          "value": 10,
           "min": 10,
           "max": 300,
           "hint": {
@@ -963,6 +1015,35 @@
     }
   ],
   "capabilities": {
+    "cooker_hood": {
+      "type": "boolean",
+      "title": {
+        "en": "Cooker hood"
+      },
+      "insights": false,
+      "desc": {
+        "en": "Cooker hood"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
+    "filter_time_left": {
+      "type": "number",
+      "title": {
+        "en": "Days before filter replacement"
+      },
+      "insights": false,
+      "desc": {
+        "en": "Days before filter replacement"
+      },
+      "units": {
+        "en": " days"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
     "systemair_alarm": {
       "type": "string",
       "title": {
