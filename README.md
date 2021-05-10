@@ -15,6 +15,11 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Humidity changed
 - Fan mode changed
 - Mode changed
+- The extract air temperature changed
+- The outdoor air temperature changed
+- The overheat temperature changed
+- The supply air temperature changed
+- Cooker hood changed (Cooker hood enabled: true / false)
 
 #### Conditions
 
@@ -33,6 +38,19 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Initiate holiday mode
 - Initiate refresh mode
 
+#### Capabilities
+
+- Target temperature
+- Temperature
+- Mode
+- Fan mode
+- Supply air temperature
+- Extract air temperature
+- Outdoor air temperature
+- Overheat temperature
+- Humidity
+- Cooker hood (as a tag)
+- Days before filter replacement
 
 ## Device: Systemair Z-wave
 
@@ -58,6 +76,11 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 
 ## Release Notes:
+
+#### 1.0.1
+
+- Added "Days before filter replacement"
+- Swapped order for Overheat temperature and Humidity
 
 #### 1.0.0
 

@@ -49,7 +49,13 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       if (!this.hasCapability('filter_time_left')) {
         await this.addCapability('filter_time_left');
       }
-      await this.setStoreValue('version', 1);
+      if (!migVersion || migVersion < 2) {
+        await this.removeCapability('measure_temperature.overheat_temp');
+        await this.removeCapability('filter_time_left');
+        await this.addCapability('measure_temperature.overheat_temp');
+        await this.addCapability('filter_time_left');
+      }
+      await this.setStoreValue('version', 2);
     } catch (err) {
       this.log('migrate error:', err);
     }

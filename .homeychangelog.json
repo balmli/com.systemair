@@ -1,4 +1,7 @@
 {
+  "1.0.1": {
+    "en": "Added support for cooker hoods. Added capability for overheat temperature. Added capability for days before filter replacement. Updated to firmware 5.0.0."
+  },
   "1.0.0": {
     "en": "Added support for cooker hoods. Added capability for overheat temperature. Added capability for days before filter replacement. Updated to firmware 5.0.0."
   },
