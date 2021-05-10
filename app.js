@@ -20,12 +20,17 @@ module.exports = class SystemairApp extends Homey.App {
     this.triggerCookerHoodChanged = this.homey.flow.getDeviceTriggerCard('cooker_hood_changed');
     this.triggerSystemairFanModeChangedIAM = this.homey.flow.getDeviceTriggerCard('systemair_fan_mode_changed_iam');
     this.triggerSystemairModeChangedIAM = this.homey.flow.getDeviceTriggerCard('systemair_mode_changed_iam');
+    this.triggerAlarm = this.homey.flow.getDeviceTriggerCard('alarm');
 
     this.homey.flow.getConditionCard('systemair_fan_mode_iam')
       .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_fan_mode_iam') === args.fanmode);
 
     this.homey.flow.getConditionCard('systemair_mode_iam')
       .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_mode_iam') === args.mode);
+
+    this.homey.flow.getConditionCard('has_alarm')
+      .registerRunListener((args, state) => args.device.hasAlarm(args.id))
+      .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getAlarmTypes().filter(result => result.name.toLowerCase().includes(query.toLowerCase())));
 
     this.homey.flow.getActionCard('systemair_set_fan_mode_iam')
       .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_fan_mode_iam', args.fanmode, {}));

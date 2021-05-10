@@ -20,11 +20,13 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - The overheat temperature changed
 - The supply air temperature changed
 - Cooker hood changed (Cooker hood enabled: true / false)
+- Alarm (Alarm code, Alarm description)
 
 #### Conditions
 
-- Fan mode is
-- Mode is
+- Fan mode is/isn't
+- Mode is/isn't
+- Alarm is/isn't active
 
 #### Actions
 
@@ -76,6 +78,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 
 ## Release Notes:
+
+#### 1.0.2
+
+- Added support for alarms
 
 #### 1.0.1
 

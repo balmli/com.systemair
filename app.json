@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.systemair",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#004B88",
@@ -53,6 +53,35 @@
   "source": "https://github.com/balmli/com.systemair",
   "flow": {
     "triggers": [
+      {
+        "id": "alarm",
+        "title": {
+          "en": "Alarm"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "alarm_code",
+            "title": {
+              "en": "Alarm code"
+            },
+            "type": "string"
+          },
+          {
+            "name": "alarm_description",
+            "title": {
+              "en": "Alarm description"
+            },
+            "type": "string"
+          }
+        ]
+      },
       {
         "id": "cooker_hood_changed",
         "title": {
@@ -238,6 +267,29 @@
       }
     ],
     "conditions": [
+      {
+        "id": "has_alarm",
+        "title": {
+          "en": "Alarm !{{is|isn't}} active"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          },
+          {
+            "name": "type",
+            "title": {
+              "en": "Type"
+            },
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Type"
+            }
+          }
+        ]
+      },
       {
         "id": "systemair_fan_mode_iam",
         "title": {

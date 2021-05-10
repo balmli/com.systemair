@@ -1,0 +1,29 @@
+{
+  "id": "alarm",
+  "title": {
+    "en": "Alarm"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    }
+  ],
+  "tokens": [
+    {
+      "name": "alarm_code",
+      "title": {
+        "en": "Alarm code"
+      },
+      "type": "string"
+    },
+    {
+      "name": "alarm_description",
+      "title": {
+        "en": "Alarm description"
+      },
+      "type": "string"
+    }
+  ]
+}

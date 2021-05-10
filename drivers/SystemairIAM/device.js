@@ -3,7 +3,7 @@
 const Homey = require('homey');
 const WebSocket = require('ws');
 const IAMApi = require('./systemair_iam_api');
-const { FAN_MODES, MODES, FAN_MODES_LIST, MODES_LIST } = require('./constants');
+const { FAN_MODES, MODES, FAN_MODES_LIST, MODES_LIST, READ_PARAMETERS, ALARMS } = require("./constants");
 
 module.exports = class SystemairIAMDevice extends Homey.Device {
 
@@ -99,29 +99,8 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async fetchSensors() {
     try {
-      await this._api.read([
-        "components_filter_time_left",
-        "eco_mode",
-        "control_regulation_temp_unit",
-        "main_temperature_offset",
-        "main_user_mode",
-        "main_airflow",
-        "demand_control_fan_speed",
-        "control_regulation_speed_after_free_cooling_saf",
-        "control_regulation_speed_after_free_cooling_eaf",
-        "outdoor_air_temp",
-        "supply_air_temp",
-        "pdm_input_temp_value",
-        "pdm_input_rh_value",
-        "overheat_temp",
-        "rh_sensor",
-        "digital_input_tacho_saf_value",
-        "digital_input_tacho_eaf_value",
-        "digital_input_type1",
-        "digital_input_type2",
-        "digital_input_value1",
-        "digital_input_value2",
-      ]);
+      const params = READ_PARAMETERS.concat(ALARMS.map(a => a.id));
+      await this._api.read(params);
     } catch (err) {
       this.log('fetchSensors error', err);
     } finally {
@@ -178,6 +157,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateFanMode(message.readValues.main_airflow);
       device.updateCookerHood(message.readValues);
       device.updateFilterTimeLeft(message.readValues.components_filter_time_left);
+      device.updateAlarms(message.readValues);
     }
     if (message.changedValues && !message.askedByClient) {
       device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
@@ -238,6 +218,43 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     if (toValue !== undefined && toValue !== null) {
       await this.setCapabilityValue('filter_time_left', Math.ceil(toValue / 86400)).catch(err => this.log(err));
     }
+  }
+
+  async updateAlarms(readValues) {
+    try {
+      const curAlarms = this.getStoreValue('alarms');
+      const newAlarms = { ...curAlarms };
+      for (let a of ALARMS) {
+        const newValue = readValues[a.id];
+        if (newValue) {
+          const prevValue = curAlarms ? curAlarms[a.id] : undefined;
+          newAlarms[a.id] = newValue;
+          //this.log(`${a.description} (${a.id}): ${prevValue} -> ${newValue}`);
+          if (prevValue && newValue !== prevValue && newValue !== 'inactive' && newValue !== 'waiting') {
+            this.log(`Alarm triggered: ${a.description} (${a.id}): ${prevValue} -> ${newValue}`);
+            this.homey.app.triggerAlarm.trigger(this, {
+              alarm_code: a.id,
+              alarm_description: a.description
+            }, null);
+          }
+        }
+      }
+      await this.setStoreValue('alarms', newAlarms);
+    } catch (err) {
+      this.log('Update alarms error:', err);
+    }
+  }
+
+  hasAlarm(alarmId) {
+    const curAlarms = this.getStoreValue('alarms');
+    return curAlarms && curAlarms[alarmId] ? curAlarms[alarmId] !== 'inactive' && curAlarms[alarmId] !== 'waiting' : false;
+  }
+
+  getAlarmTypes() {
+    return ALARMS.map(a => ({
+      id: a.id,
+      name: a.description
+    }));
   }
 
   async setBoostMode(boost_period) {
