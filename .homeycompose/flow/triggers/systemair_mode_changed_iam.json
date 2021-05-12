@@ -19,5 +19,6 @@
       "type": "string",
       "example": "Manual"
     }
-  ]
+  ],
+  "deprecated": true
 }

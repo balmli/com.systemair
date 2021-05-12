@@ -71,7 +71,7 @@ const ALARMS = [
   },
   {
     id: "alarm_emt_state",
-    description: "Frost protection"
+    description: "Frost protection (EMT)"
   },
   {
     id: "alarm_filter_state",
@@ -127,6 +127,73 @@ const ALARMS = [
   },
 ];
 
+const FUNCTIONS = [
+  {
+    id: "function_active_configurable_di1",
+    description: "Configurable DI1"
+  },
+  {
+    id: "function_active_configurable_di2",
+    description: "Configurable DI2"
+  },
+  {
+    id: "function_active_configurable_di3",
+    description: "Configurable DI3"
+  },
+  {
+    id: "function_active_cooker_hood",
+    description: "Cooker hood"
+  },
+  {
+    id: "function_active_cooling_recovery",
+    description: "Cooling recovery"
+  },
+  {
+    id: "function_active_cooling",
+    description: "Cooling"
+  },
+  {
+    id: "function_active_defrosting",
+    description: "Defrosting"
+  },
+  {
+    id: "function_active_free_cooling",
+    description: "Free cooling"
+  },
+  {
+    id: "function_active_heat_recovery",
+    description: "Heat recovery"
+  },
+  {
+    id: "function_active_heater_cooldown",
+    description: "Heater cooldown"
+  },
+  {
+    id: "function_active_heating",
+    description: "Heating"
+  },
+  {
+    id: "function_active_moisture_transfer",
+    description: "Moisture transfer"
+  },
+  {
+    id: "function_active_pressure_guard",
+    description: "Pressure guard"
+  },
+  {
+    id: "function_active_secondary_air",
+    description: "Secondary air"
+  },
+  {
+    id: "function_active_service_user_lock",
+    description: "Service user lock"
+  },
+  {
+    id: "function_active_vacuum_cleaner",
+    description: "Vacuum cleaner"
+  },
+];
+
 module.exports = {
   FAN_MODES_LIST: FAN_MODES_LIST,
   FAN_MODES: FAN_MODES,
@@ -134,4 +201,5 @@ module.exports = {
   MODES: MODES,
   READ_PARAMETERS: READ_PARAMETERS,
   ALARMS: ALARMS,
+  FUNCTIONS: FUNCTIONS,
 };

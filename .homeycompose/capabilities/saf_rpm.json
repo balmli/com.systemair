@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Supply air fan RPM"
+  },
+  "units": {
+    "en": "rpm"
+  },
+  "insights": true,
+  "desc": {
+    "en": "Supply air fan (rpm)"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}

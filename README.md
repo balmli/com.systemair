@@ -19,14 +19,19 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - The outdoor air temperature changed
 - The overheat temperature changed
 - The supply air temperature changed
-- Cooker hood changed (Cooker hood enabled: true / false)
-- Alarm (Alarm code, Alarm description)
+- Alarm activated (Alarm code, Alarm description)
+- Specific alarm activated (Alarm code, Alarm description)
+- Function activated (Function code, Function description)
+- Function deactivated (Function code, Function description)
+- Specific function activated (Function code, Function description)
+- Specific function deactivated (Function code, Function description)
 
 #### Conditions
 
 - Fan mode is/isn't
 - Mode is/isn't
 - Alarm is/isn't active
+- Function is/isn't active
 
 #### Actions
 
@@ -53,6 +58,10 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Humidity
 - Cooker hood (as a tag)
 - Days before filter replacement
+- Extract air fan regulation speed
+- Extract air fan RPM
+- Supply air fan regulation speed
+- Supply air fan RPM
 
 ## Device: Systemair Z-wave
 
@@ -78,6 +87,14 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 
 ## Release Notes:
+
+#### 1.1.0
+
+- Added 'Specific alarm activated' trigger
+- Added 'Function activated', 'Specific function activated', 'Function deactivated' and 'Specific function deactivated' triggers
+- Added 'Function is/isn't active' condition
+- Added capabilities for extract and supply fan speeds
+- Removed 'Cooker hood changed' trigger
 
 #### 1.0.2
 

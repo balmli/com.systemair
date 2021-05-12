@@ -1,5 +1,5 @@
 {
-  "id": "systemair_fan_mode_changed_iam",
+  "id": "systemair_fan_mode_iam_ro_changed",
   "title": {
     "en": "Fan mode changed"
   },
@@ -12,13 +12,12 @@
   ],
   "tokens": [
     {
-      "name": "fanmode",
+      "name": "systemair_fan_mode_iam_ro",
       "title": {
         "en": "Fan mode"
       },
       "type": "string",
       "example": "Normal"
     }
-  ],
-  "deprecated": true
+  ]
 }

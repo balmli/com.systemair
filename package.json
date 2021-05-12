@@ -1,6 +1,6 @@
 {
   "name": "com.systemair",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Systemair",
   "main": "app.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/balmli/com.systemair#readme",
   "dependencies": {
-    "homey-zwavedriver": "^2.1.0",
+    "homey-zwavedriver": "^2.1.2",
     "ws": "^7.4.5"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "id": "cooker_hood_changed",
+  "id": "systemair_mode_iam_ro_changed",
   "title": {
-    "en": "Cooker hood changed"
+    "en": "Mode changed"
   },
   "args": [
     {
@@ -12,11 +12,12 @@
   ],
   "tokens": [
     {
-      "name": "cooker_hood",
+      "name": "systemair_mode_iam_ro",
       "title": {
-        "en": "Cooker hood enabled"
+        "en": "Mode"
       },
-      "type": "boolean"
+      "type": "string",
+      "example": "Manual"
     }
   ]
 }

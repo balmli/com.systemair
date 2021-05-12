@@ -1,0 +1,23 @@
+{
+  "id": "has_function_active",
+  "title": {
+    "en": "Function !{{is|isn't}} active"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    },
+    {
+      "name": "type",
+      "title": {
+        "en": "Type"
+      },
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "Type"
+      }
+    }
+  ]
+}

@@ -1,4 +1,7 @@
 {
+  "1.1.0": {
+    "en": "Added 'Specific alarm activated' trigger. Added 'Function activated', 'Specific function activated', 'Function deactivated' and 'Specific function deactivated' triggers. Added 'Function is/isn't active' condition. Added capabilities for extract and supply fan speeds. Removed 'Cooker hood changed' trigger."
+  },
   "1.0.2": {
     "en": "Added support for cooker hoods. Added capability for overheat temperature. Added capability for days before filter replacement. Added support for alarms. Updated to firmware 5.0.0."
   },

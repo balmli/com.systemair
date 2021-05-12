@@ -14,6 +14,7 @@ module.exports = class SystemairIAMDriver extends Homey.Driver {
 
       const _api = new IAMApi({
         logger: this.log,
+        homey: this.homey,
         iam: data.iam,
         password: data.password
       });

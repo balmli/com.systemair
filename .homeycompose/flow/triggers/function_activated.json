@@ -1,7 +1,7 @@
 {
-  "id": "alarm",
+  "id": "function_activated",
   "title": {
-    "en": "Alarm activated"
+    "en": "Function activated"
   },
   "args": [
     {
@@ -12,16 +12,16 @@
   ],
   "tokens": [
     {
-      "name": "alarm_code",
+      "name": "function_code",
       "title": {
-        "en": "Alarm code"
+        "en": "Function code"
       },
       "type": "string"
     },
     {
-      "name": "alarm_description",
+      "name": "function_description",
       "title": {
-        "en": "Alarm description"
+        "en": "Function description"
       },
       "type": "string"
     }

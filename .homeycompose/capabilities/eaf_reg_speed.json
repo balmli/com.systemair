@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Extract air fan regulation speed"
+  },
+  "units": {
+    "en": "%"
+  },
+  "insights": true,
+  "desc": {
+    "en": "Extract air fan regulation speed (%)"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}

@@ -12,6 +12,7 @@ module.exports = class SystemairIAMApi {
       options = {}
     }
     this._device = options.device;
+    this._homey = options.homey;
     this._logger = options.logger;
     this._onUpdateValues = options.onUpdateValues;
     this._iam = options.iam;
@@ -77,12 +78,12 @@ module.exports = class SystemairIAMApi {
 
   _addSocketTimeout() {
     this._clearSocketTimeout();
-    this.socketTimeout = setTimeout(() => this._onSocketTimeout(), 1000 * 60 * 2);
+    this.socketTimeout = this._homey.setTimeout(() => this._onSocketTimeout(), 1000 * 60 * 2);
   }
 
   _clearSocketTimeout() {
     if (this.socketTimeout) {
-      clearTimeout(this.socketTimeout);
+      this._homey.clearTimeout(this.socketTimeout);
       this.socketTimeout = undefined;
     }
   }
