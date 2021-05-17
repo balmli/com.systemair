@@ -1,7 +1,10 @@
 {
   "id": "systemair_mode_iam",
   "title": {
-    "en": "Mode !{{is|isn't}}"
+    "en": "Mode !{{is|isn't}} ..."
+  },
+  "titleFormatted": {
+    "en": "Mode !{{is|isn't}} [[mode]]"
   },
   "args": [
     {
@@ -16,43 +19,43 @@
         {
           "id": "0",
           "label": {
-            "en": "Auto Mode"
+            "en": "Auto"
           }
         },
         {
           "id": "1",
           "label": {
-            "en": "Manual Mode"
+            "en": "Manual"
           }
         },
         {
           "id": "2",
           "label": {
-            "en": "Crowded Mode"
+            "en": "Crowded"
           }
         },
         {
           "id": "3",
           "label": {
-            "en": "Refresh Mode"
+            "en": "Refresh"
           }
         },
         {
           "id": "4",
           "label": {
-            "en": "Fireplace Mode"
+            "en": "Fireplace"
           }
         },
         {
           "id": "5",
           "label": {
-            "en": "Away Mode"
+            "en": "Away"
           }
         },
         {
           "id": "6",
           "label": {
-            "en": "Holiday Mode"
+            "en": "Holiday"
           }
         }
       ]

@@ -1,7 +1,10 @@
 {
   "id": "systemair_set_mode",
   "title": {
-    "en": "Set mode"
+    "en": "Set mode to ..."
+  },
+  "titleFormatted": {
+    "en": "Set mode to [[mode]]"
   },
   "hint": {
     "en": "Change the mode."
@@ -19,7 +22,7 @@
         {
           "id": "255",
           "label": {
-            "en": "Comfort mode"
+            "en": "Comfort Mode"
           }
         },
         {

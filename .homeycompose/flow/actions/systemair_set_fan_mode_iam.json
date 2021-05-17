@@ -1,7 +1,10 @@
 {
   "id": "systemair_set_fan_mode_iam",
   "title": {
-    "en": "Set fan mode"
+    "en": "Set fan mode to ..."
+  },
+  "titleFormatted": {
+    "en": "Set fan mode to [[fanmode]]"
   },
   "hint": {
     "en": "Change the fan mode."

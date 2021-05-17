@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.systemair",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#004B88",
@@ -81,7 +81,10 @@
       {
         "id": "alarm_specific",
         "title": {
-          "en": "Specific alarm activated"
+          "en": "The ... alarm activated"
+        },
+        "titleFormatted": {
+          "en": "The [[type]] alarm activated"
         },
         "args": [
           {
@@ -178,7 +181,10 @@
       {
         "id": "function_specific_activated",
         "title": {
-          "en": "Specific function activated"
+          "en": "The ... function activated"
+        },
+        "titleFormatted": {
+          "en": "The [[type]] function activated"
         },
         "args": [
           {
@@ -217,7 +223,10 @@
       {
         "id": "function_specific_deactivated",
         "title": {
-          "en": "Specific function deactivated"
+          "en": "The ... function deactivated"
+        },
+        "titleFormatted": {
+          "en": "The [[type]] function deactivated"
         },
         "args": [
           {
@@ -467,7 +476,10 @@
       {
         "id": "has_alarm",
         "title": {
-          "en": "Alarm !{{is|isn't}} active"
+          "en": "The ... alarm !{{is|isn't}} active"
+        },
+        "titleFormatted": {
+          "en": "The [[type]] alarm !{{is|isn't}} active"
         },
         "args": [
           {
@@ -490,7 +502,10 @@
       {
         "id": "has_function_active",
         "title": {
-          "en": "Function !{{is|isn't}} active"
+          "en": "The ... function !{{is|isn't}} active"
+        },
+        "titleFormatted": {
+          "en": "The [[type]] function !{{is|isn't}} active"
         },
         "args": [
           {
@@ -513,7 +528,10 @@
       {
         "id": "systemair_fan_mode_iam",
         "title": {
-          "en": "Fan mode !{{is|isn't}}"
+          "en": "Fan mode !{{is|isn't}} ..."
+        },
+        "titleFormatted": {
+          "en": "Fan mode !{{is|isn't}} [[fanmode]]"
         },
         "args": [
           {
@@ -556,7 +574,10 @@
       {
         "id": "systemair_mode_iam",
         "title": {
-          "en": "Mode !{{is|isn't}}"
+          "en": "Mode !{{is|isn't}} ..."
+        },
+        "titleFormatted": {
+          "en": "Mode !{{is|isn't}} [[mode]]"
         },
         "args": [
           {
@@ -571,43 +592,43 @@
               {
                 "id": "0",
                 "label": {
-                  "en": "Auto Mode"
+                  "en": "Auto"
                 }
               },
               {
                 "id": "1",
                 "label": {
-                  "en": "Manual Mode"
+                  "en": "Manual"
                 }
               },
               {
                 "id": "2",
                 "label": {
-                  "en": "Crowded Mode"
+                  "en": "Crowded"
                 }
               },
               {
                 "id": "3",
                 "label": {
-                  "en": "Refresh Mode"
+                  "en": "Refresh"
                 }
               },
               {
                 "id": "4",
                 "label": {
-                  "en": "Fireplace Mode"
+                  "en": "Fireplace"
                 }
               },
               {
                 "id": "5",
                 "label": {
-                  "en": "Away Mode"
+                  "en": "Away"
                 }
               },
               {
                 "id": "6",
                 "label": {
-                  "en": "Holiday Mode"
+                  "en": "Holiday"
                 }
               }
             ]
@@ -637,6 +658,9 @@
         "title": {
           "en": "Initiate boost mode"
         },
+        "titleFormatted": {
+          "en": "Initiate boost mode for [[boost_period]]"
+        },
         "hint": {
           "en": "The boost mode overrides the selected fan speed to 'High' for a period."
         },
@@ -652,7 +676,7 @@
             "min": 1,
             "max": 240,
             "step": 1,
-            "label": "min",
+            "label": " minutes",
             "labelDecimals": 0,
             "title": {
               "en": "Minutes"
@@ -664,6 +688,9 @@
         "id": "systemair_mode_away_iam",
         "title": {
           "en": "Initiate away mode"
+        },
+        "titleFormatted": {
+          "en": "Initiate away mode for [[period]]"
         },
         "hint": {
           "en": "Away mode for a period."
@@ -680,7 +707,7 @@
             "min": 1,
             "max": 72,
             "step": 1,
-            "label": "h",
+            "label": " hours",
             "labelDecimals": 0,
             "title": {
               "en": "Hours"
@@ -692,6 +719,9 @@
         "id": "systemair_mode_crowded_iam",
         "title": {
           "en": "Initiate crowded mode"
+        },
+        "titleFormatted": {
+          "en": "Initiate crowded mode for [[period]]"
         },
         "hint": {
           "en": "Crowded mode for a period."
@@ -708,7 +738,7 @@
             "min": 1,
             "max": 8,
             "step": 1,
-            "label": "h",
+            "label": " hours",
             "labelDecimals": 0,
             "title": {
               "en": "Hours"
@@ -720,6 +750,9 @@
         "id": "systemair_mode_fireplace_iam",
         "title": {
           "en": "Initiate fireplace mode"
+        },
+        "titleFormatted": {
+          "en": "Initiate fireplace mode for [[period]]"
         },
         "hint": {
           "en": "Fireplace mode for a period."
@@ -736,7 +769,7 @@
             "min": 1,
             "max": 60,
             "step": 1,
-            "label": "min",
+            "label": " minutes",
             "labelDecimals": 0,
             "title": {
               "en": "Minutes"
@@ -748,6 +781,9 @@
         "id": "systemair_mode_holiday_iam",
         "title": {
           "en": "Initiate holiday mode"
+        },
+        "titleFormatted": {
+          "en": "Initiate holiday mode for [[period]]"
         },
         "hint": {
           "en": "Holiday mode for a period."
@@ -764,7 +800,7 @@
             "min": 1,
             "max": 365,
             "step": 1,
-            "label": "d",
+            "label": " days",
             "labelDecimals": 0,
             "title": {
               "en": "Days"
@@ -776,6 +812,9 @@
         "id": "systemair_mode_refresh_iam",
         "title": {
           "en": "Initiate refresh mode"
+        },
+        "titleFormatted": {
+          "en": "Initiate refresh mode for [[period]]"
         },
         "hint": {
           "en": "Refresh mode for a period."
@@ -792,7 +831,7 @@
             "min": 1,
             "max": 240,
             "step": 1,
-            "label": "min",
+            "label": " minutes",
             "labelDecimals": 0,
             "title": {
               "en": "Minutes"
@@ -803,7 +842,10 @@
       {
         "id": "systemair_set_fan_mode",
         "title": {
-          "en": "Set fan mode"
+          "en": "Set fan mode to ..."
+        },
+        "titleFormatted": {
+          "en": "Set fan mode to [[fanmode]]"
         },
         "hint": {
           "en": "Change the fan mode."
@@ -855,7 +897,10 @@
       {
         "id": "systemair_set_fan_mode_iam",
         "title": {
-          "en": "Set fan mode"
+          "en": "Set fan mode to ..."
+        },
+        "titleFormatted": {
+          "en": "Set fan mode to [[fanmode]]"
         },
         "hint": {
           "en": "Change the fan mode."
@@ -901,7 +946,10 @@
       {
         "id": "systemair_set_mode",
         "title": {
-          "en": "Set mode"
+          "en": "Set mode to ..."
+        },
+        "titleFormatted": {
+          "en": "Set mode to [[mode]]"
         },
         "hint": {
           "en": "Change the mode."
@@ -919,7 +967,7 @@
               {
                 "id": "255",
                 "label": {
-                  "en": "Comfort mode"
+                  "en": "Comfort Mode"
                 }
               },
               {
@@ -935,7 +983,10 @@
       {
         "id": "systemair_set_mode_iam",
         "title": {
-          "en": "Set mode"
+          "en": "Set mode to ..."
+        },
+        "titleFormatted": {
+          "en": "Set mode to [[mode]]"
         },
         "hint": {
           "en": "Change the mode."

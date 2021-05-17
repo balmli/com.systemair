@@ -1,7 +1,10 @@
 {
   "id": "function_specific_activated",
   "title": {
-    "en": "Specific function activated"
+    "en": "The ... function activated"
+  },
+  "titleFormatted": {
+    "en": "The [[type]] function activated"
   },
   "args": [
     {

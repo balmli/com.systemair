@@ -1,7 +1,10 @@
 {
   "id": "function_specific_deactivated",
   "title": {
-    "en": "Specific function deactivated"
+    "en": "The ... function deactivated"
+  },
+  "titleFormatted": {
+    "en": "The [[type]] function deactivated"
   },
   "args": [
     {

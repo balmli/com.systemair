@@ -3,6 +3,9 @@
   "title": {
     "en": "Initiate boost mode"
   },
+  "titleFormatted": {
+    "en": "Initiate boost mode for [[boost_period]]"
+  },
   "hint": {
     "en": "The boost mode overrides the selected fan speed to 'High' for a period."
   },
@@ -18,7 +21,7 @@
       "min": 1,
       "max": 240,
       "step": 1,
-      "label": "min",
+      "label": " minutes",
       "labelDecimals": 0,
       "title": {
         "en": "Minutes"

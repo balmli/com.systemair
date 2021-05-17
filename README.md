@@ -88,6 +88,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.1.1
+
+- Fixes for flow titles
+
 #### 1.1.0
 
 - Added 'Specific alarm activated' trigger

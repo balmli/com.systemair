@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const { MODES } = require("./drivers/SystemairIAM/constants");
 
 module.exports = class SystemairApp extends Homey.App {
 
@@ -39,7 +40,7 @@ module.exports = class SystemairApp extends Homey.App {
       .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_fan_mode_iam') === args.fanmode);
 
     this.homey.flow.getConditionCard('systemair_mode_iam')
-      .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_mode_iam') === args.mode);
+      .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_mode_iam_ro') === MODES[args.mode]);
 
     this.homey.flow.getConditionCard('has_alarm')
       .registerRunListener((args, state) => args.device.hasAlarm(args.type.id))

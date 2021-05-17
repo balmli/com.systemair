@@ -1,7 +1,10 @@
 {
   "id": "systemair_set_mode_iam",
   "title": {
-    "en": "Set mode"
+    "en": "Set mode to ..."
+  },
+  "titleFormatted": {
+    "en": "Set mode to [[mode]]"
   },
   "hint": {
     "en": "Change the mode."

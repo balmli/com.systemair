@@ -1,7 +1,10 @@
 {
   "id": "has_alarm",
   "title": {
-    "en": "Alarm !{{is|isn't}} active"
+    "en": "The ... alarm !{{is|isn't}} active"
+  },
+  "titleFormatted": {
+    "en": "The [[type]] alarm !{{is|isn't}} active"
   },
   "args": [
     {

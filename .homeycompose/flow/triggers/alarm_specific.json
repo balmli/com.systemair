@@ -1,7 +1,10 @@
 {
   "id": "alarm_specific",
   "title": {
-    "en": "Specific alarm activated"
+    "en": "The ... alarm activated"
+  },
+  "titleFormatted": {
+    "en": "The [[type]] alarm activated"
   },
   "args": [
     {

@@ -3,6 +3,9 @@
   "title": {
     "en": "Initiate away mode"
   },
+  "titleFormatted": {
+    "en": "Initiate away mode for [[period]]"
+  },
   "hint": {
     "en": "Away mode for a period."
   },
@@ -18,7 +21,7 @@
       "min": 1,
       "max": 72,
       "step": 1,
-      "label": "h",
+      "label": " hours",
       "labelDecimals": 0,
       "title": {
         "en": "Hours"

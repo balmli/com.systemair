@@ -1,7 +1,10 @@
 {
   "id": "systemair_fan_mode_iam",
   "title": {
-    "en": "Fan mode !{{is|isn't}}"
+    "en": "Fan mode !{{is|isn't}} ..."
+  },
+  "titleFormatted": {
+    "en": "Fan mode !{{is|isn't}} [[fanmode]]"
   },
   "args": [
     {

@@ -1,7 +1,10 @@
 {
   "id": "has_function_active",
   "title": {
-    "en": "Function !{{is|isn't}} active"
+    "en": "The ... function !{{is|isn't}} active"
+  },
+  "titleFormatted": {
+    "en": "The [[type]] function !{{is|isn't}} active"
   },
   "args": [
     {

@@ -3,6 +3,9 @@
   "title": {
     "en": "Initiate holiday mode"
   },
+  "titleFormatted": {
+    "en": "Initiate holiday mode for [[period]]"
+  },
   "hint": {
     "en": "Holiday mode for a period."
   },
@@ -18,7 +21,7 @@
       "min": 1,
       "max": 365,
       "step": 1,
-      "label": "d",
+      "label": " days",
       "labelDecimals": 0,
       "title": {
         "en": "Days"
