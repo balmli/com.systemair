@@ -1,4 +1,7 @@
 {
+  "1.1.2": {
+    "en": "Changed minimum target temperature to 12 °C."
+  },
   "1.1.1": {
     "en": "Added 'Specific alarm activated' trigger. Added 'Function activated', 'Specific function activated', 'Function deactivated' and 'Specific function deactivated' triggers. Added 'Function is/isn't active' condition. Added capabilities for extract and supply fan speeds. Removed 'Cooker hood changed' trigger. Fixes for flow titles."
   },
