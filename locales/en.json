@@ -1,14 +1,16 @@
 {
-  "pair": {
-    "title": "Systemair IAM Cloud",
-    "iam_help": "Enter the IAM id for Systemair Cloud",
-    "iam_label": "IAM id:",
-    "valid_iam": "Enter a valid IAM id",
-    "iam_btn": "Step 1 av 2 ",
-    "password_help": "Enter the password",
-    "password_label": "PASSWORD",
-    "valid_password": "Enter a valid password",
-    "password_failed": "Invalid authentication. Try again.",
-    "password_btn": "Step 2 av 2 "
+  "errors": {
+    "unable_to_log_in": "Unable to log in",
+    "unit_not_connected": "Unit not connected",
+    "access_denied": "Access denied",
+    "wrong_email_or_password": "Wrong email or password",
+    "invalid_login_response": "Invalid response. Unable to log in",
+    "connection_refused": "Connection is refused (__uri__)",
+    "connection_unreachable": "Connection is unreachable (__uri__)",
+    "not_connected": "Not connected"
+  },
+  "unavailable": {
+    "missing_token": "Go to 'Maintenance / Repair' to set username and password.",
+    "wrong_email_or_password": "Go to 'Maintenance / Repair' to update username and password."
   }
 }

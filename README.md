@@ -88,6 +88,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.2.0
+
+- Fixes after changes to the logon method
+
 #### 1.1.2
 
 - Changed minimum target temperature to 12 °C

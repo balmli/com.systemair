@@ -1,4 +1,7 @@
 {
+  "1.2.0": {
+    "en": "Fixes after changes to the logon method."
+  },
   "1.1.2": {
     "en": "Changed minimum target temperature to 12 °C."
   },

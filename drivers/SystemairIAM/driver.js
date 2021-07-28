@@ -10,23 +10,75 @@ module.exports = class SystemairIAMDriver extends Homey.Driver {
   }
 
   async onPair(session) {
-    session.setHandler('password_input', async (data) => {
+    let api;
+    let username = "";
+    let password = "";
+    let token;
 
-      const _api = new IAMApi({
+    session.setHandler("login", async (data) => {
+      username = data.username;
+      password = data.password;
+
+      api = new IAMApi({
         logger: this.log,
-        homey: this.homey,
-        iam: data.iam,
-        password: data.password
+        homey: this.homey
       });
 
       try {
-        return await _api._connection();
+        token = await api.loginPortal(username, password);
+        return true;
       } catch (err) {
         this.log('SystemairIAMDriver login error', err);
         throw err;
       }
     });
 
+    session.setHandler("list_devices", async () => {
+      const accountData = await api.getAccountData(token);
+      return accountData.map(item => ({
+        name: `${item.name} - ${item.unit_model}`,
+        data: {
+          id: item.machineIdentifier
+        },
+        store: {
+          username: username,
+          password: password,
+          iam_id: item.machineIdentifier,
+          token: token
+        }
+      }));
+    });
+
+  }
+
+  async onRepair(session, device) {
+    let api;
+    let username = "";
+    let password = "";
+    let token;
+
+    session.setHandler("login", async (data) => {
+      username = data.username;
+      password = data.password;
+
+      api = new IAMApi({
+        logger: this.log,
+        homey: this.homey
+      });
+
+      try {
+        token = await api.loginPortal(username, password);
+        await device.setStoreValue('username', username);
+        await device.setStoreValue('password', password);
+        await device.setStoreValue('token', token);
+        await device.setAvailable();
+        await session.done();
+        return true;
+      } catch (err) {
+        this.log('SystemairIAMDriver login error', err);
+        throw err;
+      }
+    });
   }
 
 };

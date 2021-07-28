@@ -9,6 +9,7 @@
     "small": "{{driverAssetsPath}}/images/small.png"
   },
   "class": "thermostat",
+  "connectivity": ["zwave"],
   "capabilities": [
     "target_temperature",
     "systemair_mode",

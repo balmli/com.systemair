@@ -119,10 +119,12 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async fetchSensors() {
     try {
-      const params = READ_PARAMETERS
-        .concat(ALARMS.map(a => a.id))
-        .concat(FUNCTIONS.map(a => a.id));
-      await this._api.read(params);
+      if (this.getAvailable()) {
+        const params = READ_PARAMETERS
+          .concat(ALARMS.map(a => a.id))
+          .concat(FUNCTIONS.map(a => a.id));
+        await this._api.read(params);
+      }
     } catch (err) {
       this.log('fetchSensors error', err);
     } finally {

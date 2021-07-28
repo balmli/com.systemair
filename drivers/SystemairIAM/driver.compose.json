@@ -9,6 +9,7 @@
     "small": "{{driverAssetsPath}}/images/small.png"
   },
   "class": "thermostat",
+  "connectivity": ["cloud"],
   "capabilities": [
     "target_temperature",
     "measure_temperature",
@@ -48,14 +49,57 @@
   },
   "pair": [
     {
-      "id": "enter_iam"
+      "id": "pair_start",
+      "template": "login_credentials",
+      "options": {
+        "logo": "pair_logo.png",
+        "usernameLabel": {
+          "en": "Systemair account"
+        },
+        "usernamePlaceholder": {
+          "en": "Email..."
+        },
+        "passwordLabel": {
+          "en": "Password"
+        },
+        "passwordPlaceholder": {
+          "en": "Password..."
+        }
+      }
     },
     {
-      "id": "enter_password"
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": { "next": "add_devices" }
     },
     {
-      "id": "add_my_device",
+      "id": "add_devices",
       "template": "add_devices"
+    }
+  ],
+  "repair": [
+    {
+      "id": "repair_start",
+      "template": "login_credentials",
+      "options": {
+        "logo": "../pair/pair_logo.png",
+        "usernameLabel": {
+          "en": "Systemair account"
+        },
+        "usernamePlaceholder": {
+          "en": "Email..."
+        },
+        "passwordLabel": {
+          "en": "Password"
+        },
+        "passwordPlaceholder": {
+          "en": "Password..."
+        }
+      }
+    },
+    {
+      "id": "repair_loading",
+      "template": "loading"
     }
   ]
 }
