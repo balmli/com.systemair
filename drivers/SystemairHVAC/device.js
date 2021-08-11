@@ -144,14 +144,6 @@ class SystemairHVAC extends ZwaveDevice {
     });
   }
 
-  async onAdded() {
-    this.log('device added');
-  }
-
-  onDeleted() {
-    this.log('device deleted');
-  }
-
 }
 
 module.exports = SystemairHVAC;
