@@ -1,4 +1,7 @@
 {
+  "1.2.1": {
+    "en": "Updated Z-Wave driver."
+  },
   "1.2.0": {
     "en": "Fixes after changes to the logon method."
   },
