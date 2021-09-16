@@ -75,6 +75,9 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       if (this.hasCapability('cooker_hood')) {
         await this.removeCapability('cooker_hood');
       }
+      if (!this.hasCapability('eco_mode')) {
+        await this.addCapability('eco_mode');
+      }
       await this.setStoreValue('version', 2);
     } catch (err) {
       this.log('migrate error:', err);
@@ -185,6 +188,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("saf_rpm", message.readValues.digital_input_tacho_saf_value);
       device.updateMode(message.readValues.main_user_mode);
       device.updateFanMode(message.readValues.main_airflow);
+      device.updateEcoMode(message.readValues.eco_mode);
       device.updateFilterTimeLeft(message.readValues.components_filter_time_left);
       device.updateAlarms(message.readValues);
       device.updateFunctions(message.readValues);
@@ -193,6 +197,8 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
       device.updateMode(message.changedValues.main_user_mode);
       device.updateFanMode(message.changedValues.main_airflow);
+      device.updateFanMode(message.changedValues.speed_indication_app);
+      device.updateEcoMode(message.changedValues.eco_mode);
     }
   }
 
@@ -225,6 +231,16 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       }
     } catch (err) {
       this.log('Update fan mode failed:', err);
+    }
+  }
+
+  async updateEcoMode(toValue) {
+    try {
+      if (toValue !== undefined && toValue !== null) {
+        await this.setCapabilityValue('eco_mode', toValue);
+      }
+    } catch (err) {
+      this.log('Update ECO mode failed:', err);
     }
   }
 
@@ -439,6 +455,20 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
         user_mode_refresh_duration: period
       });
       this.log(`refresh mode started for ${period} minutes`);
+    } finally {
+      this.addFetchTimeout();
+    }
+  }
+
+  async setEcoMode(enabled) {
+    try {
+      this.clearFetchTimeout();
+      const eco_mode = enabled === 'true';
+      await this._api.write({
+        eco_mode: eco_mode
+      });
+      await this.updateEcoMode(eco_mode);
+      this.log(`ECO mode: enabled = ${enabled}`);
     } finally {
       this.addFetchTimeout();
     }

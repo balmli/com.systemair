@@ -1,4 +1,7 @@
 {
+  "1.3.0": {
+    "en": "Added capability, condition and action card for 'ECO mode'. Removed 'Off' as fan mode."
+  },
   "1.2.1": {
     "en": "Updated Z-Wave driver."
   },

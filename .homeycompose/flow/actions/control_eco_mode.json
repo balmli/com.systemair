@@ -1,0 +1,40 @@
+{
+  "id": "control_eco_mode",
+  "title": {
+    "en": "Set ECO mode to ..."
+  },
+  "titleFormatted": {
+    "en": "Set ECO mode to [[enabled]]"
+  },
+  "hint": {
+    "en": "Change the ECO mode."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    },
+    {
+      "name": "enabled",
+      "title": {
+        "en": "Enabled"
+      },
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "false",
+          "label": {
+            "en": "Disabled"
+          }
+        },
+        {
+          "id": "true",
+          "label": {
+            "en": "Enabled"
+          }
+        }
+      ]
+    }
+  ]
+}

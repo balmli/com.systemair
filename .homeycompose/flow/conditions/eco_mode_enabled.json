@@ -1,0 +1,13 @@
+{
+  "id": "eco_mode_enabled",
+  "title": {
+    "en": "ECO mode is !{{enabled|disabled}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=SystemairIAM"
+    }
+  ]
+}

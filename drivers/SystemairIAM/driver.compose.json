@@ -26,7 +26,8 @@
     "measure_temperature.supply_air_temp",
     "measure_temperature.extract_air_temp",
     "measure_temperature.overheat_temp",
-    "measure_humidity"
+    "measure_humidity",
+    "eco_mode"
   ],
   "capabilitiesOptions": {
     "target_temperature": {

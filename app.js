@@ -50,6 +50,9 @@ module.exports = class SystemairApp extends Homey.App {
       .registerRunListener((args, state) => args.device.hasFunctionActivated(args.type.id))
       .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getFunctionTypes().filter(result => result.name.toLowerCase().includes(query.toLowerCase())));
 
+    this.homey.flow.getConditionCard('eco_mode_enabled')
+      .registerRunListener((args, state) => args.device.getCapabilityValue('eco_mode') === true);
+
     this.homey.flow.getActionCard('systemair_set_fan_mode_iam')
       .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_fan_mode_iam', args.fanmode, {}));
 
@@ -74,6 +77,8 @@ module.exports = class SystemairApp extends Homey.App {
     this.homey.flow.getActionCard('systemair_mode_refresh_iam')
       .registerRunListener((args, state) => args.device.setRefreshMode(args.period));
 
+    this.homey.flow.getActionCard('control_eco_mode')
+      .registerRunListener((args, state) => args.device.setEcoMode(args.enabled));
 
     // Systemair Z-wave
 

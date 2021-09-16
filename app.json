@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.systemair",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#004B88",
@@ -474,6 +474,19 @@
     ],
     "conditions": [
       {
+        "id": "eco_mode_enabled",
+        "title": {
+          "en": "ECO mode is !{{enabled|disabled}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          }
+        ]
+      },
+      {
         "id": "has_alarm",
         "title": {
           "en": "The ... alarm !{{is|isn't}} active"
@@ -637,6 +650,46 @@
       }
     ],
     "actions": [
+      {
+        "id": "control_eco_mode",
+        "title": {
+          "en": "Set ECO mode to ..."
+        },
+        "titleFormatted": {
+          "en": "Set ECO mode to [[enabled]]"
+        },
+        "hint": {
+          "en": "Change the ECO mode."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=SystemairIAM"
+          },
+          {
+            "name": "enabled",
+            "title": {
+              "en": "Enabled"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "false",
+                "label": {
+                  "en": "Disabled"
+                }
+              },
+              {
+                "id": "true",
+                "label": {
+                  "en": "Enabled"
+                }
+              }
+            ]
+          }
+        ]
+      },
       {
         "id": "systemair_boost_on",
         "title": {
@@ -1296,7 +1349,8 @@
         "measure_temperature.supply_air_temp",
         "measure_temperature.extract_air_temp",
         "measure_temperature.overheat_temp",
-        "measure_humidity"
+        "measure_humidity",
+        "eco_mode"
       ],
       "capabilitiesOptions": {
         "target_temperature": {
@@ -1419,6 +1473,19 @@
       "insights": true,
       "desc": {
         "en": "Extract air fan (rpm)"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
+    "eco_mode": {
+      "type": "boolean",
+      "title": {
+        "en": "ECO mode"
+      },
+      "insights": false,
+      "desc": {
+        "en": "ECO mode"
       },
       "getable": true,
       "setable": false,
@@ -1569,12 +1636,6 @@
           "id": "4",
           "title": {
             "en": "High"
-          }
-        },
-        {
-          "id": "1",
-          "title": {
-            "en": "Off"
           }
         }
       ],

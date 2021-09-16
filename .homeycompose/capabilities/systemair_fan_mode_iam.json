@@ -25,12 +25,6 @@
       "title": {
         "en": "High"
       }
-    },
-    {
-      "id": "1",
-      "title": {
-        "en": "Off"
-      }
     }
   ],
   "getable": true,

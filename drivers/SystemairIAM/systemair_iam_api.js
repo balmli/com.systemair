@@ -106,6 +106,7 @@ module.exports = class SystemairIAMApi {
           self.socket.send(JSON.stringify(self._loginCmd()), error => {
             if (error) {
               self._logger('_connection login error', error);
+              self.socket.close();
               reject(this._homey.__('errors.unable_to_log_in'));
             }
           });
@@ -138,13 +139,20 @@ module.exports = class SystemairIAMApi {
           self.socket = null;
         }).on('error', err => {
           if (err.code && err.code === 'ECONNREFUSED') {
+            self._logger('_connection refused', err);
+            self.socket.close();
             reject(this._homey.__('errors.connection_refused', { uri }));
           } else if (err.code && err.code === 'EHOSTUNREACH') {
+            self._logger('_connection host unreachable', err);
+            self.socket.close();
             reject(this._homey.__('errors.connection_unreachable', { uri }));
           } else if (err.code && err.code === 'ENETUNREACH') {
+            self._logger('_connection net unreachable', err);
+            self.socket.close();
             reject(this._homey.__('errors.connection_unreachable', { uri }));
           } else {
             self._logger('_connection ERROR', err);
+            self.socket.close();
             reject(err);
           }
         });

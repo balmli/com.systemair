@@ -32,6 +32,7 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Mode is/isn't
 - Alarm is/isn't active
 - Function is/isn't active
+- ECO mode enabled/disabled
 
 #### Actions
 
@@ -44,6 +45,7 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Initiate fireplace mode
 - Initiate holiday mode
 - Initiate refresh mode
+- Enable/disable ECO mode
 
 #### Capabilities
 
@@ -62,6 +64,7 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Extract air fan RPM
 - Supply air fan regulation speed
 - Supply air fan RPM
+- ECO mode
 
 ## Device: Systemair Z-wave
 
@@ -87,6 +90,11 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 
 ## Release Notes:
+
+#### 1.3.0
+
+- Added capability, condition and action card for 'ECO mode'.
+- Removed 'Off' as fan mode.
 
 #### 1.2.1
 
