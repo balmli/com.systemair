@@ -91,7 +91,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
-#### 1.3.0
+#### 1.3.1
 
 - Added capability, condition and action card for 'ECO mode'.
 - Removed 'Off' as fan mode.

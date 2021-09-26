@@ -15,8 +15,6 @@ const {
 module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async onInit() {
-    this.log('device initialized');
-
     await this.migrate();
 
     this._api = new IAMApi({
@@ -39,6 +37,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     });
 
     this.addFetchTimeout(1);
+    this.log('device initialized');
   }
 
   async migrate() {
@@ -187,7 +186,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       device.updateNumber("saf_reg_speed", message.readValues.control_regulation_speed_after_free_cooling_saf);
       device.updateNumber("saf_rpm", message.readValues.digital_input_tacho_saf_value);
       device.updateMode(message.readValues.main_user_mode);
-      device.updateFanMode(message.readValues.main_airflow);
+      device.updateFanMode(message.readValues.speed_indication_app);
       device.updateEcoMode(message.readValues.eco_mode);
       device.updateFilterTimeLeft(message.readValues.components_filter_time_left);
       device.updateAlarms(message.readValues);
@@ -196,9 +195,10 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
     if (message.changedValues && !message.askedByClient) {
       device.updateNumber("target_temperature", message.changedValues.main_temperature_offset, 10);
       device.updateMode(message.changedValues.main_user_mode);
-      device.updateFanMode(message.changedValues.main_airflow);
       device.updateFanMode(message.changedValues.speed_indication_app);
       device.updateEcoMode(message.changedValues.eco_mode);
+      device.updateAlarms(message.changedValues);
+      device.updateFunctions(message.changedValues);
     }
   }
 

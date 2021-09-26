@@ -35,6 +35,7 @@ const READ_PARAMETERS = [
   "main_temperature_offset",
   "main_user_mode",
   "main_airflow",
+  "speed_indication_app",
   "demand_control_fan_speed",
   "control_regulation_speed_after_free_cooling_saf",
   "control_regulation_speed_after_free_cooling_eaf",
