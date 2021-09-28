@@ -4,9 +4,13 @@ env.json
 node_modules/*
 !node_modules/almost-equal
 !node_modules/color-space
+!node_modules/eventemitter3
 !node_modules/homey-zwavedriver
 !node_modules/hsluv
 !node_modules/http.min
 !node_modules/jwt-decode
 !node_modules/mumath
+!node_modules/p-finally
+!node_modules/p-queue
+!node_modules/p-timeout
 !node_modules/ws

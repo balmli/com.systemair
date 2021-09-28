@@ -91,6 +91,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.3.2
+
+- Actions are handled sequentially.
+
 #### 1.3.1
 
 - Added capability, condition and action card for 'ECO mode'.

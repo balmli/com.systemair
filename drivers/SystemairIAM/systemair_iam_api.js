@@ -3,6 +3,7 @@
 const http = require('http.min');
 const WebSocket = require('ws');
 const jwt_decode = require('jwt-decode');
+const { default: PQueue } = require('p-queue');
 
 module.exports = class SystemairIAMApi {
 
@@ -14,6 +15,7 @@ module.exports = class SystemairIAMApi {
     this._homey = options.homey;
     this._logger = options.logger;
     this._onUpdateValues = options.onUpdateValues;
+    this._commandQueue = new PQueue({ concurrency: 1 });
   }
 
   _getUri() {
@@ -232,19 +234,23 @@ module.exports = class SystemairIAMApi {
   }
 
   async read(aCmd) {
-    await this._refreshToken();
-    if (this._device.getAvailable()) {
-      await this._connection();
-      await this._send(this._readCmd(aCmd));
-    }
+    return this._commandQueue.add(async () => {
+      await this._refreshToken();
+      if (this._device.getAvailable()) {
+        await this._connection();
+        await this._send(this._readCmd(aCmd));
+      }
+    });
   }
 
   async write(aCmd) {
-    await this._refreshToken();
-    if (this._device.getAvailable()) {
-      await this._connection();
-      await this._send(this._writeCmd(aCmd));
-    }
+    return this._commandQueue.add(async () => {
+      await this._refreshToken();
+      if (this._device.getAvailable()) {
+        await this._connection();
+        await this._send(this._writeCmd(aCmd));
+      }
+    });
   }
 
   async _handleMessage(message) {
