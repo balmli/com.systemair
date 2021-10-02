@@ -91,7 +91,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
-#### 1.3.2
+#### 1.3.3
 
 - Actions are handled sequentially.
 
