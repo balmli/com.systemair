@@ -1,0 +1,16 @@
+{
+  "id": "temp_report_interval",
+  "type": "number",
+  "min": 0,
+  "max": 600,
+  "units": {
+    "en": "s"
+  },
+  "label": {
+    "en": "Temperature report interval"
+  },
+  "value": 30,
+  "hint": {
+    "en": "Time interval between consecutive temperature reports."
+  }
+}

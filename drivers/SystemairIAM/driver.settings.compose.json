@@ -1,6 +1,26 @@
 [
   {
-    "$extends": "Polling_Interval",
-    "id": "Polling_Interval"
+    "type": "group",
+    "label": {
+      "en": "Polling"
+    },
+    "children": [
+      {
+        "$extends": "Polling_Interval",
+        "id": "Polling_Interval"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Reporting"
+    },
+    "children": [
+      {
+        "$extends": "temp_report_interval",
+        "id": "temp_report_interval"
+      }
+    ]
   }
 ]

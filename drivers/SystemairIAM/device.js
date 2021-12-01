@@ -24,6 +24,14 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       onUpdateValues: this.onUpdateValues
     });
 
+    this._lastUpdated = {
+      "measure_temperature": 1,
+      "measure_temperature.outdoor_air_temp": 1,
+      "measure_temperature.supply_air_temp": 1,
+      "measure_temperature.extract_air_temp": 1,
+      "measure_temperature.overheat_temp": 1,
+    };
+
     this.registerCapabilityListener('target_temperature', (value, opts) => {
       return this.onUpdateTargetTemperature(value, opts);
     });
@@ -204,7 +212,18 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
 
   async updateNumber(cap, toValue, factor = 1) {
     if (toValue !== undefined && toValue !== null && this.hasCapability(cap)) {
-      await this.setCapabilityValue(cap, Math.round(10 * toValue / factor) / 10).catch(err => this.log(err));
+      let update = true;
+      const now = Date.now();
+      const lastUpdated = this._lastUpdated[cap];
+      if (lastUpdated) {
+        update = ((now - lastUpdated) / 1000) > this.getSetting('temp_report_interval');
+      }
+      if (update) {
+        await this.setCapabilityValue(cap, Math.round(10 * toValue / factor) / 10).catch(err => this.log(err));
+        if (lastUpdated) {
+          this._lastUpdated[cap] = now;
+        }
+      }
     }
   }
 
