@@ -1,7 +1,7 @@
 {
   "id": "temp_report_interval",
   "type": "number",
-  "min": 0,
+  "min": 10,
   "max": 600,
   "units": {
     "en": "s"

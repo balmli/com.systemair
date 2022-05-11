@@ -13,7 +13,7 @@
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=SystemairIAM"
+      "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
     },
     {
       "name": "fanmode",
@@ -35,12 +35,6 @@
           "id": "4",
           "label": {
             "en": "High"
-          }
-        },
-        {
-          "id": "1",
-          "label": {
-            "en": "Off"
           }
         }
       ]

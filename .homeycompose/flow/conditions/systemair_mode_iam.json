@@ -10,7 +10,7 @@
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=SystemairIAM"
+      "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
     },
     {
       "name": "mode",
@@ -56,6 +56,42 @@
           "id": "6",
           "label": {
             "en": "Holiday"
+          }
+        },
+        {
+          "id": "7",
+          "label": {
+            "en": "Cooker Hood"
+          }
+        },
+        {
+          "id": "8",
+          "label": {
+            "en": "Vacuum Cleaner"
+          }
+        },
+        {
+          "id": "9",
+          "label": {
+            "en": "CDI1"
+          }
+        },
+        {
+          "id": "10",
+          "label": {
+            "en": "CDI2"
+          }
+        },
+        {
+          "id": "11",
+          "label": {
+            "en": "CDI3"
+          }
+        },
+        {
+          "id": "12",
+          "label": {
+            "en": "PressureGuard"
           }
         }
       ]

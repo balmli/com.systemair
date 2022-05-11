@@ -25,7 +25,13 @@ const MODES = {
   '3': 'Refresh',
   '4': 'Fireplace',
   '5': 'Away',
-  '6': 'Holiday'
+  '6': 'Holiday',
+  '7': 'Cooker Hood',
+  '8': 'Vacuum Cleaner',
+  '9': 'CDI1',
+  '10': 'CDI2',
+  '11': 'CDI3',
+  '12': 'PressureGuard',
 };
 
 const READ_PARAMETERS = [

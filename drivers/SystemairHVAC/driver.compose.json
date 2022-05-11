@@ -3,12 +3,9 @@
   "name": {
     "en": "Systemair Z-wave"
   },
-  "icon": "{{driverAssetsPath}}/icon.svg",
-  "images": {
-    "large": "{{driverAssetsPath}}/images/large.png",
-    "small": "{{driverAssetsPath}}/images/small.png"
-  },
-  "class": "thermostat",
+  "$extends": [
+    "defaults"
+  ],
   "connectivity": ["zwave"],
   "capabilities": [
     "target_temperature",

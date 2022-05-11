@@ -1,0 +1,40 @@
+{
+  "capabilities": [
+    "target_temperature",
+    "measure_temperature",
+    "systemair_mode_iam",
+    "systemair_fan_mode_iam",
+    "systemair_mode_iam_ro",
+    "systemair_fan_mode_iam_ro",
+    "filter_time_left",
+    "eaf_reg_speed",
+    "eaf_rpm",
+    "saf_reg_speed",
+    "saf_rpm",
+    "measure_temperature.outdoor_air_temp",
+    "measure_temperature.supply_air_temp",
+    "measure_temperature.extract_air_temp",
+    "measure_temperature.overheat_temp",
+    "measure_humidity",
+    "eco_mode"
+  ],
+  "capabilitiesOptions": {
+    "target_temperature": {
+      "min": 12,
+      "max": 30,
+      "step": 0.5
+    },
+    "measure_temperature.outdoor_air_temp": {
+      "title": "Outdoor air temperature"
+    },
+    "measure_temperature.supply_air_temp": {
+      "title": "Supply air temperature"
+    },
+    "measure_temperature.extract_air_temp": {
+      "title": "Extract air temperature"
+    },
+    "measure_temperature.overheat_temp": {
+      "title": "Overheat temperature"
+    }
+  }
+}

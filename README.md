@@ -4,9 +4,11 @@ With this app and a Systemair Z-wave adapter or a Systemair Internet access modu
 
 You can control the set point temperature, set the fan mode and mode.
 
-## Device: Systemair IAM Cloud
+## Device: Systemair IAM Cloud (deprecated)
 
-This device supports the Systemair Internett access module in "Cloud" mode.  "Modbus TCP" mode is not supported.
+NB! Currently deprecated, use Systemair IAM Modbus instead.
+
+This device supports the Systemair Internet Access Module in "Cloud" mode.
 
 #### Triggers
 
@@ -66,6 +68,60 @@ This device supports the Systemair Internett access module in "Cloud" mode.  "Mo
 - Supply air fan RPM
 - ECO mode
 
+## Device: Systemair IAM Modbus
+
+This device supports the Systemair Internet Access Module in "Modbus TCP" converter mode.
+
+See the Systemair Internet Access Module (IAM) user manual for setting the IAM to Modbus TCP converter mode.
+
+#### Triggers
+
+- Set point temperature was changed
+- Temperature changed
+- Humidity changed
+- Fan mode changed
+- Mode changed
+- The extract air temperature changed
+- The outdoor air temperature changed
+- The overheat temperature changed
+- The supply air temperature changed
+
+#### Conditions
+
+- Fan mode is/isn't
+- Mode is/isn't
+- ECO mode enabled/disabled
+
+#### Actions
+
+- Set temperature
+- Set fan mode
+- Set mode
+- Initiate away mode
+- Initiate crowded mode
+- Initiate fireplace mode
+- Initiate holiday mode
+- Initiate refresh mode
+- Enable/disable ECO mode
+
+#### Capabilities
+
+- Target temperature
+- Temperature
+- Mode
+- Fan mode
+- Supply air temperature
+- Extract air temperature
+- Outdoor air temperature
+- Overheat temperature
+- Humidity
+- Days before filter replacement
+- Extract air fan regulation speed
+- Extract air fan RPM
+- Supply air fan regulation speed
+- Supply air fan RPM
+- ECO mode
+
 ## Device: Systemair Z-wave
 
 This devices supports the Systemair Z-wave adapter.
@@ -90,6 +146,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 
 ## Release Notes:
+
+#### 1.4.0
+
+- Support for Systemair IAM in Modbus TCP converter mode
 
 #### 1.3.4
 

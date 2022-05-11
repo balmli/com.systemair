@@ -136,7 +136,7 @@ class SystemairHVAC extends ZwaveDevice {
       reportParserV3: report => {
         this.log('NOTIFICATION reportParserV3', report);
         const value = typeof report === 'object' ? JSON.stringify(report) : report;
-        this.homey.app.triggerSystemairAlarm.trigger(this, {
+        this.homey.flow.getDeviceTriggerCard('systemair_alarm').trigger(this, {
           info: value,
         }, null);
         return value;

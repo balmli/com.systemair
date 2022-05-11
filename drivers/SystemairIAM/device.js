@@ -160,7 +160,7 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       await this._api.write({
         mode_change_request: value
       });
-      await this.setCapabilityValue('systemair_mode_iam_ro', MODES[value] ? MODES[value] : toValue);
+      await this.setCapabilityValue('systemair_mode_iam_ro', MODES[value] ? MODES[value] : value);
       this.log(`set mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
@@ -281,13 +281,13 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
           //this.log(`${a.description} (${a.id}): ${prevValue} -> ${newValue}`);
           if (prevValue && newValue !== prevValue && newValue !== 'inactive' && newValue !== 'waiting') {
             this.log(`Alarm triggered: ${a.description} (${a.id}): ${prevValue} -> ${newValue}`);
-            this.homey.app.triggerAlarm.trigger(this, {
+            this.homey.flow.getDeviceTriggerCard('alarm').trigger(this, {
               alarm_code: a.id,
               alarm_description: a.description
             }, {
               alarm_code: a.id
             });
-            this.homey.app.triggerAlarmSpecific.trigger(this, {
+            this.homey.flow.getDeviceTriggerCard('alarm_specific').trigger(this, {
               alarm_code: a.id,
               alarm_description: a.description
             }, {
@@ -327,13 +327,13 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
           if (prevValue !== undefined && newValue !== prevValue) {
             if (newValue) {
               this.log(`Function activated: ${a.description} (${a.id}): ${prevValue} -> ${newValue}`);
-              this.homey.app.triggerFunctionActivated.trigger(this, {
+              this.homey.flow.getDeviceTriggerCard('function_activated').trigger(this, {
                 function_code: a.id,
                 function_description: a.description
               }, {
                 function_code: a.id
               });
-              this.homey.app.triggerFunctionSpecificActivated.trigger(this, {
+              this.homey.flow.getDeviceTriggerCard('function_specific_activated').trigger(this, {
                 function_code: a.id,
                 function_description: a.description
               }, {
@@ -341,13 +341,13 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
               });
             } else {
               this.log(`Function deactivated: ${a.description} (${a.id}): ${prevValue} -> ${newValue}`);
-              this.homey.app.triggerFunctionDeactivated.trigger(this, {
+              this.homey.flow.getDeviceTriggerCard('function_deactivated').trigger(this, {
                 function_code: a.id,
                 function_description: a.description
               }, {
                 function_code: a.id
               });
-              this.homey.app.triggerFunctionSpecificDeactivated.trigger(this, {
+              this.homey.flow.getDeviceTriggerCard('function_specific_deactivated').trigger(this, {
                 function_code: a.id,
                 function_description: a.description
               }, {
