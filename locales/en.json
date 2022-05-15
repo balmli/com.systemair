@@ -11,6 +11,7 @@
   },
   "unavailable": {
     "missing_token": "Go to 'Maintenance / Repair' to set username and password.",
-    "wrong_email_or_password": "Go to 'Maintenance / Repair' to update username and password."
+    "wrong_email_or_password": "Go to 'Maintenance / Repair' to update username and password.",
+    "set_ip_address": "Go to settings to update the IP address."
   }
 }

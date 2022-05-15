@@ -1,4 +1,5 @@
 import Homey from 'homey';
+const ip = require('ip');
 
 module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
 
@@ -12,7 +13,7 @@ module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
 
     this.log('onPairListDevices', discoveryResults);
 
-    return Object.values(discoveryResults).map(discoveryResult => {
+    const devices = Object.values(discoveryResults).map(discoveryResult => {
       return {
         name: `Systemair IAM Modbus`,
         data: {
@@ -23,6 +24,21 @@ module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
         }
       };
     });
+    if (devices.length === 0) {
+      this.log('No devices found.  Manual IP address entry required.');
+      const homeyIp = ip.address();
+      const splitted = homeyIp.split('.');
+      devices.push({
+        name: `Systemair IAM Modbus`,
+        data: {
+          id: 'x.x.x.x',
+        },
+        settings: {
+          IP_Address: `${splitted[0]}.${splitted[1]}.${splitted[2]}.xxx`,
+        }
+      })
+    }
+    return devices;
   }
 
 };

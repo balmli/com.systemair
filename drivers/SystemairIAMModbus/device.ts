@@ -95,6 +95,11 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     changedKeys: string[];
   }): Promise<string | void> {
     if (changedKeys.includes('IP_Address')) {
+      if (!this.getAvailable()) {
+        await this.setAvailable();
+        this.addFetchTimeout(1);
+        this.addFetchTimeout2(2);
+      }
       this._api.resetSocket();
     }
     if (changedKeys.includes('Polling_Interval')) {
@@ -122,7 +127,12 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   async fetchParameters(): Promise<void> {
     try {
       if (this.getAvailable()) {
-        await this._api.read(READ_PARAMETERS);
+        if (this.getSetting('IP_Address').endsWith('.xxx')) {
+          this.log('IP_Address not set');
+          await this.setUnavailable(this.homey.__('unavailable.set_ip_address'));
+        } else {
+          await this._api.read(READ_PARAMETERS);
+        }
       }
     } catch (err) {
       this.log('fetchSensors error', err);
@@ -148,7 +158,12 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   async fetchParameters2(): Promise<void> {
     try {
       if (this.getAvailable()) {
-        await this._api.read(READ_PARAMETERS_2);
+        if (this.getSetting('IP_Address').endsWith('.xxx')) {
+          this.log('IP_Address not set');
+          await this.setUnavailable(this.homey.__('unavailable.set_ip_address'));
+        } else {
+          await this._api.read(READ_PARAMETERS_2);
+        }
       }
     } catch (err) {
       this.log('fetchSensors error', err);
