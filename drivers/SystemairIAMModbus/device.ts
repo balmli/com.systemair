@@ -183,9 +183,9 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     device.updateNumber("measure_temperature", resultAsMap['REG_SENSOR_SAT']);
     device.updateNumber("measure_temperature.outdoor_air_temp", resultAsMap['REG_SENSOR_OAT']);
     device.updateNumber("measure_temperature.supply_air_temp", resultAsMap['REG_SENSOR_SAT']);
-    device.updateNumber("measure_temperature.extract_air_temp", resultAsMap['REG_SENSOR_EAT']);
+    device.updateNumber("measure_temperature.extract_air_temp", resultAsMap['REG_SENSOR_PDM_EAT_VALUE']);
     device.updateNumber("measure_temperature.overheat_temp", resultAsMap['REG_SENSOR_OHT']);
-    device.updateNumber("measure_humidity", resultAsMap['REG_DEMC_RH_HIGHEST']);
+    device.updateNumber("measure_humidity", resultAsMap['REG_SENSOR_RHS_PDM']);
     device.updateNumber("eaf_reg_speed", resultAsMap['REG_SENSOR_RPM_EAF']);
     device.updateNumber("eaf_rpm", resultAsMap['REG_SENSOR_RPM_EAF']);
     device.updateNumber("saf_reg_speed", resultAsMap['REG_SENSOR_RPM_SAF']);

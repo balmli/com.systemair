@@ -113,12 +113,21 @@ export const READ_PARAMETERS_MAP: ModbusParametersMap = READ_PARAMETERS.reduce((
 }, {});
 
 export const READ_PARAMETERS_2: ModbusParameters = [
-  {
+  /*{
     register: 1001,
     sig: IntegerType.UINT,
     regType: RegisterType.Input,
     short: 'REG_DEMC_RH_HIGHEST',
     description: 'Highest value of all RH sensors',
+    min: 0,
+    max: 100,
+  },*/
+  {
+    register: 12136,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Holding,
+    short: 'REG_SENSOR_RHS_PDM',
+    description: 'PDM RHS sensor value (standard)',
     min: 0,
     max: 100,
   },
@@ -156,12 +165,22 @@ export const READ_PARAMETERS_2: ModbusParameters = [
     min: -400,
     max: 800,
   },
-  {
+  /*{
     register: 12105,
     sig: IntegerType.INT,
     regType: RegisterType.Holding,
     short: 'REG_SENSOR_EAT',
     description: 'Extract Air Temperature sensor (accessory)',
+    scaleFactor: 10,
+    min: -400,
+    max: 800,
+  },*/
+  {
+    register: 12544,
+    sig: IntegerType.INT,
+    regType: RegisterType.Holding,
+    short: 'REG_SENSOR_PDM_EAT_VALUE',
+    description: 'PDM EAT sensor value (standard)',
     scaleFactor: 10,
     min: -400,
     max: 800,
