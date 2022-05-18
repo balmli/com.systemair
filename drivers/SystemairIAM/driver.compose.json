@@ -5,7 +5,8 @@
   },
   "$extends": [
     "defaults",
-    "iam"
+    "iam",
+    "iam_api"
   ],
   "deprecated": true,
   "connectivity": ["cloud"],

@@ -1,5 +1,8 @@
 import Homey from 'homey';
-const ip = require('ip');
+import PairSession from "homey/lib/PairSession";
+
+import net from 'net';
+import {SystemairIAMApi} from "./systemair_modbus_api";
 
 module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
 
@@ -7,38 +10,69 @@ module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
     this.log('SystemairIAMModbusDriver has been initialized');
   }
 
-  async onPairListDevices() {
-    const discoveryStrategy = this.getDiscoveryStrategy();
-    const discoveryResults = discoveryStrategy.getDiscoveryResults();
+  onPair(session: PairSession): void {
 
-    this.log('onPairListDevices', discoveryResults);
+    let devices: any[] = [];
 
-    const devices = Object.values(discoveryResults).map(discoveryResult => {
-      return {
-        name: `Systemair IAM Modbus`,
-        data: {
-          id: discoveryResult.id,
-        },
-        settings: {
-          IP_Address: discoveryResult.address
+    session.setHandler('showView', async (view) => {
+      if (view === 'loading') {
+        const discoveryStrategy = this.homey.discovery.getStrategy("iam");
+        const discoveryResults = discoveryStrategy.getDiscoveryResults();
+
+        devices = Object.values(discoveryResults).map(discoveryResult => {
+          return {
+            name: `Systemair IAM Modbus`,
+            data: {
+              id: discoveryResult.id,
+            },
+            settings: {
+              IP_Address: discoveryResult.address
+            }
+          };
+        });
+
+        this.log('onPair: loading:', discoveryResults);
+
+        if (devices.length > 0) {
+          // @ts-ignore
+          await session.showView('list_devices');
+        } else {
+          // @ts-ignore
+          await session.showView('ip_address');
         }
-      };
+      }
     });
-    if (devices.length === 0) {
-      this.log('No devices found.  Manual IP address entry required.');
-      const homeyIp = ip.address();
-      const splitted = homeyIp.split('.');
-      devices.push({
+
+    session.setHandler('ip_address_entered', async (data) => {
+      this.log('onPair: ip_address_entered:', data);
+      if (!net.isIP(data.ipaddress)) {
+        throw new Error(this.homey.__('pair.valid_ip_address'));
+      }
+
+      const api = new SystemairIAMApi({
+        homey: this.homey,
+        logger: this.log,
+      });
+      await api._connection(data.ipaddress);
+
+      devices = [{
         name: `Systemair IAM Modbus`,
         data: {
           id: 'x.x.x.x',
         },
         settings: {
-          IP_Address: `${splitted[0]}.${splitted[1]}.${splitted[2]}.xxx`,
+          IP_Address: data.ipaddress
         }
-      })
-    }
-    return devices;
+      }];
+
+      // @ts-ignore
+      await session.showView('list_devices');
+    });
+
+    session.setHandler("list_devices", async () => {
+      return devices;
+    });
+
   }
 
 };

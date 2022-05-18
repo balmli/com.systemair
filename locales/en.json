@@ -13,5 +13,13 @@
     "missing_token": "Go to 'Maintenance / Repair' to set username and password.",
     "wrong_email_or_password": "Go to 'Maintenance / Repair' to update username and password.",
     "set_ip_address": "Go to settings to update the IP address."
+  },
+  "pair": {
+    "title": "Systemair IAM Modbus",
+    "ipaddress_label": "Systemair IAM IP address:",
+    "submit": "Submit",
+    "valid_ip_address": "Enter a valid IP address (xxx.xxx.xxx.xxx)",
+    "connection_refused": "Connection is refused (__uri__). Check that the IAM is in Modbus TCP converter mode.",
+    "connection_unreachable": "Connection is unreachable (__uri__). Check that the IAM is in Modbus TCP converter mode."
   }
 }

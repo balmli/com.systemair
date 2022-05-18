@@ -147,7 +147,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
-#### 1.4.2
+#### 1.4.3
 
 - Support for Systemair IAM in Modbus TCP converter mode
 

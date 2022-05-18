@@ -80,22 +80,22 @@ export const READ_PARAMETERS: ModbusParameters = [
     min: 120,
     max: 300,
   },
-/*
-  {
-    register: 1111,
-    sig: IntegerType.UINT,
-    regType: RegisterType.Input,
-    short: 'REG_USERMODE_REMAINING_TIME_L',
-    description: 'Remaining time for the state Holiday/Away/Fire Place/Refresh/Crowded, lower 16 bits',
-  },
-  {
-    register: 1112,
-    sig: IntegerType.UINT,
-    regType: RegisterType.Input,
-    short: 'REG_USERMODE_REMAINING_TIME_H',
-    description: 'Remaining time for the state Holiday/Away/Fire Place/Refresh/Crowded, higher 16 bits',
-  },
-*/
+  /*
+    {
+      register: 1111,
+      sig: IntegerType.UINT,
+      regType: RegisterType.Input,
+      short: 'REG_USERMODE_REMAINING_TIME_L',
+      description: 'Remaining time for the state Holiday/Away/Fire Place/Refresh/Crowded, lower 16 bits',
+    },
+    {
+      register: 1112,
+      sig: IntegerType.UINT,
+      regType: RegisterType.Input,
+      short: 'REG_USERMODE_REMAINING_TIME_H',
+      description: 'Remaining time for the state Holiday/Away/Fire Place/Refresh/Crowded, higher 16 bits',
+    },
+  */
   {
     register: 2505,
     sig: IntegerType.UINT,
@@ -103,6 +103,42 @@ export const READ_PARAMETERS: ModbusParameters = [
     short: 'REG_ECO_MODE_ON_OFF',
     description: 'Enabling of eco mode',
     boolean: true,
+  },
+  {
+    register: 12401,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_SENSOR_RPM_SAF',
+    description: 'Supply Air Fan RPM indication from TACHO',
+    min: 0,
+    max: 5000,
+  },
+  {
+    register: 12402,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_SENSOR_RPM_EAF',
+    description: 'Extract Air Fan RPM indication from TACHO',
+    min: 0,
+    max: 5000,
+  },
+  {
+    register: 14001,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_OUTPUT_SAF',
+    description: 'SAF fan speed',
+    min: 0,
+    max: 100,
+  },
+  {
+    register: 14002,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_OUTPUT_EAF',
+    description: 'EAF fan speed',
+    min: 0,
+    max: 100,
   },
 ];
 
@@ -204,26 +240,7 @@ export const READ_PARAMETERS_2: ModbusParameters = [
     min: 0,
     max: 100,
   },*/
-  {
-    register: 12401,
-    sig: IntegerType.UINT,
-    regType: RegisterType.Input,
-    short: 'REG_SENSOR_RPM_SAF',
-    description: 'Supply Air Fan RPM indication from TACHO',
-    min: 0,
-    max: 5000,
-  },
-  {
-    register: 12402,
-    sig: IntegerType.UINT,
-    regType: RegisterType.Input,
-    short: 'REG_SENSOR_RPM_EAF',
-    description: 'Extract Air Fan RPM indication from TACHO',
-    min: 0,
-    max: 5000,
-  },
 ];
-
 
 
 export const UPDATE_PARAMETERS: ModbusParameters = [

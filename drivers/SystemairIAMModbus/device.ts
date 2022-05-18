@@ -18,12 +18,16 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   _api!: SystemairIAMApi;
   fetch1Timeout?: NodeJS.Timeout;
   fetch2Timeout?: NodeJS.Timeout;
+  updateTargetTempTimeout?: NodeJS.Timeout;
+  updateModeTimeout?: NodeJS.Timeout;
+  updateFanModeTimeout?: NodeJS.Timeout;
 
   async onInit() {
     await this.migrate();
 
     this._api = new SystemairIAMApi({
       device: this,
+      homey: this.homey,
       logger: this.log,
       onUpdateValues: this.onUpdateValues
     });
@@ -71,6 +75,30 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
 
   async migrate(): Promise<void> {
     try {
+      if (this.hasCapability('eaf_reg_speed')) {
+        await this.removeCapability('eaf_reg_speed');
+      }
+      if (this.hasCapability('eaf_rpm')) {
+        await this.removeCapability('eaf_rpm');
+      }
+      if (this.hasCapability('saf_reg_speed')) {
+        await this.removeCapability('saf_reg_speed');
+      }
+      if (this.hasCapability('saf_rpm')) {
+        await this.removeCapability('saf_rpm');
+      }
+      if (!this.hasCapability('meter_saf_rpm')) {
+        await this.addCapability('meter_saf_rpm');
+      }
+      if (!this.hasCapability('meter_saf_reg_speed')) {
+        await this.addCapability('meter_saf_reg_speed');
+      }
+      if (!this.hasCapability('meter_eaf_rpm')) {
+        await this.addCapability('meter_eaf_rpm');
+      }
+      if (!this.hasCapability('meter_eaf_reg_speed')) {
+        await this.addCapability('meter_eaf_reg_speed');
+      }
     } catch (err) {
       this.log('migrate error:', err);
     }
@@ -179,19 +207,25 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       return obj;
     }, {});
 
-    device.updateNumber("target_temperature", resultAsMap['REG_TC_SP']);
+    if (!device.updateTargetTempTimeout) {
+      device.updateNumber("target_temperature", resultAsMap['REG_TC_SP']);
+    }
     device.updateNumber("measure_temperature", resultAsMap['REG_SENSOR_SAT']);
     device.updateNumber("measure_temperature.outdoor_air_temp", resultAsMap['REG_SENSOR_OAT']);
     device.updateNumber("measure_temperature.supply_air_temp", resultAsMap['REG_SENSOR_SAT']);
     device.updateNumber("measure_temperature.extract_air_temp", resultAsMap['REG_SENSOR_PDM_EAT_VALUE']);
     device.updateNumber("measure_temperature.overheat_temp", resultAsMap['REG_SENSOR_OHT']);
     device.updateNumber("measure_humidity", resultAsMap['REG_SENSOR_RHS_PDM']);
-    device.updateNumber("eaf_reg_speed", resultAsMap['REG_SENSOR_RPM_EAF']);
-    device.updateNumber("eaf_rpm", resultAsMap['REG_SENSOR_RPM_EAF']);
-    device.updateNumber("saf_reg_speed", resultAsMap['REG_SENSOR_RPM_SAF']);
-    device.updateNumber("saf_rpm", resultAsMap['REG_SENSOR_RPM_SAF']);
-    device.updateMode(resultAsMap['REG_USERMODE_MODE']);
-    device.updateFanMode(resultAsMap['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF']);
+    device.updateNumber("meter_saf_rpm", resultAsMap['REG_SENSOR_RPM_SAF']);
+    device.updateNumber("meter_saf_reg_speed", resultAsMap['REG_OUTPUT_SAF']);
+    device.updateNumber("meter_eaf_rpm", resultAsMap['REG_SENSOR_RPM_EAF']);
+    device.updateNumber("meter_eaf_reg_speed", resultAsMap['REG_OUTPUT_EAF']);
+    if (!device.updateModeTimeout) {
+      device.updateMode(resultAsMap['REG_USERMODE_MODE']);
+    }
+    if (!device.updateFanModeTimeout) {
+      device.updateFanMode(resultAsMap['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF']);
+    }
     device.updateEcoMode(resultAsMap['REG_ECO_MODE_ON_OFF']);
     device.updateFilterTimeLeft(resultAsMap['REG_FILTER_REMAINING_TIME_L'], resultAsMap['REG_FILTER_REMAINING_TIME_H']);
   }
@@ -258,98 +292,134 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   }
 
   async onUpdateTargetTemperature(value: number, opts: any): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
+      this.updateTargetTempTimeout = this.homey.setTimeout(() => {
+        this.updateTargetTempTimeout = undefined;
+      }, 10000);
       await this._api.write(READ_PARAMETERS_MAP['REG_TC_SP'], value);
-      this.log(`set target temperature OK: ${value}`);
+      this.log(`Set target temperature OK: ${value}`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async onUpdateMode(value: string, opts: any): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
+      this.updateModeTimeout = this.homey.setTimeout(() => {
+        this.updateModeTimeout = undefined;
+      }, 10000);
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES[value] ? MODES[value] : value).catch(err => this.error(err));
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], Number(value) + 1);
-      this.log(`set mode OK: ${value}`);
+      this.log(`Set mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async onUpdateFanMode(value: string, opts: any): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
+      this.updateFanModeTimeout = this.homey.setTimeout(() => {
+        this.updateFanModeTimeout = undefined;
+      }, 10000);
       await this.setCapabilityValue('systemair_fan_mode_iam_ro', FAN_MODES[value] ? FAN_MODES[value] : value).catch(err => this.error(err));
       await this._api.write(READ_PARAMETERS_MAP['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF'], value);
-      this.log(`set fan mode OK: ${value}`);
+      this.log(`Set fan mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async setCrowdedMode(period: number): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES['2']).catch(err => this.error(err));
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_CROWDED_TIME'], period);
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 3);
-      this.log(`crowded mode started for ${period} hours`);
+      this.log(`Crowded mode started for ${period} hours`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async setRefreshMode(period: number): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES['3']).catch(err => this.error(err));
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_REFRESH_TIME'], period);
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 4);
-      this.log(`refresh mode started for ${period} minutes`);
+      this.log(`Refresh mode started for ${period} minutes`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async setFireplaceMode(period: number): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES['4']).catch(err => this.error(err));
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_FIREPLACE_TIME'], period);
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 5);
-      this.log(`fireplace mode started for ${period} minutes`);
+      this.log(`Fireplace mode started for ${period} minutes`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async setAwayMode(period: number): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES['5']).catch(err => this.error(err));
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_AWAY_TIME'], period);
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 6);
-      this.log(`away mode started for ${period} hours`);
+      this.log(`Away mode started for ${period} hours`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async setHolidayMode(period: number): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES['6']).catch(err => this.error(err));
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HOLIDAY_TIME'], period);
       await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 7);
-      this.log(`holiday mode started for ${period} days`);
+      this.log(`Holiday mode started for ${period} days`);
     } finally {
       this.addFetchTimeout();
     }
   }
 
   async setEcoMode(enabled: string): Promise<void> {
+    if (!this.getAvailable()) {
+      return;
+    }
     try {
       this.clearFetchTimeout();
       const eco_mode = enabled === 'true';

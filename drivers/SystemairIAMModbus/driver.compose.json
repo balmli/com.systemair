@@ -5,15 +5,26 @@
   },
   "$extends": [
     "defaults",
-    "iam"
+    "iam",
+    "iam_modbus"
   ],
-  "discovery": "iam",
-  "connectivity": ["lan"],
+  "connectivity": [
+    "lan"
+  ],
   "pair": [
+    {
+      "id": "loading",
+      "template": "loading"
+    },
+    {
+      "id": "ip_address"
+    },
     {
       "id": "list_devices",
       "template": "list_devices",
-      "navigation": { "next": "add_devices" }
+      "navigation": {
+        "next": "add_devices"
+      }
     },
     {
       "id": "add_devices",

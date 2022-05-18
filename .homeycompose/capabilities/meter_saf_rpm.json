@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Supply air"
+  },
+  "units": {
+    "en": "rpm"
+  },
+  "desc": {
+    "en": "Supply air fan (rpm)"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/rpm.svg"
+}

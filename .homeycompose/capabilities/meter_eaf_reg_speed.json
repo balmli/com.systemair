@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Extract air"
+  },
+  "units": {
+    "en": "%"
+  },
+  "desc": {
+    "en": "Extract air fan regulation speed (%)"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/rpm.svg"
+}

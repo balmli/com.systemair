@@ -1,0 +1,16 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Supply air"
+  },
+  "units": {
+    "en": "%"
+  },
+  "desc": {
+    "en": "Supply air fan regulation speed (%)"
+  },
+  "getable": true,
+  "setable": false,
+  "insights": true,
+  "icon": "/assets/rpm.svg"
+}
