@@ -1,4 +1,7 @@
 {
+  "1.4.4": {
+    "en": "Support for Systemair IAM in Modbus TCP converter mode."
+  },
   "1.4.3": {
     "en": "Support for Systemair IAM in Modbus TCP converter mode."
   },

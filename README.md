@@ -4,70 +4,6 @@ With this app and a Systemair Z-wave adapter or a Systemair Internet access modu
 
 You can control the set point temperature, set the fan mode and mode.
 
-## Device: Systemair IAM Cloud (deprecated)
-
-NB! Currently deprecated, use Systemair IAM Modbus instead.
-
-This device supports the Systemair Internet Access Module in "Cloud" mode.
-
-#### Triggers
-
-- Set point temperature was changed
-- Temperature changed
-- Humidity changed
-- Fan mode changed
-- Mode changed
-- The extract air temperature changed
-- The outdoor air temperature changed
-- The overheat temperature changed
-- The supply air temperature changed
-- Alarm activated (Alarm code, Alarm description)
-- Specific alarm activated (Alarm code, Alarm description)
-- Function activated (Function code, Function description)
-- Function deactivated (Function code, Function description)
-- Specific function activated (Function code, Function description)
-- Specific function deactivated (Function code, Function description)
-
-#### Conditions
-
-- Fan mode is/isn't
-- Mode is/isn't
-- Alarm is/isn't active
-- Function is/isn't active
-- ECO mode enabled/disabled
-
-#### Actions
-
-- Set temperature
-- Set fan mode
-- Set mode
-- Initiate boost mode
-- Initiate away mode
-- Initiate crowded mode
-- Initiate fireplace mode
-- Initiate holiday mode
-- Initiate refresh mode
-- Enable/disable ECO mode
-
-#### Capabilities
-
-- Target temperature
-- Temperature
-- Mode
-- Fan mode
-- Supply air temperature
-- Extract air temperature
-- Outdoor air temperature
-- Overheat temperature
-- Humidity
-- Cooker hood (as a tag)
-- Days before filter replacement
-- Extract air fan regulation speed
-- Extract air fan RPM
-- Supply air fan regulation speed
-- Supply air fan RPM
-- ECO mode
-
 ## Device: Systemair IAM Modbus
 
 This device supports the Systemair Internet Access Module in "Modbus TCP" converter mode.
@@ -147,7 +83,7 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
-#### 1.4.3
+#### 1.4.4
 
 - Support for Systemair IAM in Modbus TCP converter mode
 

@@ -85,7 +85,11 @@ module.exports = class SystemairIAMDevice extends Homey.Device {
       if (!this.hasCapability('eco_mode')) {
         await this.addCapability('eco_mode');
       }
-      await this.setStoreValue('version', 2);
+      if (!migVersion || migVersion < 3) {
+        await this.setUnavailable(this.homey.__('messages.not_supported_anymore'));
+        await this.homey.notifications.createNotification({ excerpt: this.homey.__('messages.not_supported_anymore') });
+      }
+      await this.setStoreValue('version', 3);
     } catch (err) {
       this.log('migrate error:', err);
     }

@@ -21,5 +21,8 @@
     "valid_ip_address": "Enter a valid IP address (xxx.xxx.xxx.xxx)",
     "connection_refused": "Connection is refused (__uri__). Check that the IAM is in Modbus TCP converter mode.",
     "connection_unreachable": "Connection is unreachable (__uri__). Check that the IAM is in Modbus TCP converter mode."
+  },
+  "messages": {
+    "not_supported_anymore": "The Systemair IAM Cloud device is not supported anymore.  Try the Systemair IAM Modbus device."
   }
 }
