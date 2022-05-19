@@ -4,10 +4,10 @@ import {
   ModbusResultParameter,
   ModbusResultParameters,
   ModbusResultParametersMap,
-  READ_PARAMETERS,
-  READ_PARAMETERS_MAP,
-  UPDATE_PARAMETERS_MAP,
-  READ_PARAMETERS_2,
+  OPERATION_PARAMETERS,
+  SENSOR_PARAMETERS,
+  PARAMETER_MAP,
+  CONFIG_PARAMETERS,
 } from "./constants";
 import {SystemairIAMApi} from "./systemair_modbus_api";
 
@@ -16,14 +16,18 @@ const {MODES_LIST, MODES, FAN_MODES_LIST, FAN_MODES} = require("../SystemairIAM/
 module.exports = class SystemairIAMModbusDevice extends Homey.Device {
 
   _api!: SystemairIAMApi;
-  fetch1Timeout?: NodeJS.Timeout;
-  fetch2Timeout?: NodeJS.Timeout;
+  fetchTimeout?: NodeJS.Timeout;
+  lastFetchParams?: number;
+  lastFetchConfig?: number;
   updateTargetTempTimeout?: NodeJS.Timeout;
   updateModeTimeout?: NodeJS.Timeout;
   updateFanModeTimeout?: NodeJS.Timeout;
+  userModeMap!: Map<string, number>;
 
   async onInit() {
     await this.migrate();
+
+    this.userModeMap = new Map<string, number>();
 
     this._api = new SystemairIAMApi({
       device: this,
@@ -45,7 +49,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     });
 
     this.addFetchTimeout(1);
-    this.addFetchTimeout2(2);
     this.log('device initialized');
   }
 
@@ -110,7 +113,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
 
   onDeleted(): void {
     this.clearFetchTimeout();
-    this.clearFetchTimeout2();
     if (this._api && this._api._clearSocketTimeout) {
       this._api._clearSocketTimeout();
     }
@@ -126,7 +128,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       if (!this.getAvailable()) {
         await this.setAvailable();
         this.addFetchTimeout(1);
-        this.addFetchTimeout2(2);
       }
       this._api.resetSocket();
     }
@@ -134,7 +135,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       this.addFetchTimeout();
     }
     if (changedKeys.includes('temp_report_interval')) {
-      this.addFetchTimeout2();
+      this.addFetchTimeout();
     }
   }
 
@@ -142,13 +143,13 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     this.clearFetchTimeout();
     const settings = this.getSettings();
     const interval = seconds || settings.Polling_Interval || 10;
-    this.fetch1Timeout = this.homey.setTimeout(() => this.fetchParameters(), 1000 * interval);
+    this.fetchTimeout = this.homey.setTimeout(() => this.fetchParameters(), 1000 * interval);
   }
 
   clearFetchTimeout(): void {
-    if (this.fetch1Timeout) {
-      this.homey.clearTimeout(this.fetch1Timeout);
-      this.fetch1Timeout = undefined;
+    if (this.fetchTimeout) {
+      this.homey.clearTimeout(this.fetchTimeout);
+      this.fetchTimeout = undefined;
     }
   }
 
@@ -159,44 +160,36 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           this.log('IP_Address not set');
           await this.setUnavailable(this.homey.__('unavailable.set_ip_address'));
         } else {
-          await this._api.read(READ_PARAMETERS);
+          try {
+            await this._api.read(OPERATION_PARAMETERS);
+          } catch (err) {
+          }
+          const now = Date.now();
+          const settings = this.getSettings();
+          if (!this.lastFetchParams || now - this.lastFetchParams > (settings.temp_report_interval * 1000)) {
+            this.homey.setTimeout(async () => {
+              try {
+                await this._api.read(SENSOR_PARAMETERS);
+                this.lastFetchParams = now;
+              } catch (err) {
+              }
+            }, 1000);
+          }
+          if (!this.lastFetchConfig || now - this.lastFetchConfig > 5 * 60 * 1000) {
+            this.homey.setTimeout(async () => {
+              try {
+                await this._api.read(CONFIG_PARAMETERS);
+                this.lastFetchConfig = now;
+              } catch (err) {
+              }
+            }, 2000);
+          }
         }
       }
     } catch (err) {
       this.log('fetchSensors error', err);
     } finally {
       this.addFetchTimeout();
-    }
-  }
-
-  addFetchTimeout2(seconds?: number): void {
-    this.clearFetchTimeout2();
-    const settings = this.getSettings();
-    const interval = seconds || settings.temp_report_interval || 30;
-    this.fetch2Timeout = this.homey.setTimeout(() => this.fetchParameters2(), 1000 * interval);
-  }
-
-  clearFetchTimeout2(): void {
-    if (this.fetch2Timeout) {
-      this.homey.clearTimeout(this.fetch2Timeout);
-      this.fetch2Timeout = undefined;
-    }
-  }
-
-  async fetchParameters2(): Promise<void> {
-    try {
-      if (this.getAvailable()) {
-        if (this.getSetting('IP_Address').endsWith('.xxx')) {
-          this.log('IP_Address not set');
-          await this.setUnavailable(this.homey.__('unavailable.set_ip_address'));
-        } else {
-          await this._api.read(READ_PARAMETERS_2);
-        }
-      }
-    } catch (err) {
-      this.log('fetchSensors error', err);
-    } finally {
-      this.addFetchTimeout2();
     }
   }
 
@@ -207,6 +200,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       return obj;
     }, {});
 
+    device.updateConfig(resultAsMap);
     if (!device.updateTargetTempTimeout) {
       device.updateNumber("target_temperature", resultAsMap['REG_TC_SP']);
     }
@@ -254,7 +248,8 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
 
   async updateFanMode(resultParameter?: ModbusResultParameter): Promise<void> {
     try {
-      const toValue = resultParameter?.value;
+      const mode = this.getCapabilityValue('systemair_mode_iam_ro');
+      const toValue = this.userModeMap.has(mode) ? this.userModeMap.get(mode) : resultParameter?.value;
       if (toValue !== undefined && toValue !== null) {
         const theValue = `${toValue}`;
         if (FAN_MODES_LIST[theValue]) {
@@ -291,6 +286,33 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     }
   }
 
+  async updateConfig(resultMap: ModbusResultParametersMap): Promise<void> {
+    if (resultMap['REG_USERMODE_CROWDED_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Crowded', resultMap['REG_USERMODE_CROWDED_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_USERMODE_REFRESH_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Refresh', resultMap['REG_USERMODE_REFRESH_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_USERMODE_FIREPLACE_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Fireplace', resultMap['REG_USERMODE_FIREPLACE_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_USERMODE_AWAY_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Away', resultMap['REG_USERMODE_AWAY_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_USERMODE_HOLIDAY_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Holiday', resultMap['REG_USERMODE_HOLIDAY_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_USERMODE_COOKERHOOD_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Cooker Hood', resultMap['REG_USERMODE_COOKERHOOD_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_USERMODE_VACUUMCLEANER_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('Vacuum Cleaner', resultMap['REG_USERMODE_VACUUMCLEANER_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+    if (resultMap['REG_PRESSURE_GUARD_AIRFLOW_LEVEL_SAF']) {
+      this.userModeMap.set('PressureGuard', resultMap['REG_PRESSURE_GUARD_AIRFLOW_LEVEL_SAF'].value as number);
+    }
+  }
+
   async onUpdateTargetTemperature(value: number, opts: any): Promise<void> {
     if (!this.getAvailable()) {
       return;
@@ -300,7 +322,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       this.updateTargetTempTimeout = this.homey.setTimeout(() => {
         this.updateTargetTempTimeout = undefined;
       }, 10000);
-      await this._api.write(READ_PARAMETERS_MAP['REG_TC_SP'], value);
+      await this._api.write(PARAMETER_MAP['REG_TC_SP'], value);
       this.log(`Set target temperature OK: ${value}`);
     } finally {
       this.addFetchTimeout();
@@ -317,7 +339,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
         this.updateModeTimeout = undefined;
       }, 10000);
       await this.setCapabilityValue('systemair_mode_iam_ro', MODES[value] ? MODES[value] : value).catch(err => this.error(err));
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], Number(value) + 1);
+      await this._api.write(PARAMETER_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], Number(value) + 1);
       this.log(`Set mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
@@ -334,7 +356,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
         this.updateFanModeTimeout = undefined;
       }, 10000);
       await this.setCapabilityValue('systemair_fan_mode_iam_ro', FAN_MODES[value] ? FAN_MODES[value] : value).catch(err => this.error(err));
-      await this._api.write(READ_PARAMETERS_MAP['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF'], value);
+      await this._api.write(PARAMETER_MAP['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF'], value);
       this.log(`Set fan mode OK: ${value}`);
     } finally {
       this.addFetchTimeout();
@@ -342,75 +364,39 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   }
 
   async setCrowdedMode(period: number): Promise<void> {
-    if (!this.getAvailable()) {
-      return;
-    }
-    try {
-      this.clearFetchTimeout();
-      await this.setCapabilityValue('systemair_mode_iam_ro', MODES['2']).catch(err => this.error(err));
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_CROWDED_TIME'], period);
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 3);
-      this.log(`Crowded mode started for ${period} hours`);
-    } finally {
-      this.addFetchTimeout();
-    }
+    await this.setMode('Crowded', 3, period);
   }
 
   async setRefreshMode(period: number): Promise<void> {
-    if (!this.getAvailable()) {
-      return;
-    }
-    try {
-      this.clearFetchTimeout();
-      await this.setCapabilityValue('systemair_mode_iam_ro', MODES['3']).catch(err => this.error(err));
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_REFRESH_TIME'], period);
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 4);
-      this.log(`Refresh mode started for ${period} minutes`);
-    } finally {
-      this.addFetchTimeout();
-    }
+    await this.setMode('Refresh', 4, period);
   }
 
   async setFireplaceMode(period: number): Promise<void> {
-    if (!this.getAvailable()) {
-      return;
-    }
-    try {
-      this.clearFetchTimeout();
-      await this.setCapabilityValue('systemair_mode_iam_ro', MODES['4']).catch(err => this.error(err));
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_FIREPLACE_TIME'], period);
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 5);
-      this.log(`Fireplace mode started for ${period} minutes`);
-    } finally {
-      this.addFetchTimeout();
-    }
+    await this.setMode('Fireplace', 5, period);
   }
 
   async setAwayMode(period: number): Promise<void> {
-    if (!this.getAvailable()) {
-      return;
-    }
-    try {
-      this.clearFetchTimeout();
-      await this.setCapabilityValue('systemair_mode_iam_ro', MODES['5']).catch(err => this.error(err));
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_AWAY_TIME'], period);
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 6);
-      this.log(`Away mode started for ${period} hours`);
-    } finally {
-      this.addFetchTimeout();
-    }
+    await this.setMode('Away', 6, period);
   }
 
   async setHolidayMode(period: number): Promise<void> {
+    await this.setMode('Holiday', 7, period);
+  }
+
+  async setMode(mode: string, code: number, period: number): Promise<void> {
     if (!this.getAvailable()) {
       return;
     }
     try {
       this.clearFetchTimeout();
-      await this.setCapabilityValue('systemair_mode_iam_ro', MODES['6']).catch(err => this.error(err));
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HOLIDAY_TIME'], period);
-      await this._api.write(UPDATE_PARAMETERS_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], 7);
-      this.log(`Holiday mode started for ${period} days`);
+      this.updateModeTimeout = this.homey.setTimeout(() => {
+        this.updateModeTimeout = undefined;
+      }, 10000);
+      await this.setCapabilityValue('systemair_mode_iam_ro', MODES[`${(code - 1)}`]).catch(err => this.error(err));
+      await this.updateFanMode();
+      await this._api.write(PARAMETER_MAP[`REG_USERMODE_${mode.toUpperCase()}_TIME`], period);
+      await this._api.write(PARAMETER_MAP['REG_USERMODE_HMI_CHANGE_REQUEST'], code);
+      this.log(`${mode} mode started, period: ${period}`);
     } finally {
       this.addFetchTimeout();
     }
@@ -424,7 +410,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       this.clearFetchTimeout();
       const eco_mode = enabled === 'true';
       await this.setCapabilityValue('eco_mode', eco_mode).catch(err => this.error(err));
-      await this._api.write(READ_PARAMETERS_MAP['REG_ECO_MODE_ON_OFF'], eco_mode);
+      await this._api.write(PARAMETER_MAP['REG_ECO_MODE_ON_OFF'], eco_mode);
       this.log(`ECO mode: enabled = ${enabled}`);
     } finally {
       this.addFetchTimeout();

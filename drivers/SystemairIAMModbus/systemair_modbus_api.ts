@@ -22,6 +22,7 @@ export class SystemairIAMApi {
   _client?: ModbusTCPClient;
   _socket?: net.Socket;
   _socketTimeout?: NodeJS.Timeout;
+  _errorCounter: number;
 
   constructor(options: SystemairIAMApiOptions) {
     this._device = options.device;
@@ -29,6 +30,7 @@ export class SystemairIAMApi {
     this._logger = options.logger;
     this._onUpdateValues = options.onUpdateValues;
     this._commandQueue = new PQueue({concurrency: 1});
+    this._errorCounter = 0;
   }
 
   resetSocket(): void {
@@ -89,6 +91,7 @@ export class SystemairIAMApi {
   }
 
   _onSocketTimeout() {
+    this._errorCounter = 0;
     this._socket?.end();
     this._socket = undefined;
     this._client = undefined;
@@ -106,11 +109,20 @@ export class SystemairIAMApi {
               }
             })
             .catch((error) => {
-              this._logger('Read error', error);
+              this.handleSocketError('Read', error);
+              throw error;
             });
         }
       }
     );
+  }
+
+  handleSocketError(func: string, error: any) {
+    this._errorCounter++;
+    this._logger(`${func} error. (${this._errorCounter}) ->`, error);
+    if (this._errorCounter > 5) {
+      this.resetSocket();
+    }
   }
 
   matchResults = (params: any, results: any): ModbusResultParameters => {
@@ -170,7 +182,7 @@ export class SystemairIAMApi {
               });
             })
             .catch((error) => {
-              this._logger('Write error', error);
+              this.handleSocketError('Write', error);
             });
         }
       }
