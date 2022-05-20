@@ -351,13 +351,28 @@ export const PARAMETERS: ModbusParameters = [
     min: 0,
     max: 5,
   },
-
+  {
+    register: 12306,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_SENSOR_DI_COOKERHOOD',
+    description: 'Cooker hood',
+    boolean: true,
+  },
+  {
+    register: 12307,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_SENSOR_DI_VACUUMCLEANER',
+    description: 'Vacuum cleaner',
+    boolean: true,
+  },
   {
     register: 3114,
     sig: IntegerType.UINT,
     regType: RegisterType.Input,
     short: 'REG_FUNCTION_ACTIVE_PRESSURE_GUARD',
-    description: 'Indicates if pressure guard is active',
+    description: 'Pressure guard',
     boolean: true,
   },
   {
@@ -365,7 +380,7 @@ export const PARAMETERS: ModbusParameters = [
     sig: IntegerType.UINT,
     regType: RegisterType.Input,
     short: 'REG_FUNCTION_ACTIVE_CDI_1',
-    description: 'Indicates if function is active',
+    description: 'Configurable DI1',
     boolean: true,
   },
   {
@@ -373,7 +388,7 @@ export const PARAMETERS: ModbusParameters = [
     sig: IntegerType.UINT,
     regType: RegisterType.Input,
     short: 'REG_FUNCTION_ACTIVE_CDI_2',
-    description: 'Indicates if function is active',
+    description: 'Configurable DI2',
     boolean: true,
   },
   {
@@ -381,12 +396,11 @@ export const PARAMETERS: ModbusParameters = [
     sig: IntegerType.UINT,
     regType: RegisterType.Input,
     short: 'REG_FUNCTION_ACTIVE_CDI_3',
-    description: 'Indicates if function is active',
+    description: 'Configurable DI3',
     boolean: true,
   },
 
   // Airflow control
-
   {
     register: 12401,
     sig: IntegerType.UINT,
@@ -473,6 +487,14 @@ export const PARAMETERS: ModbusParameters = [
   },
 
   // Heater
+  {
+    register: 3113,
+    sig: IntegerType.INT,
+    regType: RegisterType.Input,
+    short: 'REG_FUNCTION_ACTIVE_HEATER_COOL_DOWN',
+    description: 'Active Heater Cool Down',
+    boolean: true,
+  },
   {
     register: 14101,
     sig: IntegerType.INT,
@@ -600,7 +622,53 @@ export const PARAMETERS: ModbusParameters = [
 
   // Digital Input functions
   // Output values
+
   // Alarms
+  {
+    register: 15016,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_FROST_PROT_ALARM',
+    description: 'Frost protection',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15023,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_DEFROSTING_ALARM',
+    description: 'Defrosting',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15030,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_SAF_RPM_ALARM',
+    description: 'Supply air fan RPM',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15037,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_EAF_RPM_ALARM',
+    description: 'Extract air fan RPM',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15072,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_SAT_ALARM',
+    description: 'Supply air temperature',
+    min: 0,
+    max: 3,
+  },
   {
     register: 15086,
     sig: IntegerType.UINT,
@@ -611,11 +679,56 @@ export const PARAMETERS: ModbusParameters = [
     max: 3,
   },
   {
+    register: 15121,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_RGS_ALARM',
+    description: 'Rotation guard (RGS)',
+    min: 0,
+    max: 3,
+  },
+  {
     register: 15142,
     sig: IntegerType.UINT,
     regType: RegisterType.Input,
     short: 'REG_ALARM_FILTER_ALARM',
     description: 'Filter',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15170,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_CO2_ALARM',
+    description: 'CO2',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15177,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_LOW_SAT_ALARM',
+    description: 'Low supply air temperature',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15530,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_OVERHEAT_TEMPERATURE_ALARM',
+    description: 'Overheat temperature',
+    min: 0,
+    max: 3,
+  },
+  {
+    register: 15537,
+    sig: IntegerType.UINT,
+    regType: RegisterType.Input,
+    short: 'REG_ALARM_FIRE_ALARM_ALARM',
+    description: 'Fire alarm',
     min: 0,
     max: 3,
   },
@@ -652,7 +765,6 @@ export const PARAMETERS: ModbusParameters = [
     description: 'Indicates if an alarm Type C is active',
     boolean: true,
   },
-
 ];
 
 export const PARAMETER_MAP: ModbusParametersMap = PARAMETERS.reduce((obj: {}, r) => {
@@ -693,17 +805,30 @@ export const CONFIG_PARAMETERS = [
   'REG_PRESSURE_GUARD_AIRFLOW_LEVEL_SAF',
 ].map((key) => PARAMETER_MAP[key]);
 
-export const ALARMS = [
+export const ALARM_PARAMETERS = [
+  'REG_ALARM_FROST_PROT_ALARM',
+  'REG_ALARM_DEFROSTING_ALARM',
+  'REG_ALARM_SAF_RPM_ALARM',
+  'REG_ALARM_EAF_RPM_ALARM',
+  'REG_ALARM_SAT_ALARM',
   'REG_ALARM_EAT_ALARM',
+  'REG_ALARM_RGS_ALARM',
   'REG_ALARM_FILTER_ALARM',
+  'REG_ALARM_CO2_ALARM',
+  'REG_ALARM_LOW_SAT_ALARM',
+  'REG_ALARM_OVERHEAT_TEMPERATURE_ALARM',
+  'REG_ALARM_FIRE_ALARM_ALARM',
   'REG_ALARM_FILTER_WARNING_ALARM',
   'REG_ALARM_TYPE_A',
   'REG_ALARM_TYPE_B',
   'REG_ALARM_TYPE_C',
 ].map((key) => PARAMETER_MAP[key]);
 
-export const FUNCTIONS = [
+export const FUNCTION_PARAMETERS = [
   'REG_FUNCTION_ACTIVE_PRESSURE_GUARD',
+  'REG_SENSOR_DI_COOKERHOOD',
+  'REG_SENSOR_DI_VACUUMCLEANER',
+  'REG_FUNCTION_ACTIVE_HEATER_COOL_DOWN',
   'REG_FUNCTION_ACTIVE_CDI_1',
   'REG_FUNCTION_ACTIVE_CDI_2',
   'REG_FUNCTION_ACTIVE_CDI_3',

@@ -8,6 +8,8 @@ import {
   SENSOR_PARAMETERS,
   PARAMETER_MAP,
   CONFIG_PARAMETERS,
+  ALARM_PARAMETERS,
+  FUNCTION_PARAMETERS,
 } from "./constants";
 import {SystemairIAMApi} from "./systemair_modbus_api";
 
@@ -19,6 +21,8 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   fetchTimeout?: NodeJS.Timeout;
   lastFetchParams?: number;
   lastFetchConfig?: number;
+  lastFetchAlarms?: number;
+  lastFetchFunctions?: number;
   updateTargetTempTimeout?: NodeJS.Timeout;
   updateModeTimeout?: NodeJS.Timeout;
   updateFanModeTimeout?: NodeJS.Timeout;
@@ -175,14 +179,32 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
               }
             }, 1000);
           }
-          if (!this.lastFetchConfig || now - this.lastFetchConfig > 5 * 60 * 1000) {
+          if (!this.lastFetchFunctions || now - this.lastFetchFunctions > 30 * 1000) {
+            this.homey.setTimeout(async () => {
+              try {
+                await this._api.read(FUNCTION_PARAMETERS);
+                this.lastFetchFunctions = now;
+              } catch (err) {
+              }
+            }, 3000);
+          }
+          if (!this.lastFetchAlarms || now - this.lastFetchAlarms > 5 * 60 * 1000) {
+            this.homey.setTimeout(async () => {
+              try {
+                await this._api.read(ALARM_PARAMETERS);
+                this.lastFetchAlarms = now;
+              } catch (err) {
+              }
+            }, 5000);
+          }
+          if (!this.lastFetchConfig || now - this.lastFetchConfig > 10 * 60 * 1000) {
             this.homey.setTimeout(async () => {
               try {
                 await this._api.read(CONFIG_PARAMETERS);
                 this.lastFetchConfig = now;
               } catch (err) {
               }
-            }, 2000);
+            }, 8000);
           }
         }
       }
@@ -222,6 +244,8 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     }
     device.updateEcoMode(resultAsMap['REG_ECO_MODE_ON_OFF']);
     device.updateFilterTimeLeft(resultAsMap['REG_FILTER_REMAINING_TIME_L'], resultAsMap['REG_FILTER_REMAINING_TIME_H']);
+    device.updateAlarms(resultAsMap);
+    device.updateFunctions(resultAsMap);
   }
 
   async updateNumber(cap: string, resultParameter?: ModbusResultParameter, factor = 1): Promise<void> {
@@ -311,6 +335,113 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     if (resultMap['REG_PRESSURE_GUARD_AIRFLOW_LEVEL_SAF']) {
       this.userModeMap.set('PressureGuard', resultMap['REG_PRESSURE_GUARD_AIRFLOW_LEVEL_SAF'].value as number);
     }
+  }
+
+  async updateAlarms(resultMap: ModbusResultParametersMap): Promise<void> {
+    try {
+      const curAlarms = this.getStoreValue('alarms');
+      const newAlarms = {...curAlarms};
+      for (let a of ALARM_PARAMETERS) {
+        const key = a.short;
+        if (resultMap[key]) {
+          const newValue = resultMap[key].value;
+          const prevValue = curAlarms ? curAlarms[key] : undefined;
+          newAlarms[key] = newValue;
+          if (prevValue && newValue !== prevValue && (newValue === 1 || newValue === true)) {
+            this.log(`Alarm triggered: ${a.description} (${key}): ${prevValue} -> ${newValue}`);
+            this.homey.flow.getDeviceTriggerCard('alarm').trigger(this, {
+              alarm_code: key,
+              alarm_description: a.description
+            }, {
+              alarm_code: key
+            });
+            this.homey.flow.getDeviceTriggerCard('alarm_specific').trigger(this, {
+              alarm_code: key,
+              alarm_description: a.description
+            }, {
+              alarm_code: key
+            });
+          }
+        }
+      }
+      await this.setStoreValue('alarms', newAlarms);
+    } catch (err) {
+      this.log('Update alarms error:', err);
+    }
+  }
+
+  getAlarmTypes() {
+    return ALARM_PARAMETERS.map(a => ({
+      id: a.short,
+      name: a.description
+    }));
+  }
+
+  hasAlarm(alarmId: string) {
+    const curAlarms = this.getStoreValue('alarms');
+    return curAlarms && curAlarms[alarmId] ? (curAlarms[alarmId] === 1 || curAlarms[alarmId] === true) : false;
+  }
+
+  async updateFunctions(resultMap: ModbusResultParametersMap): Promise<void> {
+    try {
+      const curFunctions = this.getStoreValue('functions');
+      const newFunctions = {...curFunctions};
+      for (let a of FUNCTION_PARAMETERS) {
+        const key = a.short;
+        if (resultMap[key]) {
+          const newValue = resultMap[key].value;
+          const prevValue = curFunctions ? curFunctions[key] : undefined;
+          newFunctions[key] = newValue;
+          //this.log(`${a.description} (${key}): ${prevValue} -> ${newValue}`);
+          if (prevValue !== undefined && newValue !== prevValue) {
+            if (newValue) {
+              this.log(`Function activated: ${a.description} (${key}): ${prevValue} -> ${newValue}`);
+              this.homey.flow.getDeviceTriggerCard('function_activated').trigger(this, {
+                function_code: key,
+                function_description: a.description
+              }, {
+                function_code: key
+              });
+              this.homey.flow.getDeviceTriggerCard('function_specific_activated').trigger(this, {
+                function_code: key,
+                function_description: a.description
+              }, {
+                function_code: key
+              });
+            } else {
+              this.log(`Function deactivated: ${a.description} (${key}): ${prevValue} -> ${newValue}`);
+              this.homey.flow.getDeviceTriggerCard('function_deactivated').trigger(this, {
+                function_code: key,
+                function_description: a.description
+              }, {
+                function_code: key
+              });
+              this.homey.flow.getDeviceTriggerCard('function_specific_deactivated').trigger(this, {
+                function_code: key,
+                function_description: a.description
+              }, {
+                function_code: key
+              });
+            }
+          }
+        }
+      }
+      await this.setStoreValue('functions', newFunctions);
+    } catch (err) {
+      this.log('Update functions error:', err);
+    }
+  }
+
+  getFunctionTypes() {
+    return FUNCTION_PARAMETERS.map(a => ({
+      id: a.short,
+      name: a.description
+    }));
+  }
+
+  hasFunctionActivated(functionId: string) {
+    const curFunctions = this.getStoreValue('functions');
+    return curFunctions && curFunctions[functionId] ? curFunctions[functionId] === true : false;
   }
 
   async onUpdateTargetTemperature(value: number, opts: any): Promise<void> {

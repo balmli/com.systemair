@@ -15,8 +15,17 @@ module.exports = class SystemairApp extends Homey.App {
 
     // Systemair IAM Cloud
 
+    this.homey.flow.getActionCard('systemair_boost_on_iam')
+      .registerRunListener((args, state) => args.device.setBoostMode(args.boost_period));
+
+    // Systemair IAM Cloud / Modbus
+
     this.homey.flow.getDeviceTriggerCard('alarm_specific')
       .registerRunListener(async (args, state) => args.type.id === state.alarm_code)
+      .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getAlarmTypes().filter((result: any) => result.name.toLowerCase().includes(query.toLowerCase())));
+
+    this.homey.flow.getConditionCard('has_alarm')
+      .registerRunListener((args, state) => args.device.hasAlarm(args.type.id))
       .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getAlarmTypes().filter((result: any) => result.name.toLowerCase().includes(query.toLowerCase())));
 
     this.homey.flow.getDeviceTriggerCard('function_specific_activated')
@@ -27,18 +36,9 @@ module.exports = class SystemairApp extends Homey.App {
       .registerRunListener(async (args, state) => args.type.id === state.function_code)
       .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getFunctionTypes().filter((result: any) => result.name.toLowerCase().includes(query.toLowerCase())));
 
-    this.homey.flow.getConditionCard('has_alarm')
-      .registerRunListener((args, state) => args.device.hasAlarm(args.type.id))
-      .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getAlarmTypes().filter((result: any) => result.name.toLowerCase().includes(query.toLowerCase())));
-
     this.homey.flow.getConditionCard('has_function_active')
       .registerRunListener((args, state) => args.device.hasFunctionActivated(args.type.id))
       .registerArgumentAutocompleteListener('type', async (query, args) => args.device.getFunctionTypes().filter((result: any) => result.name.toLowerCase().includes(query.toLowerCase())));
-
-    this.homey.flow.getActionCard('systemair_boost_on_iam')
-      .registerRunListener((args, state) => args.device.setBoostMode(args.boost_period));
-
-    // Systemair IAM Cloud / Modbus
 
     this.homey.flow.getConditionCard('systemair_fan_mode_iam')
       .registerRunListener((args, state) => args.device.getCapabilityValue('systemair_fan_mode_iam') === args.fanmode);

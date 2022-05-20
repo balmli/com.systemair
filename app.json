@@ -58,7 +58,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           }
         ],
         "tokens": [
@@ -90,7 +90,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           },
           {
             "name": "type",
@@ -129,7 +129,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           }
         ],
         "tokens": [
@@ -158,7 +158,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           }
         ],
         "tokens": [
@@ -190,7 +190,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           },
           {
             "name": "type",
@@ -232,7 +232,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           },
           {
             "name": "type",
@@ -498,7 +498,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           },
           {
             "name": "type",
@@ -524,7 +524,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
           },
           {
             "name": "type",
