@@ -21,11 +21,19 @@ See the Systemair Internet Access Module (IAM) user manual for setting the IAM t
 - The outdoor air temperature changed
 - The overheat temperature changed
 - The supply air temperature changed
+- Alarm activated (Alarm code, Alarm description)
+- Specific alarm activated (Alarm code, Alarm description)
+- Function activated (Function code, Function description)
+- Function deactivated (Function code, Function description)
+- Specific function activated (Function code, Function description)
+- Specific function deactivated (Function code, Function description)
 
 #### Conditions
 
 - Fan mode is/isn't
 - Mode is/isn't
+- Alarm is/isn't active
+- Function is/isn't active
 - ECO mode enabled/disabled
 
 #### Actions
