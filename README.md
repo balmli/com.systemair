@@ -91,6 +91,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.5.0
+
+- Added option to go back to previous fan mode
+
 #### 1.4.4
 
 - Support for Systemair IAM in Modbus TCP converter mode

@@ -50,7 +50,7 @@ module.exports = class SystemairApp extends Homey.App {
       .registerRunListener((args, state) => args.device.getCapabilityValue('eco_mode') === true);
 
     this.homey.flow.getActionCard('systemair_set_fan_mode_iam')
-      .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_fan_mode_iam', args.fanmode, {}));
+      .registerRunListener((args, state) => args.device.onUpdateFanMode(args.fanmode));
 
     this.homey.flow.getActionCard('systemair_set_mode_iam')
       .registerRunListener((args, state) => args.device.triggerCapabilityListener('systemair_mode_iam', args.mode, {}));

@@ -49,7 +49,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     });
 
     this.registerCapabilityListener('systemair_fan_mode_iam', (value, opts) => {
-      return this.onUpdateFanMode(value, opts);
+      return this.onUpdateFanMode(value);
     });
 
     this.addFetchTimeout(1);
@@ -105,6 +105,9 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       }
       if (!this.hasCapability('meter_eaf_reg_speed')) {
         await this.addCapability('meter_eaf_reg_speed');
+      }
+      if (!this.hasCapability('systemair_fan_mode_iam_prev')) {
+        await this.addCapability('systemair_fan_mode_iam_prev');
       }
     } catch (err) {
       this.log('migrate error:', err);
@@ -477,18 +480,31 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     }
   }
 
-  async onUpdateFanMode(value: string, opts: any): Promise<void> {
+  async onUpdateFanMode(value: string): Promise<void> {
     if (!this.getAvailable()) {
       return;
     }
     try {
       this.clearFetchTimeout();
-      this.updateFanModeTimeout = this.homey.setTimeout(() => {
-        this.updateFanModeTimeout = undefined;
-      }, 10000);
-      await this.setCapabilityValue('systemair_fan_mode_iam_ro', FAN_MODES[value] ? FAN_MODES[value] : value).catch(err => this.error(err));
-      await this._api.write(PARAMETER_MAP['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF'], value);
-      this.log(`Set fan mode OK: ${value}`);
+      const prevValue = this.getCapabilityValue('systemair_fan_mode_iam');
+      if (value === 'PREVIOUS') {
+        value = this.getCapabilityValue('systemair_fan_mode_iam_prev');
+        if (!!value) {
+          await this.setCapabilityValue('systemair_fan_mode_iam', value).catch(err => this.error(err));
+          this.log(`Roll back to previous fan mode: ${value}`);
+        }
+      }
+      if (!!value) {
+        this.updateFanModeTimeout = this.homey.setTimeout(() => {
+          this.updateFanModeTimeout = undefined;
+        }, 10000);
+        await this.setCapabilityValue('systemair_fan_mode_iam_ro', FAN_MODES[value] ? FAN_MODES[value] : value).catch(err => this.error(err));
+        if (!!prevValue) {
+          await this.setCapabilityValue('systemair_fan_mode_iam_prev', prevValue).catch(err => this.error(err));
+        }
+        await this._api.write(PARAMETER_MAP['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF'], value);
+        this.log(`Set fan mode OK: ${value}`);
+      }
     } finally {
       this.addFetchTimeout();
     }

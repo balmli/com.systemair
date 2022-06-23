@@ -36,6 +36,12 @@
           "label": {
             "en": "High"
           }
+        },
+        {
+          "id": "PREVIOUS",
+          "label": {
+            "en": "Previous mode"
+          }
         }
       ]
     }

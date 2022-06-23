@@ -1,0 +1,13 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Previous fan mode"
+  },
+  "insights": false,
+  "desc": {
+    "en": "Previous fan mode"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": null
+}
