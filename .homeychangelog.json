@@ -1,4 +1,7 @@
 {
+  "1.5.1": {
+    "en": "Fixed reading of negative values."
+  },
   "1.5.0": {
     "en": "Added option to go back to previous fan mode."
   },

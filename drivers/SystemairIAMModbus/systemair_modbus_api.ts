@@ -132,10 +132,10 @@ export class SystemairIAMApi {
       const param = params[i];
       const {metrics, response} = results[i];
 
-      const value = response._body.valuesAsArray && response._body.valuesAsArray.length > 0
+      const value = response._body.valuesAsArray && response._body.valuesAsArray.length > 0 && response._body.valuesAsBuffer
         ? param.boolean
           ? !!response._body.valuesAsArray[0]
-          : response._body.valuesAsArray[0] / (param.scaleFactor || 1)
+          : response._body.valuesAsBuffer.readInt16BE(0) / (param.scaleFactor || 1)
         : undefined;
 
       this._logger(`Register: ${param.register} ${param.short} = ${value} (transfer: ${metrics.transferTime} ms, cue: ${metrics.waitTime} ms)`);
