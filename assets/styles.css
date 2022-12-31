@@ -1,7 +1,3 @@
-.header {
-  padding-top: 70px;
-}
-
 .logo {
   width: 160px
 }
@@ -18,10 +14,4 @@
   font-variant: normal;
   font-weight: 400;
   width: 100%;
-}
-
-.exec_button {
-  min-width: 100%;
-  background-color: #00c341;
-  color: white;
 }

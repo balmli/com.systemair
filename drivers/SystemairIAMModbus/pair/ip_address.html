@@ -2,38 +2,31 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../../../assets/material.min.css">
   <link rel="stylesheet" href="../../../assets/styles.css">
 </head>
 <body>
 
-<div class="mdl-grid header">
-</div>
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone mdl-typography--text-center">
-    <span data-i18n="pair.ipaddress_label">Enter the IP address for the Systemair IAM</span>
+<header class="homey-header">
+  <div class="grid_center">
+    <img class="logo" src="pair_logo.png" alt="Systemair"/>
   </div>
-</div>
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone mdl-typography--text-center">
-    <div class="mdl-textfield mdl-js-textfield">
-      <input class="mdl-textfield__input input_ip_address" type="text" id="ipaddress" name="ipAddress" maxlength="15"
-             pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$">
-      <label class="mdl-textfield__label" for="ipaddress"></label>
-      <span class="mdl-textfield__error" data-i18n="pair.valid_ip_address"></span>
-    </div>
-  </div>
-</div>
+</header>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone grid_center">
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect exec_button" id="submit"
-            data-i18n="pair.submit" style="color: white; background-color: #00c341;">
-      Submit
-    </button>
-  </div>
-</div>
+<form class="homey-form">
+  <fieldset class="homey-form-fieldset">
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="ipaddress" data-i18n="pair.ipaddress_label">Enter the IP address for the Systemair IAM</label>
+      <div class="input_ip_address">
+        <input class="homey-form-input " id="ipaddress" type="text" maxlength="15">
+      </div>
+    </div>
+  </fieldset>
+
+  <button class="homey-button-primary-full"
+          id="submit"
+          data-i18n="pair.submit"
+  ></button>
+</form>
 
 <script type="text/javascript">
   Homey.setTitle(Homey.__('pair.title'));
@@ -52,6 +45,5 @@
     });
   };
 </script>
-<script src="../../../assets/material.min.js"></script>
 </body>
 </html>
