@@ -3,6 +3,7 @@
   "name": {
     "en": "Systemair IAM Modbus"
   },
+  "discovery": "iam",
   "$extends": [
     "defaults",
     "iam",
