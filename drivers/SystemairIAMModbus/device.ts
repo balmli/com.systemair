@@ -59,8 +59,8 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
   onDiscoveryResult(dResult: DiscoveryResult): boolean {
     const discoveryResult = dResult as DiscoveryResultMAC;
     const response = discoveryResult.id === this.getData().id;
+    this.log('*********** Device: onDiscoveryResult', discoveryResult, this.getData().id);
     if (response) {
-      this.log('onDiscoveryResult', discoveryResult);
       this.setSettings({
         IP_Address: discoveryResult.address,
       }).then(() => {
@@ -168,7 +168,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           await this.setUnavailable(this.homey.__('unavailable.set_ip_address'));
         } else {
           try {
-            await this._api.read(OPERATION_PARAMETERS);
+            await this._api.read(OPERATION_PARAMETERS).catch((err: any) => this.log(err));
           } catch (err) {
           }
           const now = Date.now();
@@ -176,7 +176,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           if (!this.lastFetchParams || now - this.lastFetchParams > (settings.temp_report_interval * 1000)) {
             this.homey.setTimeout(async () => {
               try {
-                await this._api.read(SENSOR_PARAMETERS);
+                await this._api.read(SENSOR_PARAMETERS).catch((err: any) => this.log(err));
                 this.lastFetchParams = now;
               } catch (err) {
               }
@@ -185,7 +185,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           if (!this.lastFetchFunctions || now - this.lastFetchFunctions > 30 * 1000) {
             this.homey.setTimeout(async () => {
               try {
-                await this._api.read(FUNCTION_PARAMETERS);
+                await this._api.read(FUNCTION_PARAMETERS).catch((err: any) => this.log(err));
                 this.lastFetchFunctions = now;
               } catch (err) {
               }
@@ -194,7 +194,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           if (!this.lastFetchAlarms || now - this.lastFetchAlarms > 5 * 60 * 1000) {
             this.homey.setTimeout(async () => {
               try {
-                await this._api.read(ALARM_PARAMETERS);
+                await this._api.read(ALARM_PARAMETERS).catch((err: any) => this.log(err));
                 this.lastFetchAlarms = now;
               } catch (err) {
               }
@@ -203,7 +203,7 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           if (!this.lastFetchConfig || now - this.lastFetchConfig > 10 * 60 * 1000) {
             this.homey.setTimeout(async () => {
               try {
-                await this._api.read(CONFIG_PARAMETERS);
+                await this._api.read(CONFIG_PARAMETERS).catch((err: any) => this.log(err));
                 this.lastFetchConfig = now;
               } catch (err) {
               }
@@ -218,37 +218,37 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     }
   }
 
-  onUpdateValues(result: ModbusResultParameters, device: any): void {
+  async onUpdateValues(result: ModbusResultParameters, device: any): Promise<void> {
     const resultAsMap: ModbusResultParametersMap = result.reduce((obj, r) => {
       // @ts-ignore
       obj[r.short] = r;
       return obj;
     }, {});
 
-    device.updateConfig(resultAsMap);
+    await device.updateConfig(resultAsMap);
     if (!device.updateTargetTempTimeout) {
-      device.updateNumber("target_temperature", resultAsMap['REG_TC_SP']);
+      await device.updateNumber("target_temperature", resultAsMap['REG_TC_SP']);
     }
-    device.updateNumber("measure_temperature", resultAsMap['REG_SENSOR_SAT']);
-    device.updateNumber("measure_temperature.outdoor_air_temp", resultAsMap['REG_SENSOR_OAT']);
-    device.updateNumber("measure_temperature.supply_air_temp", resultAsMap['REG_SENSOR_SAT']);
-    device.updateNumber("measure_temperature.extract_air_temp", resultAsMap['REG_SENSOR_PDM_EAT_VALUE']);
-    device.updateNumber("measure_temperature.overheat_temp", resultAsMap['REG_SENSOR_OHT']);
-    device.updateNumber("measure_humidity", resultAsMap['REG_SENSOR_RHS_PDM']);
-    device.updateNumber("meter_saf_rpm", resultAsMap['REG_SENSOR_RPM_SAF']);
-    device.updateNumber("meter_saf_reg_speed", resultAsMap['REG_OUTPUT_SAF']);
-    device.updateNumber("meter_eaf_rpm", resultAsMap['REG_SENSOR_RPM_EAF']);
-    device.updateNumber("meter_eaf_reg_speed", resultAsMap['REG_OUTPUT_EAF']);
+    await device.updateNumber("measure_temperature", resultAsMap['REG_SENSOR_SAT']);
+    await device.updateNumber("measure_temperature.outdoor_air_temp", resultAsMap['REG_SENSOR_OAT']);
+    await device.updateNumber("measure_temperature.supply_air_temp", resultAsMap['REG_SENSOR_SAT']);
+    await device.updateNumber("measure_temperature.extract_air_temp", resultAsMap['REG_SENSOR_PDM_EAT_VALUE']);
+    await device.updateNumber("measure_temperature.overheat_temp", resultAsMap['REG_SENSOR_OHT']);
+    await device.updateNumber("measure_humidity", resultAsMap['REG_SENSOR_RHS_PDM']);
+    await device.updateNumber("meter_saf_rpm", resultAsMap['REG_SENSOR_RPM_SAF']);
+    await device.updateNumber("meter_saf_reg_speed", resultAsMap['REG_OUTPUT_SAF']);
+    await device.updateNumber("meter_eaf_rpm", resultAsMap['REG_SENSOR_RPM_EAF']);
+    await device.updateNumber("meter_eaf_reg_speed", resultAsMap['REG_OUTPUT_EAF']);
     if (!device.updateModeTimeout) {
-      device.updateMode(resultAsMap['REG_USERMODE_MODE']);
+      await device.updateMode(resultAsMap['REG_USERMODE_MODE']);
     }
     if (!device.updateFanModeTimeout) {
-      device.updateFanMode(resultAsMap['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF']);
+      await device.updateFanMode(resultAsMap['REG_USERMODE_MANUAL_AIRFLOW_LEVEL_SAF']);
     }
-    device.updateEcoMode(resultAsMap['REG_ECO_MODE_ON_OFF']);
-    device.updateFilterTimeLeft(resultAsMap['REG_FILTER_REMAINING_TIME_L'], resultAsMap['REG_FILTER_REMAINING_TIME_H']);
-    device.updateAlarms(resultAsMap);
-    device.updateFunctions(resultAsMap);
+    await device.updateEcoMode(resultAsMap['REG_ECO_MODE_ON_OFF']);
+    await device.updateFilterTimeLeft(resultAsMap['REG_FILTER_REMAINING_TIME_L'], resultAsMap['REG_FILTER_REMAINING_TIME_H']);
+    await device.updateAlarms(resultAsMap);
+    await device.updateFunctions(resultAsMap);
   }
 
   async updateNumber(cap: string, resultParameter?: ModbusResultParameter, factor = 1): Promise<void> {
@@ -352,22 +352,22 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           newAlarms[key] = newValue;
           if (prevValue && newValue !== prevValue && (newValue === 1 || newValue === true)) {
             this.log(`Alarm triggered: ${a.description} (${key}): ${prevValue} -> ${newValue}`);
-            this.homey.flow.getDeviceTriggerCard('alarm').trigger(this, {
+            await this.homey.flow.getDeviceTriggerCard('alarm').trigger(this, {
               alarm_code: key,
               alarm_description: a.description
             }, {
               alarm_code: key
-            });
-            this.homey.flow.getDeviceTriggerCard('alarm_specific').trigger(this, {
+            }).catch(err => this.error(err));
+            await this.homey.flow.getDeviceTriggerCard('alarm_specific').trigger(this, {
               alarm_code: key,
               alarm_description: a.description
             }, {
               alarm_code: key
-            });
+            }).catch(err => this.error(err));
           }
         }
       }
-      await this.setStoreValue('alarms', newAlarms);
+      await this.setStoreValue('alarms', newAlarms).catch(err => this.error(err));
     } catch (err) {
       this.log('Update alarms error:', err);
     }
@@ -399,37 +399,37 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
           if (prevValue !== undefined && newValue !== prevValue) {
             if (newValue) {
               this.log(`Function activated: ${a.description} (${key}): ${prevValue} -> ${newValue}`);
-              this.homey.flow.getDeviceTriggerCard('function_activated').trigger(this, {
+              await this.homey.flow.getDeviceTriggerCard('function_activated').trigger(this, {
                 function_code: key,
                 function_description: a.description
               }, {
                 function_code: key
-              });
-              this.homey.flow.getDeviceTriggerCard('function_specific_activated').trigger(this, {
+              }).catch(err => this.error(err));
+              await this.homey.flow.getDeviceTriggerCard('function_specific_activated').trigger(this, {
                 function_code: key,
                 function_description: a.description
               }, {
                 function_code: key
-              });
+              }).catch(err => this.error(err));
             } else {
               this.log(`Function deactivated: ${a.description} (${key}): ${prevValue} -> ${newValue}`);
-              this.homey.flow.getDeviceTriggerCard('function_deactivated').trigger(this, {
+              await this.homey.flow.getDeviceTriggerCard('function_deactivated').trigger(this, {
                 function_code: key,
                 function_description: a.description
               }, {
                 function_code: key
-              });
-              this.homey.flow.getDeviceTriggerCard('function_specific_deactivated').trigger(this, {
+              }).catch(err => this.error(err));
+              await this.homey.flow.getDeviceTriggerCard('function_specific_deactivated').trigger(this, {
                 function_code: key,
                 function_description: a.description
               }, {
                 function_code: key
-              });
+              }).catch(err => this.error(err));
             }
           }
         }
       }
-      await this.setStoreValue('functions', newFunctions);
+      await this.setStoreValue('functions', newFunctions).catch(err => this.error(err));
     } catch (err) {
       this.log('Update functions error:', err);
     }

@@ -91,6 +91,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.6.1
+
+- Improved error handling
+
 #### 1.6.0
 
 - Updated pairing screen

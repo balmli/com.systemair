@@ -8,20 +8,6 @@ module.exports = class SystemairApp extends Homey.App {
 
   async onInit() {
     await this._initFlows();
-
-    const discoveryStrategy = this.homey.discovery.getStrategy("iam");
-
-    // Use the discovery results that were already found
-    const initialDiscoveryResults = discoveryStrategy.getDiscoveryResults();
-    for (const discoveryResult of Object.values(initialDiscoveryResults)) {
-      this.log('*********** App: getDiscoveryResults:', discoveryResult);
-    }
-
-    // And listen to new results while the app is running
-    discoveryStrategy.on("result", discoveryResult => {
-      this.log('*********** App: result event:', discoveryResult);
-    });
-
     this.log('SystemairApp is running...');
   }
 

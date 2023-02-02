@@ -6,16 +6,8 @@ import {SystemairIAMApi} from "./systemair_modbus_api";
 
 module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
 
-  discoveryStrategy: any;
-
   async onInit() {
     this.log('SystemairIAMModbusDriver has been initialized');
-
-    this.discoveryStrategy = this.getDiscoveryStrategy();
-    this.discoveryStrategy.on("result", (discoveryResult: any) => {
-      this.log('*********** Driver: result event:', discoveryResult);
-    });
-
   }
 
   onPair(session: PairSession): void {
@@ -24,7 +16,8 @@ module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
 
     session.setHandler('showView', async (view) => {
       if (view === 'loading') {
-        const discoveryResults = this.discoveryStrategy.getDiscoveryResults();
+        const discoveryStrategy = this.getDiscoveryStrategy();
+        const discoveryResults = discoveryStrategy.getDiscoveryResults();
 
         devices = Object.values(discoveryResults).map((discoveryResult: any) => {
           return {

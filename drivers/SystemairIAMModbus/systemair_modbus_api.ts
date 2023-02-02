@@ -10,14 +10,14 @@ export interface SystemairIAMApiOptions {
   device?: Device;
   homey: any;
   logger: any;
-  onUpdateValues?: (result: ModbusResultParameters, device: any) => void;
+  onUpdateValues?: (result: ModbusResultParameters, device: any)=> Promise<void>;
 }
 
 export class SystemairIAMApi {
   _device?: Device;
   _homey: any;
   _logger: any;
-  _onUpdateValues?: (result: ModbusResultParameters, device: any) => void;
+  _onUpdateValues?: (result: ModbusResultParameters, device: any) => Promise<void>;
   _commandQueue: any;
   _client?: ModbusTCPClient;
   _socket?: net.Socket;
@@ -110,7 +110,6 @@ export class SystemairIAMApi {
             })
             .catch((error) => {
               this.handleSocketError('Read', error);
-              throw error;
             });
         }
       }
