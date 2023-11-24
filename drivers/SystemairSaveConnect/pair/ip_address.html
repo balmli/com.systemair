@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../../assets/styles.css">
+</head>
+<body>
+
+<header class="homey-header">
+  <div class="grid_center">
+    <img class="logo" src="pair_logo.png" alt="Systemair"/>
+  </div>
+</header>
+
+<form class="homey-form">
+  <fieldset class="homey-form-fieldset">
+    <div class="homey-form-group">
+      <label class="homey-form-label" for="ipaddress" data-i18n="pair.ipaddress_label">Enter the IP address for the Systemair Save Connect</label>
+      <div class="input_ip_address">
+        <input class="homey-form-input " id="ipaddress" type="text" maxlength="15">
+      </div>
+    </div>
+  </fieldset>
+
+  <button class="homey-button-primary-full"
+          id="submit"
+          data-i18n="pair.submit"
+  ></button>
+</form>
+
+<script type="text/javascript">
+  Homey.setTitle(Homey.__('pair.title'));
+
+  document.getElementById('submit').onclick = (e) => {
+    e.preventDefault();
+    Homey.showLoadingOverlay();
+    const ipaddress = document.getElementById("ipaddress").value;
+
+    Homey.emit('ip_address_entered', { ipaddress }, (err, result) => {
+      Homey.hideLoadingOverlay();
+      if (err) {
+        Homey.alert(err, 'error', () => {
+        });
+      }
+    });
+  };
+</script>
+</body>
+</html>

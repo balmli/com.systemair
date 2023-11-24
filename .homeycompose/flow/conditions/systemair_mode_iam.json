@@ -10,7 +10,7 @@
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+      "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
     },
     {
       "name": "mode",

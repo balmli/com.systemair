@@ -1,0 +1,32 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "General"
+    },
+    "children": [
+      {
+        "$extends": "IP_Address",
+        "id": "IP_Address"
+      },
+      {
+        "$extends": "Polling_Interval",
+        "id": "Polling_Interval",
+        "value": 20
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Reporting"
+    },
+    "children": [
+      {
+        "$extends": "temp_report_interval",
+        "id": "temp_report_interval",
+        "value": 60
+      }
+    ]
+  }
+]
