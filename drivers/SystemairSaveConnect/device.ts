@@ -56,30 +56,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     this.log('device initialized');
   }
 
-  onDiscoveryResult(dResult: DiscoveryResult): boolean {
-    const discoveryResult = dResult as DiscoveryResultMAC;
-    const response = discoveryResult.id === this.getData().id;
-    this.log('*********** Device: onDiscoveryResult', discoveryResult, this.getData().id);
-    if (response) {
-      this.setSettings({
-        IP_Address: discoveryResult.address,
-      }).then(() => {
-        this._api.resetSocket();
-      }).catch(err => this.log(err));
-    }
-    return response;
-  }
-
-  async onDiscoveryAddressChanged(dResult: DiscoveryResult): Promise<void> {
-    const discoveryResult = dResult as DiscoveryResultMAC;
-    this.log('onDiscoveryAddressChanged', discoveryResult);
-    this.setSettings({
-      IP_Address: discoveryResult.address,
-    }).then(() => {
-      this._api.resetSocket();
-    }).catch(err => this.log(err));
-  }
-
   async migrate(): Promise<void> {
     try {
       if (this.hasCapability('eaf_reg_speed')) {
@@ -120,9 +96,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
 
   onDeleted(): void {
     this.clearFetchTimeout();
-    if (this._api && this._api._clearSocketTimeout) {
-      this._api._clearSocketTimeout();
-    }
     this.log('device deleted');
   }
 
@@ -136,7 +109,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
         await this.setAvailable();
         this.addFetchTimeout(1);
       }
-      this._api.resetSocket();
     }
     if (changedKeys.includes('Polling_Interval')) {
       this.addFetchTimeout();
@@ -449,11 +421,9 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
 
   async onUpdateTargetTemperature(value: number, opts: any): Promise<void> {
     if (!this.getAvailable()) {
-      this.log(`STOP`);
       return;
     }
     try {
-      this.log(`TRY`);
       this.clearFetchTimeout();
       this.updateTargetTempTimeout = this.homey.setTimeout(() => {
         this.updateTargetTempTimeout = undefined;
@@ -461,7 +431,6 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
       await this._api.write(PARAMETER_MAP['REG_TC_SP'], value);
       this.log(`Set target temperature OK: ${value}`);
     } finally {
-      this.log(`FINALLY`);
       this.addFetchTimeout();
     }
   }

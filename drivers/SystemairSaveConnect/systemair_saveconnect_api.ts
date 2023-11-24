@@ -26,21 +26,13 @@ export class SystemairSaveConnectApi {
     this._errorCounter = 0;
   }
 
-  resetSocket(): void {
-  }
-
   async checkConnection(ipAddress?: string): Promise<void> {
     const response = await http.get(`http://${ipAddress}/mread?{}`)
-
-    this._logger("TEST1")
 
     if (response.response.statusCode !== 200) {
       this._logger('Failed to check connection:', response.response.statusCode, response.response.statusMessage, response.data);
       throw new Error(this._homey.__('pair.connection_refused'));
     }
-  }
-
-  _clearSocketTimeout() {
   }
 
   async read(params: any) {
@@ -64,14 +56,6 @@ export class SystemairSaveConnectApi {
 
     if (this._onUpdateValues && this._device) {
       this._onUpdateValues(matched, this._device);
-    }
-  }
-
-  handleSocketError(func: string, error: any) {
-    this._errorCounter++;
-    this._logger(`${func} error. (${this._errorCounter}) ->`, error);
-    if (this._errorCounter > 5) {
-      this.resetSocket();
     }
   }
 
