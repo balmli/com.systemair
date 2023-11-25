@@ -52,10 +52,22 @@ export class SystemairSaveConnectApi {
       return
     }
 
-    const matched = this.matchResults(params, JSON.parse(result.data));
+    // Api is a bit strange. Can report "MB DISCONNECTED" some times, but that
+    // is not very often. Will fail to parse json if it does. Should really
+    // return another statusCode, but lets just log and ignore
+    if (result.data === "MB DISCONNECTED") {
+      this._logger("mb disconnected. ignoring.")
+      return
+    }
 
-    if (this._onUpdateValues && this._device) {
-      this._onUpdateValues(matched, this._device);
+    try {
+      const matched = this.matchResults(params, JSON.parse(result.data));
+
+      if (this._onUpdateValues && this._device) {
+        this._onUpdateValues(matched, this._device);
+      }
+    } catch (error) {
+      this._logger("failed to process result", error, result.data)
     }
   }
 
