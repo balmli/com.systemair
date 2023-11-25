@@ -70,7 +70,7 @@ export class SystemairSaveConnectApi {
         value = !!result
       } else {
         let parsed = parseInt(result)
-        if (parsed > param.max) {
+        if (param.max && param.min && param.min < 0 && parsed > param.max) {
           parsed = -(65536 - parsed)
         }
         value = parsed / (param.scaleFactor || 1)
