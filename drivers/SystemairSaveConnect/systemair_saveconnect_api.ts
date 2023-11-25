@@ -1,6 +1,6 @@
 import {Device} from 'homey';
 
-import {ModbusResultParameters} from "../SystemairIAMModbus/constants";
+import {ModbusResultParameters, IntegerType} from "../SystemairIAMModbus/constants";
 
 const http = require('http.min');
 
@@ -65,12 +65,13 @@ export class SystemairSaveConnectApi {
     for (let ii = 0; ii < params.length; ii++) {
       const param = params[ii];
       const result = results[param.register - 1]
-      let value = param.boolean ? !!result : parseInt(result)
+      let value
       if (param.boolean) {
         value = !!result
       } else {
         let parsed = parseInt(result)
-        if (param.max && param.min && param.min < 0 && parsed > param.max) {
+
+        if (param.sig === IntegerType.INT && parsed > 1 << 15) {
           parsed = -(65536 - parsed)
         }
         value = parsed / (param.scaleFactor || 1)
