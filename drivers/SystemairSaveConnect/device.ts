@@ -1,4 +1,4 @@
-import Homey, {DiscoveryResult, DiscoveryResultMAC} from 'homey';
+import Homey from 'homey';
 
 import {
   ModbusResultParameter,

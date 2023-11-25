@@ -91,6 +91,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.7.0
+
+- Added support for Systemair Save Connect over local http
+
 #### 1.6.1
 
 - Improved error handling

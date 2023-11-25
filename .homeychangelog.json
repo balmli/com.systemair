@@ -1,4 +1,7 @@
 {
+  "1.7.0": {
+    "en": "Added support for Systemair Save Connect over local http."
+  },
   "1.6.1": {
     "en": "Improved error handling."
   },

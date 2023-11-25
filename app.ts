@@ -18,7 +18,7 @@ module.exports = class SystemairApp extends Homey.App {
     this.homey.flow.getActionCard('systemair_boost_on_iam')
       .registerRunListener((args, state) => args.device.setBoostMode(args.boost_period));
 
-    // Systemair IAM Cloud / Modbus
+    // Systemair IAM Cloud / Modbus / Save Connect
 
     this.homey.flow.getDeviceTriggerCard('alarm_specific')
       .registerRunListener(async (args, state) => args.type.id === state.alarm_code)

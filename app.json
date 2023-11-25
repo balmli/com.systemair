@@ -36,6 +36,9 @@
       {
         "name": "Bjørnar Almli",
         "email": "bjornar.almli@gmail.com"
+      },
+      {
+        "name": "Terje Torkelsen"
       }
     ]
   },
@@ -757,7 +760,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairSaveConnect"
+            "filter": "driver_id=SystemairIAM"
           },
           {
             "name": "boost_period",
