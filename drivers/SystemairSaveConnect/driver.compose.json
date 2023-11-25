@@ -1,0 +1,34 @@
+{
+  "id": "SystemairSaveConnect",
+  "name": {
+    "en": "Systemair Save Connect"
+  },
+  "$extends": [
+    "defaults",
+    "iam",
+    "iam_modbus"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "pair": [
+    {
+      "id": "loading",
+      "template": "loading"
+    },
+    {
+      "id": "ip_address"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

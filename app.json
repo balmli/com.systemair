@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.systemair",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "compatibility": ">=8.1.1",
   "sdk": 3,
   "brandColor": "#004B88",
@@ -58,7 +58,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -90,7 +90,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "type",
@@ -129,7 +129,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -158,7 +158,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -190,7 +190,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "type",
@@ -232,7 +232,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "type",
@@ -271,7 +271,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -294,7 +294,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -317,7 +317,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -340,7 +340,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -386,7 +386,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -410,7 +410,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -433,7 +433,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -457,7 +457,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ],
         "tokens": [
@@ -482,7 +482,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           }
         ]
       },
@@ -498,7 +498,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "type",
@@ -524,7 +524,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "type",
@@ -550,7 +550,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "fanmode",
@@ -596,7 +596,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "mode",
@@ -701,7 +701,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "enabled",
@@ -757,7 +757,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM"
+            "filter": "driver_id=SystemairIAM|SystemairSaveConnect"
           },
           {
             "name": "boost_period",
@@ -788,7 +788,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "period",
@@ -819,7 +819,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "period",
@@ -850,7 +850,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "period",
@@ -881,7 +881,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "period",
@@ -912,7 +912,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "period",
@@ -998,7 +998,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "fanmode",
@@ -1084,7 +1084,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=SystemairIAM|SystemairIAMModbus"
+            "filter": "driver_id=SystemairIAM|SystemairIAMModbus|SystemairSaveConnect"
           },
           {
             "name": "mode",
@@ -1563,6 +1563,134 @@
         "en": "Systemair IAM Modbus"
       },
       "discovery": "iam",
+      "connectivity": [
+        "lan"
+      ],
+      "pair": [
+        {
+          "id": "loading",
+          "template": "loading"
+        },
+        {
+          "id": "ip_address"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General"
+          },
+          "children": [
+            {
+              "id": "IP_Address",
+              "type": "text",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "0.0.0.0"
+            },
+            {
+              "id": "Polling_Interval",
+              "value": 20,
+              "type": "number",
+              "label": {
+                "en": "Polling interval"
+              },
+              "min": 10,
+              "max": 300,
+              "hint": {
+                "en": "Polling interval (seconds)"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Reporting"
+          },
+          "children": [
+            {
+              "id": "temp_report_interval",
+              "value": 60,
+              "type": "number",
+              "min": 10,
+              "max": 600,
+              "units": {
+                "en": "s"
+              },
+              "label": {
+                "en": "Temperature report interval"
+              },
+              "hint": {
+                "en": "Time interval between consecutive temperature reports."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "icon": "/drivers/SystemairSaveConnect/assets/icon.svg",
+      "images": {
+        "large": "/drivers/SystemairSaveConnect/assets/images/large.png",
+        "small": "/drivers/SystemairSaveConnect/assets/images/small.png"
+      },
+      "class": "thermostat",
+      "capabilitiesOptions": {
+        "target_temperature": {
+          "min": 12,
+          "max": 30,
+          "step": 0.5
+        },
+        "measure_temperature.outdoor_air_temp": {
+          "title": "Outdoor air temperature"
+        },
+        "measure_temperature.supply_air_temp": {
+          "title": "Supply air temperature"
+        },
+        "measure_temperature.extract_air_temp": {
+          "title": "Extract air temperature"
+        },
+        "measure_temperature.overheat_temp": {
+          "title": "Overheat temperature"
+        }
+      },
+      "capabilities": [
+        "target_temperature",
+        "measure_temperature",
+        "systemair_mode_iam",
+        "systemair_fan_mode_iam",
+        "systemair_mode_iam_ro",
+        "systemair_fan_mode_iam_ro",
+        "filter_time_left",
+        "meter_saf_rpm",
+        "meter_saf_reg_speed",
+        "meter_eaf_rpm",
+        "meter_eaf_reg_speed",
+        "measure_temperature.outdoor_air_temp",
+        "measure_temperature.supply_air_temp",
+        "measure_temperature.extract_air_temp",
+        "measure_temperature.overheat_temp",
+        "measure_humidity",
+        "eco_mode"
+      ],
+      "id": "SystemairSaveConnect",
+      "name": {
+        "en": "Systemair Save Connect"
+      },
       "connectivity": [
         "lan"
       ],
