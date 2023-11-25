@@ -1699,10 +1699,6 @@
       ],
       "pair": [
         {
-          "id": "loading",
-          "template": "loading"
-        },
-        {
           "id": "ip_address"
         },
         {
