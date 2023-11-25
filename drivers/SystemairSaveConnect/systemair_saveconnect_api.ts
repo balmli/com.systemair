@@ -65,7 +65,16 @@ export class SystemairSaveConnectApi {
     for (let ii = 0; ii < params.length; ii++) {
       const param = params[ii];
       const result = results[param.register - 1]
-      const value = param.boolean ? !!result : parseInt(result) / (param.scaleFactor || 1);
+      let value = param.boolean ? !!result : parseInt(result)
+      if (param.boolean) {
+        value = !!result
+      } else {
+        let parsed = parseInt(result)
+        if (parsed > param.max) {
+          parsed = -(65536 - parsed)
+        }
+        value = parsed / (param.scaleFactor || 1)
+      }
 
       this._logger(`Register ${param.register} ${param.short} = ${value} (${result})`)
 
