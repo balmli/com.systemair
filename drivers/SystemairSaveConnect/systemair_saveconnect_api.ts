@@ -1,6 +1,6 @@
 import {Device} from 'homey';
 
-import {ModbusResultParameters} from "../SystemairIAMModbus/constants";
+import {ModbusResultParameters, IntegerType} from "../SystemairIAMModbus/constants";
 
 const http = require('http.min');
 
@@ -52,10 +52,22 @@ export class SystemairSaveConnectApi {
       return
     }
 
-    const matched = this.matchResults(params, JSON.parse(result.data));
+    // Api is a bit strange. Can report "MB DISCONNECTED" some times, but that
+    // is not very often. Will fail to parse json if it does. Should really
+    // return another statusCode, but lets just log and ignore
+    if (result.data === "MB DISCONNECTED") {
+      this._logger("mb disconnected. ignoring.")
+      return
+    }
 
-    if (this._onUpdateValues && this._device) {
-      this._onUpdateValues(matched, this._device);
+    try {
+      const matched = this.matchResults(params, JSON.parse(result.data));
+
+      if (this._onUpdateValues && this._device) {
+        this._onUpdateValues(matched, this._device);
+      }
+    } catch (error) {
+      this._logger("failed to process result", error, result.data)
     }
   }
 
@@ -65,7 +77,17 @@ export class SystemairSaveConnectApi {
     for (let ii = 0; ii < params.length; ii++) {
       const param = params[ii];
       const result = results[param.register - 1]
-      const value = param.boolean ? !!result : parseInt(result) / (param.scaleFactor || 1);
+      let value
+      if (param.boolean) {
+        value = !!result
+      } else {
+        let parsed = parseInt(result)
+
+        if (param.sig === IntegerType.INT && parsed > 1 << 15) {
+          parsed = -(65536 - parsed)
+        }
+        value = parsed / (param.scaleFactor || 1)
+      }
 
       this._logger(`Register ${param.register} ${param.short} = ${value} (${result})`)
 
