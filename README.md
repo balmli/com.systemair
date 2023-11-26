@@ -91,6 +91,10 @@ Use at your own risk. I accept no responsibility for any damages caused by using
 
 ## Release Notes:
 
+#### 1.7.1
+
+- Fixed parsing of values. Fixed loading screen.
+-
 #### 1.7.0
 
 - Added support for Systemair Save Connect over local http
