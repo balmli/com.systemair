@@ -3,7 +3,6 @@
   "name": {
     "en": "Systemair IAM Modbus"
   },
-  "discovery": "iam",
   "$extends": [
     "defaults",
     "iam",
@@ -13,10 +12,6 @@
     "lan"
   ],
   "pair": [
-    {
-      "id": "loading",
-      "template": "loading"
-    },
     {
       "id": "ip_address"
     },

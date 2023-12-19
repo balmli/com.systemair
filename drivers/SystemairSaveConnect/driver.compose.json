@@ -1,7 +1,7 @@
 {
   "id": "SystemairSaveConnect",
   "name": {
-    "en": "Systemair Save Connect"
+    "en": "Systemair Save Connect http"
   },
   "$extends": [
     "defaults",

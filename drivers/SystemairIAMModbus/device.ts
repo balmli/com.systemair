@@ -1,4 +1,4 @@
-import Homey, {DiscoveryResult, DiscoveryResultMAC} from 'homey';
+import Homey from 'homey';
 
 import {
   ModbusResultParameter,
@@ -53,31 +53,8 @@ module.exports = class SystemairIAMModbusDevice extends Homey.Device {
     });
 
     this.addFetchTimeout(1);
+    await this.setAvailable();
     this.log('device initialized');
-  }
-
-  onDiscoveryResult(dResult: DiscoveryResult): boolean {
-    const discoveryResult = dResult as DiscoveryResultMAC;
-    const response = discoveryResult.id === this.getData().id;
-    this.log('*********** Device: onDiscoveryResult', discoveryResult, this.getData().id);
-    if (response) {
-      this.setSettings({
-        IP_Address: discoveryResult.address,
-      }).then(() => {
-        this._api.resetSocket();
-      }).catch(err => this.log(err));
-    }
-    return response;
-  }
-
-  async onDiscoveryAddressChanged(dResult: DiscoveryResult): Promise<void> {
-    const discoveryResult = dResult as DiscoveryResultMAC;
-    this.log('onDiscoveryAddressChanged', discoveryResult);
-    this.setSettings({
-      IP_Address: discoveryResult.address,
-    }).then(() => {
-      this._api.resetSocket();
-    }).catch(err => this.log(err));
   }
 
   async migrate(): Promise<void> {

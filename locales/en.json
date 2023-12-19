@@ -15,8 +15,20 @@
     "set_ip_address": "Go to settings to update the IP address."
   },
   "pair": {
-    "title": "Systemair IAM Modbus",
-    "ipaddress_label": "Systemair IAM IP address:",
+    "cloud": {
+      "title": "Systemair Save Connect (cloud)",
+      "subtitle": "This device supports Systemair IAM and Save Connect in cloud connection mode."
+    },
+    "modbus": {
+      "title": "Systemair IAM (Modbus)",
+      "subtitle": "This device supports Systemair IAM in Modbus connection mode.",
+      "ipaddress_label": "Enter the IP address for the Systemair IAM:"
+    },
+    "http": {
+      "title": "Systemair Save Connect (http)",
+      "subtitle": "This device supports Systemair Save Connect over a local http connection.",
+      "ipaddress_label": "Enter the IP address for the Systemair Save Connect:"
+    },
     "submit": "Submit",
     "valid_ip_address": "Enter a valid IP address (xxx.xxx.xxx.xxx)",
     "connection_refused": "Connection is refused (__uri__). Check that the IAM is in Modbus TCP converter mode.",

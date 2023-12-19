@@ -1,4 +1,7 @@
 {
+  "1.7.2": {
+    "en": "Fixed issue with unavailable devices due to discovery not working."
+  },
   "1.7.1": {
     "en": "Added support for Systemair Save Connect over local http."
   },

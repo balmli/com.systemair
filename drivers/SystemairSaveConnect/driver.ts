@@ -14,35 +14,6 @@ module.exports = class SystemairIAMModbusDriver extends Homey.Driver {
 
     let devices: any[] = [];
 
-    session.setHandler('showView', async (view) => {
-      if (view === 'loading') {
-        const discoveryStrategy = this.getDiscoveryStrategy();
-        const discoveryResults = discoveryStrategy.getDiscoveryResults();
-
-        devices = Object.values(discoveryResults).map((discoveryResult: any) => {
-          return {
-            name: `Systemair Save Connect`,
-            data: {
-              id: discoveryResult.id,
-            },
-            settings: {
-              IP_Address: discoveryResult.address
-            }
-          };
-        });
-
-        this.log('onPair: loading:', discoveryResults);
-
-        if (devices.length > 0) {
-          // @ts-ignore
-          await session.showView('list_devices');
-        } else {
-          // @ts-ignore
-          await session.showView('ip_address');
-        }
-      }
-    });
-
     session.setHandler('ip_address_entered', async (data) => {
       this.log('onPair: ip_address_entered:', data);
       if (!net.isIP(data.ipaddress)) {
